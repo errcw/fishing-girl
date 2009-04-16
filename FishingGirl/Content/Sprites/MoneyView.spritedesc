@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Origin="-15 15" Layer="0">
+    <Image Texture="Textures/BackgroundSmall" Position="0 0" Layer="1"/>
+    <Image Name="Coin" Texture="Textures/Coin" Position="17 18" Origin="8 8"/>
+    <Text Name="Text" Font="Fonts/Money" Text="0" Position="110 2" Origin="10 0"/>
+  </Sprites>
+  <Animations>
+    <Sequential Name="ChangeAmount">
+      <Scale Sprite="Coin" Target="1.5 1.5" Duration="0.3" Easing="Uniform"/>
+      <Scale Sprite="Coin" Target="1 1" Duration="0.3" Easing="Uniform"/>
+    </Sequential>
+  </Animations>
+</SpriteDescriptor>

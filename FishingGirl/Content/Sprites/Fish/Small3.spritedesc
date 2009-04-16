@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Layer="0.403">
+    <Image Name="Body" Texture="Textures/FishSmall3Body" Position="0 0" Origin="16.5 13.5"/>
+    <Image Name="Fin" Texture="Textures/FishSmall3Fin" Position="-3 -11" Origin="5 13" Layer="1"/>
+    <Image Name="Tail" Texture="Textures/FishSmall3Tail" Position="13 -1" Origin="2 11" Layer="1"/>
+  </Sprites>
+  <Animations>
+    <Composite Name="Swim" Loop="true">
+      <Composite Name="Tail" Loop="true">
+        <Sequential Loop="True">
+          <Scale Sprite="Tail" Target="0.75 1" Duration="0.5" Easing="Uniform"/>
+          <Scale Sprite="Tail" Target="1 1" Duration="0.5" Easing="Uniform"/>
+        </Sequential>
+        <Sequential Loop="True">
+          <Color Sprite="Tail" Target="0.8 0.8 0.8 1" Duration="0.5" Easing="Uniform"/>
+          <Color Sprite="Tail" Target="0.9 0.9 0.9 1" Duration="0.5" Easing="Uniform"/>
+          <Color Sprite="Tail" Target="1.0 1.0 1.0 1" Duration="0.5" Easing="Uniform"/>
+          <Color Sprite="Tail" Target="0.9 0.9 0.9 1" Duration="0.5" Easing="Uniform"/>
+        </Sequential>
+      </Composite>
+      <Sequential Name="RotateFin" Loop="True">
+        <Rotation Sprite="Fin" Target="0.2" Duration="2" Easing="Uniform"/>
+        <Rotation Sprite="Fin" Target="0" Duration="2" Easing="Uniform"/>
+      </Sequential>
+    </Composite>
+  </Animations>
+</SpriteDescriptor>

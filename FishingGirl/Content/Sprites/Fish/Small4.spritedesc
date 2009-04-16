@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Layer="0.404">
+    <Image Name="Body" Texture="Textures/FishSmall4Body" Position="0 0" Origin="16 13"/>
+    <Image Name="Tail" Texture="Textures/FishSmall4Tail" Position="14 -1" Origin="2 23" Layer="1"/>
+  </Sprites>
+  <Animations>
+    <Composite Name="Swim" Loop="true">
+      <Sequential Loop="True">
+        <Scale Sprite="Tail" Target="0.75 1" Duration="0.5" Easing="Uniform"/>
+        <Scale Sprite="Tail" Target="1 1" Duration="0.5" Easing="Uniform"/>
+      </Sequential>
+      <Sequential Loop="True">
+        <Color Sprite="Tail" Target="0.8 0.8 0.8 1" Duration="0.5" Easing="Uniform"/>
+        <Color Sprite="Tail" Target="0.9 0.9 0.9 1" Duration="0.5" Easing="Uniform"/>
+        <Color Sprite="Tail" Target="1.0 1.0 1.0 1" Duration="0.5" Easing="Uniform"/>
+        <Color Sprite="Tail" Target="0.9 0.9 0.9 1" Duration="0.5" Easing="Uniform"/>
+      </Sequential>
+    </Composite>
+  </Animations>
+</SpriteDescriptor>

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Position="-1000 -1000" Origin="0 -60" Layer="0">
+    <Composite Name="DistanceMarker">
+      <Image Texture="Textures/BackgroundSmall" Position="0 0" Layer="1"/>
+      <Text Name="DistanceText" Font="Fonts/DistanceMarker" Position="4 5" Layer="0"/>
+    </Composite>
+    <Composite Name="BestMarker" Color="1 1 1 0">
+      <Image Texture="Textures/BackgroundSmall" Position="140 0" Layer="1"/>
+      <Image Texture="Textures/Heart1" Position="147 9" Layer="0.5"/>
+      <Text Name="BestText" Font="Fonts/DistanceMarker" Position="170 5" Layer="0"/>
+    </Composite>
+  </Sprites>
+  <Animations>
+    <Sequential Name="Show">
+      <Color Sprite="DistanceMarker" Target="1 1 1 1" Duration="0" Easing="Uniform"/>
+      <Color Sprite="BestMarker" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      <Delay Delay="2"/>
+      <Color Sprite="DistanceMarker" Target="1 1 1 0" Duration="1" Easing="Uniform"/>
+    </Sequential>
+    <Sequential Name="ShowBest">
+      <Color Sprite="DistanceMarker" Target="1 1 1 1" Duration="0" Easing="Uniform"/>
+      <Color Sprite="BestMarker" Target="1 1 1 1" Duration="0" Easing="Uniform"/>
+      <Delay Delay="2"/>
+      <Color Sprite="DistanceMarker" Target="1 1 1 0" Duration="1" Easing="Uniform"/>
+      <Color Sprite="BestMarker" Target="1 1 1 0" Duration="1" Easing="Uniform"/>
+    </Sequential>
+  </Animations>
+</SpriteDescriptor>

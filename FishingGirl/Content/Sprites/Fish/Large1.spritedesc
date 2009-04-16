@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Layer="0.409">
+    <Image Name="Body" Texture="Textures/FishLarge1Body" Position="0 0" Origin="84.5 38.5"/>
+    <Image Name="Mouth" Texture="Textures/FishLarge1Mouth" Position="-27.5 4.5" Origin="55 6" Rotation="0" Layer="1"/>
+    <Image Name="Fin" Texture="Textures/FishLarge1Fin" Position="5.5 33.5" Origin="6 4" Layer="1"/>
+    <Image Name="Tail" Texture="Textures/FishLarge1Tail" Position="81.5 3.5" Origin="2 18" Layer="1"/>
+  </Sprites>
+  <Animations>
+    <Composite Name="Swim" Loop="true">
+      <Composite Name="Tail" Loop="true">
+        <Sequential Loop="True">
+          <Scale Sprite="Tail" Target="0.75 1" Duration="0.5" Easing="Uniform"/>
+          <Scale Sprite="Tail" Target="1 1" Duration="0.5" Easing="Uniform"/>
+        </Sequential>
+        <Sequential Loop="True">
+          <Color Sprite="Tail" Target="0.8 0.8 0.8 1" Duration="0.5" Easing="Uniform"/>
+          <Color Sprite="Tail" Target="0.9 0.9 0.9 1" Duration="0.5" Easing="Uniform"/>
+          <Color Sprite="Tail" Target="1.0 1.0 1.0 1" Duration="0.5" Easing="Uniform"/>
+          <Color Sprite="Tail" Target="0.9 0.9 0.9 1" Duration="0.5" Easing="Uniform"/>
+        </Sequential>
+      </Composite>
+    </Composite>
+    <Rotation Name="MouthOpen" Sprite="Mouth" Target="0.75" Duration="0.3" Easing="Uniform"/>
+    <Rotation Name="MouthClose" Sprite="Mouth" Target="0" Duration="0.1" Easing="Uniform"/>
+  </Animations>
+</SpriteDescriptor>

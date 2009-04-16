@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites>
+    <Image Texture="Textures/Colourable" Position="0 0" Scale="1280 720" Color="0 0 0 0.5" Layer="1"/>
+    <Image Texture="Textures/BannerLogo" Position="0 0"/>
+    <Text Name="Text" Font="Fonts/Text" Text="Press" Position="550 650"/>
+    <Image Name="Button" Texture="Textures/ButtonA" Position="640 666" Origin="16 16"/>
+  </Sprites>
+  <Animations>
+    <Sequential Name="HighlightText" Loop="true">
+      <Scale Sprite="Button" Target="1.5 1.5" Duration="0.6" Easing="Uniform"/>
+      <Scale Sprite="Button" Target="1 1" Duration="0.6" Easing="Uniform"/>
+    </Sequential>
+  </Animations>
+</SpriteDescriptor>

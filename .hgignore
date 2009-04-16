@@ -1,0 +1,7 @@
+# Ignore the VS user files
+\.csproj\.user$
+\.suo$
+
+# Ignore the object and bin directories
+obj/.*
+bin/.*

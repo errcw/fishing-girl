@@ -1,0 +1,328 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Ancient" xml:space="preserve">
+    <value>an ancient</value>
+  </data>
+  <data name="Beautiful" xml:space="preserve">
+    <value>a beautiful</value>
+  </data>
+  <data name="GuideCastingRelease" xml:space="preserve">
+    <value>Now let go!</value>
+  </data>
+  <data name="GuideCastingStart" xml:space="preserve">
+    <value>Hold _A_ to start casting</value>
+  </data>
+  <data name="GuideCastingWait" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="Common" xml:space="preserve">
+    <value>Common</value>
+  </data>
+  <data name="Distance" xml:space="preserve">
+    <value>{0} metres!</value>
+  </data>
+  <data name="Fat" xml:space="preserve">
+    <value>a fat</value>
+  </data>
+  <data name="FishingGirl" xml:space="preserve">
+    <value>Fishing Girl</value>
+  </data>
+  <data name="Rare" xml:space="preserve">
+    <value>Rare</value>
+  </data>
+  <data name="GuideReelIn" xml:space="preserve">
+    <value>Hold _A_ to reel in your lure</value>
+  </data>
+  <data name="Thin" xml:space="preserve">
+    <value>a thin</value>
+  </data>
+  <data name="Typical" xml:space="preserve">
+    <value>a</value>
+  </data>
+  <data name="Ugly" xml:space="preserve">
+    <value>an ugly</value>
+  </data>
+  <data name="Uncommon" xml:space="preserve">
+    <value>Uncommon</value>
+  </data>
+  <data name="VeryRare" xml:space="preserve">
+    <value>Very Rare</value>
+  </data>
+  <data name="Young" xml:space="preserve">
+    <value>a young</value>
+  </data>
+  <data name="SmallCommon" xml:space="preserve">
+    <value>Shoefish</value>
+  </data>
+  <data name="SmallRare" xml:space="preserve">
+    <value>Beltfish</value>
+  </data>
+  <data name="SmallUncommon" xml:space="preserve">
+    <value>Hatfish</value>
+  </data>
+  <data name="SmallVeryRare" xml:space="preserve">
+    <value>Bucklefish</value>
+  </data>
+  <data name="FishName" xml:space="preserve">
+    <value>{0} {1} ({2})</value>
+    <comment>{Modifier} {Name} ({Rarity})</comment>
+  </data>
+  <data name="LargeCommon" xml:space="preserve">
+    <value>Guitarfish</value>
+  </data>
+  <data name="LargeRare" xml:space="preserve">
+    <value>Drumfish</value>
+  </data>
+  <data name="LargeUncommon" xml:space="preserve">
+    <value>Flutefish</value>
+  </data>
+  <data name="LargeVeryRare" xml:space="preserve">
+    <value>Tubafish</value>
+  </data>
+  <data name="MediumCommon" xml:space="preserve">
+    <value>Tablefish</value>
+  </data>
+  <data name="MediumRare" xml:space="preserve">
+    <value>Deskfish</value>
+  </data>
+  <data name="MediumUncommon" xml:space="preserve">
+    <value>Chairfish</value>
+  </data>
+  <data name="MediumVeryRare" xml:space="preserve">
+    <value>Lampfish</value>
+  </data>
+  <data name="Caught" xml:space="preserve">
+    <value>You caught {0}!</value>
+  </data>
+  <data name="GuideLureBroke" xml:space="preserve">
+    <value>That fish was too big for your lure</value>
+  </data>
+  <data name="BestDistance" xml:space="preserve">
+    <value>Best yet!</value>
+  </data>
+  <data name="LureBomb" xml:space="preserve">
+    <value>Bomb Lure</value>
+  </data>
+  <data name="LureBombDescription" xml:space="preserve">
+    <value>Explodes the first fish it touches.</value>
+  </data>
+  <data name="LureLarge" xml:space="preserve">
+    <value>Large Lure</value>
+  </data>
+  <data name="LureLargeDescription" xml:space="preserve">
+    <value>Lets you catch Large sized fish.</value>
+  </data>
+  <data name="LureMedium" xml:space="preserve">
+    <value>Medium Lure</value>
+  </data>
+  <data name="LureMediumDescription" xml:space="preserve">
+    <value>Lets you catch Medium sized fish.</value>
+  </data>
+  <data name="LureSmall" xml:space="preserve">
+    <value>Small Lure</value>
+  </data>
+  <data name="LureSmallDescription" xml:space="preserve">
+    <value>Lets you catch Small sized fish.</value>
+  </data>
+  <data name="RodBronzeDescription" xml:space="preserve">
+    <value>Lets you cast a short distance.</value>
+  </data>
+  <data name="RodBroze" xml:space="preserve">
+    <value>Bronze Rod</value>
+  </data>
+  <data name="RodGold" xml:space="preserve">
+    <value>Gold Rod</value>
+  </data>
+  <data name="RodGoldDescription" xml:space="preserve">
+    <value>Lets you cast your lure farther still.</value>
+  </data>
+  <data name="RodLegendary" xml:space="preserve">
+    <value>Legendary Rod</value>
+  </data>
+  <data name="RodLegendaryDescription" xml:space="preserve">
+    <value>Lets you cast your lure to the far shore.</value>
+  </data>
+  <data name="RodSilver" xml:space="preserve">
+    <value>Silver Rod</value>
+  </data>
+  <data name="RodSilverDescription" xml:space="preserve">
+    <value>Lets you cast your lure farther.</value>
+  </data>
+  <data name="GuideLureSmallFish" xml:space="preserve">
+    <value>Use Small fish to hook Medium ones</value>
+  </data>
+  <data name="UnknownDescription" xml:space="preserve">
+    <value>You can't afford this yet.</value>
+  </data>
+  <data name="UnknownTitle" xml:space="preserve">
+    <value>???</value>
+  </data>
+  <data name="GuideLureMediumFish" xml:space="preserve">
+    <value>Use Medium fish to hook Large ones</value>
+  </data>
+  <data name="GameCaughtBoy" xml:space="preserve">
+    <value>And, yes, I am quite the catch!</value>
+  </data>
+  <data name="GameNoTime" xml:space="preserve">
+    <value>All the fish have gone to sleep for the night.</value>
+  </data>
+  <data name="GuideChangeLures" xml:space="preserve">
+    <value>Press _B_ to change lures</value>
+  </data>
+  <data name="TitlePrompt" xml:space="preserve">
+    <value>Press</value>
+  </data>
+  <data name="MenuBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="MenuSelect" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="MenuExit" xml:space="preserve">
+    <value>Return to Community Games</value>
+  </data>
+  <data name="MenuHelpOptions" xml:space="preserve">
+    <value>Help &amp; Options</value>
+  </data>
+  <data name="MenuPurchase" xml:space="preserve">
+    <value>Unlock Full Game</value>
+  </data>
+  <data name="MenuResume" xml:space="preserve">
+    <value>Resume Game</value>
+  </data>
+  <data name="MenuBadges" xml:space="preserve">
+    <value>Badges</value>
+  </data>
+  <data name="MenuControls" xml:space="preserve">
+    <value>Controls</value>
+  </data>
+  <data name="MenuCredits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="MenuHowToPlay" xml:space="preserve">
+    <value>How To Play</value>
+  </data>
+  <data name="MenuSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="MenuVolume" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+</root>

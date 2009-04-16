@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Name="Root" Layer="0.80001">
+    <Image Name="Container" Texture="Textures/StoreContainer" Position="0 0" Origin="26 26"/>
+  </Sprites>
+  <Animations>
+    <Sequential Name="Bob" Loop="true">
+      <Position Sprite="Container" Target="0 15" Duration="1.5" Easing="QuadraticOut"/>
+      <Position Sprite="Container" Target="0 0" Duration="1.5" Easing="QuadraticIn"/>
+    </Sequential>
+    <Color Name="Hide" Sprite="Root" Target="1 1 1 0" Duration="1" Easing="Uniform"/>
+  </Animations>
+</SpriteDescriptor>
