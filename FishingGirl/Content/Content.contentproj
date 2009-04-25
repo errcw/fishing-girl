@@ -40,6 +40,143 @@
       <Name>LibraryPipeline</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PackedSprites.sprites">
+      <Name>PackedSprites</Name>
+      <Importer>PackedImageSpritesImporter</Importer>
+      <Processor>PackedImageSpritesProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fonts\DistanceMarker.spritefont">
+      <Name>DistanceMarker</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Fonts\Money.spritefont">
+      <Name>Money</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Fonts\Text.spritefont">
+      <Name>Text</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Fonts\TextSmall.spritefont">
+      <Name>TextSmall</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Fish\Large1.spritedesc">
+      <Name>Large1</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Large2.spritedesc">
+      <Name>Large2</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Large3.spritedesc">
+      <Name>Large3</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Large4.spritedesc">
+      <Name>Large4</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Medium1.spritedesc">
+      <Name>Medium1</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Medium2.spritedesc">
+      <Name>Medium2</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Medium3.spritedesc">
+      <Name>Medium3</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Medium4.spritedesc">
+      <Name>Medium4</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Small1.spritedesc">
+      <Name>Small1</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Small2.spritedesc">
+      <Name>Small2</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Small3.spritedesc">
+      <Name>Small3</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\Small4.spritedesc">
+      <Name>Small4</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\VeryLarge1.spritedesc">
+      <Name>VeryLarge1</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\VeryLarge2.spritedesc">
+      <Name>VeryLarge2</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\VeryLarge3.spritedesc">
+      <Name>VeryLarge3</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fish\VeryLarge4.spritedesc">
+      <Name>VeryLarge4</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\CaughtView.spritedesc">
+      <Name>CaughtView</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\DistanceMarker.spritedesc">
+      <Name>DistanceMarker</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\GuideView.spritedesc">
+      <Name>GuideView</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\MenuScreen.spritedesc">
+      <Name>MenuScreen</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\MoneyView.spritedesc">
+      <Name>MoneyView</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Scene.spritedesc">
+      <Name>Scene</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\StoreContainer.spritedesc">
+      <Name>StoreContainer</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\StoreView.spritedesc">
+      <Name>StoreView</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\TimerView.spritedesc">
+      <Name>TimerView</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\TitleScreen.spritedesc">
+      <Name>TitleScreen</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v3.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

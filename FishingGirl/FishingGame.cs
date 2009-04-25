@@ -11,6 +11,9 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
+using Library.Sprite;
+using Library.Extensions;
+
 using FishingGirl.Properties;
 
 namespace FishingGirl
@@ -30,8 +33,8 @@ namespace FishingGirl
             _graphics.PreferredBackBufferHeight = 720;
             Window.Title = Resources.FishingGirl;
 
-            Components.Add(new GamerServicesComponent(this));
-            Microsoft.Xna.Framework.GamerServices.Guide.SimulateTrialMode = true;
+            //Components.Add(new GamerServicesComponent(this));
+            //Microsoft.Xna.Framework.GamerServices.Guide.SimulateTrialMode = true;
         }
 
         /// <summary>
@@ -51,6 +54,8 @@ namespace FishingGirl
 
             Content.RootDirectory = "Content";
 
+            _testSprite = Content.Load<ImageSprite>("FishSmall1Body");
+
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
@@ -62,12 +67,13 @@ namespace FishingGirl
         {
             base.Update(gameTime);
 
-            float time = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            float time = gameTime.GetElapsedSeconds();
             if (time <= 0 || !IsActive)
             {
                 return; // discard "empty" updates
             }
         }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -75,11 +81,15 @@ namespace FishingGirl
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-
+            _spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+            _testSprite.Draw(_spriteBatch);
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+
+        private Sprite _testSprite;
     }
 }

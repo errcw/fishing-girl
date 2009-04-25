@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Sprites>
+  <Group Name="Fish">
+    <Sprite Texture="Textures/FishSmall1Body.png"/>
+    <Sprite Texture="Textures/FishSmall1Tail.png"/>
+    <Sprite Texture="Textures/FishSmall1Fin.png"/>
+    <Sprite Texture="Textures/FishSmall2Body.png"/>
+    <Sprite Texture="Textures/FishSmall2Tail.png"/>
+    <Sprite Texture="Textures/FishSmall2Fin.png"/>
+    <Sprite Texture="Textures/FishSmall3Body.png"/>
+    <Sprite Texture="Textures/FishSmall3Tail.png"/>
+    <Sprite Texture="Textures/FishSmall3Fin.png"/>
+    <Sprite Texture="Textures/FishSmall4Body.png"/>
+    <Sprite Texture="Textures/FishSmall4Tail.png"/>
+
+    <Sprite Texture="Textures/FishMedium1Body.png"/>
+    <Sprite Texture="Textures/FishMedium1Mouth.png"/>
+    <Sprite Texture="Textures/FishMedium1Tail.png"/>
+    <Sprite Texture="Textures/FishMedium1Fin.png"/>
+    <Sprite Texture="Textures/FishMedium2Body.png"/>
+    <Sprite Texture="Textures/FishMedium2Mouth.png"/>
+    <Sprite Texture="Textures/FishMedium2Tail.png"/>
+    <Sprite Texture="Textures/FishMedium2Fin.png"/>
+    <Sprite Texture="Textures/FishMedium3Body.png"/>
+    <Sprite Texture="Textures/FishMedium3Mouth.png"/>
+    <Sprite Texture="Textures/FishMedium3Tail.png"/>
+    <Sprite Texture="Textures/FishMedium3Fin.png"/>
+    <Sprite Texture="Textures/FishMedium4Body.png"/>
+    <Sprite Texture="Textures/FishMedium4Mouth.png"/>
+    <Sprite Texture="Textures/FishMedium4Tail.png"/>
+    <Sprite Texture="Textures/FishMedium4Fin.png"/>
+
+    <Sprite Texture="Textures/FishLarge1Body.png"/>
+    <Sprite Texture="Textures/FishLarge1Mouth.png"/>
+    <Sprite Texture="Textures/FishLarge1Tail.png"/>
+    <Sprite Texture="Textures/FishLarge1Fin.png"/>
+    <Sprite Texture="Textures/FishLarge2Body.png"/>
+    <Sprite Texture="Textures/FishLarge2Mouth.png"/>
+    <Sprite Texture="Textures/FishLarge2Tail.png"/>
+    <Sprite Texture="Textures/FishLarge2Fin.png"/>
+    <Sprite Texture="Textures/FishLarge3Body.png"/>
+    <Sprite Texture="Textures/FishLarge3Mouth.png"/>
+    <Sprite Texture="Textures/FishLarge3Tail.png"/>
+    <Sprite Texture="Textures/FishLarge3Fin.png"/>
+    <Sprite Texture="Textures/FishLarge4Body.png"/>
+    <Sprite Texture="Textures/FishLarge4Mouth.png"/>
+    <Sprite Texture="Textures/FishLarge4Tail.png"/>
+    <Sprite Texture="Textures/FishLarge4Fin.png"/>
+
+    <Sprite Texture="Textures/FishVeryLarge1Body.png"/>
+    <Sprite Texture="Textures/FishVeryLarge1Mouth.png"/>
+    <Sprite Texture="Textures/FishVeryLarge1Tail.png"/>
+    <Sprite Texture="Textures/FishVeryLarge1Fin.png"/>
+
+    <Sprite Texture="Textures/AirBubble1.png"/>
+  </Group>
+  
+  <Group Name="UI">
+    <Sprite Texture="Textures/TextBubble.png"/>
+    <Sprite Texture="Textures/BackgroundLarge.png"/>
+    <Sprite Texture="Textures/BackgroundSmall.png"/>
+    <Sprite Texture="Textures/BackgroundMenu.png"/>
+    <Sprite Texture="Textures/ButtonA.png"/>
+    <Sprite Texture="Textures/ButtonB.png"/>
+    <Sprite Texture="Textures/BannerLogo.png"/>
+    <Sprite Texture="Textures/Controls.png"/>
+    <Sprite Texture="Textures/Timer.png"/>
+    <Sprite Texture="Textures/Coin.png"/>
+    <Sprite Texture="Textures/Colourable.png"/>
+    <Sprite Texture="Textures/Heart1.png"/>
+  </Group>
+  
+  <Group Name="Landscape">
+    <Sprite Texture="Textures/BearPurple.png"/>
+    <Sprite Texture="Textures/BearYellow.png"/>
+    <Sprite Texture="Textures/Bird.png"/>
+
+    <Sprite Texture="Textures/RodBronze.png"/>
+    <Sprite Texture="Textures/RodSilver.png"/>
+    <Sprite Texture="Textures/RodGold.png"/>
+    <Sprite Texture="Textures/RodLegendary.png"/>
+
+    <Sprite Texture="Textures/LureSmall.png"/>
+    <Sprite Texture="Textures/LureMedium.png"/>
+    <Sprite Texture="Textures/LureLarge.png"/>
+    <Sprite Texture="Textures/LureBomb.png"/>
+
+    <Sprite Texture="Textures/StoreContainer.png"/>
+
+    <Sprite Texture="Textures/LayerFarHills.png"/>
+    <Sprite Texture="Textures/LayerNearHills.png"/>
+    <Sprite Texture="Textures/LayerSky.png"/>
+    <Sprite Texture="Textures/Cloud1.png"/>
+    <Sprite Texture="Textures/Cloud2.png"/>
+    <Sprite Texture="Textures/Cloud3.png"/>
+    <Sprite Texture="Textures/Sun.png"/>
+    <Sprite Texture="Textures/Landscape1.png"/>
+    <Sprite Texture="Textures/Landscape2.png"/>
+    <Sprite Texture="Textures/Landscape3.png"/>
+    <Sprite Texture="Textures/Landscape4.png"/>
+    <Sprite Texture="Textures/Landscape5.png"/>
+    <Sprite Texture="Textures/Rock1.png"/>
+    <Sprite Texture="Textures/Rock2.png"/>
+    <Sprite Texture="Textures/Rock3.png"/>
+    <Sprite Texture="Textures/Rock4.png"/>
+    <Sprite Texture="Textures/Cliff.png"/>
+    <Sprite Texture="Textures/Water.png"/>
+    <Sprite Texture="Textures/WaterWaves.png"/>
+  </Group>
+</Sprites>
