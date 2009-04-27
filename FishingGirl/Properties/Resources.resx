@@ -325,4 +325,13 @@
   <data name="MenuVolume" xml:space="preserve">
     <value>Volume</value>
   </data>
+  <data name="CreditsDesignArt" xml:space="preserve">
+    <value>Design and Art: Daniel Cook</value>
+  </data>
+  <data name="CreditsDevelopment" xml:space="preserve">
+    <value>Development: Eric Woroshow</value>
+  </data>
+  <data name="CreditsTitle" xml:space="preserve">
+    <value>Fishing Girl is...</value>
+  </data>
 </root>

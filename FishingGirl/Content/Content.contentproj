@@ -136,10 +136,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\CaughtView.spritedesc">
-      <Name>CaughtView</Name>
-      <Importer>SpriteDescriptorImporter</Importer>
-    </Compile>
     <Compile Include="Sprites\DistanceMarker.spritedesc">
       <Name>DistanceMarker</Name>
       <Importer>SpriteDescriptorImporter</Importer>

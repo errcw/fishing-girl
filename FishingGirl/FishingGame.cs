@@ -1,25 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using Microsoft.Xna.Framework.Net;
-using Microsoft.Xna.Framework.Storage;
 
-using Library.Sprite;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.GamerServices;
+
+using Library.Screen;
 using Library.Extensions;
 
+using FishingGirl.Screens;
 using FishingGirl.Properties;
 
 namespace FishingGirl
 {
     /// <summary>
-    /// This is the main type for your game
+    /// The game scaffolding.
     /// </summary>
     public class FishingGame : Microsoft.Xna.Framework.Game
     {
@@ -33,8 +28,8 @@ namespace FishingGirl
             _graphics.PreferredBackBufferHeight = 720;
             Window.Title = Resources.FishingGirl;
 
-            //Components.Add(new GamerServicesComponent(this));
-            //Microsoft.Xna.Framework.GamerServices.Guide.SimulateTrialMode = true;
+            Components.Add(new GamerServicesComponent(this));
+            Microsoft.Xna.Framework.GamerServices.Guide.SimulateTrialMode = true;
         }
 
         /// <summary>
@@ -42,6 +37,14 @@ namespace FishingGirl
         /// </summary>
         protected override void Initialize()
         {
+            _input = new Input();
+
+            FishingGameContext context = new FishingGameContext(this, _input);
+
+            _screens = new ScreenStack();
+            _screens.Push(_gameplayScreen = new GameplayScreen(context));
+            _screens.Push(_titleScreen = new TitleScreen(context));
+
             base.Initialize();
         }
 
@@ -53,8 +56,8 @@ namespace FishingGirl
             base.LoadContent();
 
             Content.RootDirectory = "Content";
-
-            _testSprite = Content.Load<ImageSprite>("FishSmall1Body");
+            _gameplayScreen.LoadContent(Content);
+            _titleScreen.LoadContent(Content);
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
@@ -72,24 +75,35 @@ namespace FishingGirl
             {
                 return; // discard "empty" updates
             }
+
+            _input.Update(time);
+            _screens.Update(time);
+
+            if (_screens.ActiveScreen == null)
+            {
+                Exit();
+            }
         }
 
         /// <summary>
-        /// This is called when the game should draw itself.
+        /// Draws the game to the screen.
         /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// <param name="gameTime">A snapshot of timing values.</param>     
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
-            _spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-            _testSprite.Draw(_spriteBatch);
-            _spriteBatch.End();
             base.Draw(gameTime);
+
+            GraphicsDevice.Clear(Color.Black);
+            _screens.Draw(_spriteBatch);
         }
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        private Sprite _testSprite;
+        private ScreenStack _screens;
+        private TitleScreen _titleScreen;
+        private GameplayScreen _gameplayScreen;
+
+        private Input _input;
     }
 }

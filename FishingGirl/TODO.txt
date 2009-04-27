@@ -1,1 +1,1 @@
-﻿- Fix the pipeline to be a class library again.
+﻿

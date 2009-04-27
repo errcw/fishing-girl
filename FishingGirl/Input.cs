@@ -12,12 +12,10 @@ namespace FishingGirl
     public class Input : Library.Input.Input
     {
         public readonly ControlState Action = new ControlState();
-
         public readonly ControlState Cancel = new ControlState();
-
         public readonly ControlState Up = new ControlState();
-
         public readonly ControlState Down = new ControlState();
+        public readonly ControlState Start = new ControlState();
 
         /// <summary>
         /// Registers the actions.
@@ -28,6 +26,16 @@ namespace FishingGirl
             Register(Cancel, Polling.Any(Polling.One(Buttons.B), Polling.One(Buttons.Back)));
             Register(Up, Polling.Any(Polling.One(Buttons.DPadUp), Polling.One(Buttons.LeftThumbstickUp)));
             Register(Down, Polling.Any(Polling.One(Buttons.DPadDown), Polling.One(Buttons.LeftThumbstickDown)));
+            Register(Start, Polling.One(Buttons.Start));
+        }
+
+        /// <summary>
+        /// Polls for the controller with the A button pressed.
+        /// </summary>
+        /// <returns>True if a controller was found; otherwise, false.</returns>
+        public bool FindActiveController()
+        {
+            return FindActiveController(Polling.One(Buttons.A));
         }
     }
 }

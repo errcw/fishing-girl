@@ -2,17 +2,17 @@
 <SpriteDescriptor>
   <Sprites Layer="0">
     <Composite Name="Background" Color="1 1 1 0" Layer="1">
-      <Image Texture="Textures/Colourable" Position="0 0" Scale="1280 720" Color="0 0 0 0.5" Layer="1"/>
-      <Image Name="Frame" Texture="Textures/BackgroundMenu" Position="411 245"/>
+      <Image Texture="Colourable" Position="0 0" Scale="1280 720" Color="0 0 0 0.5" Layer="1"/>
+      <Image Name="Frame" Texture="BackgroundMenu" Position="411 245"/>
     </Composite>
     <Composite Name="Entries" Position="411 245" Color="1 1 1 0" Layer="0">
     </Composite>
     <Composite Name="Select" Position="420 480">
-      <Image Texture="Textures/ButtonA" Position="0 0"/>
+      <Image Texture="ButtonA" Position="0 0"/>
       <Text Name="TextSelect" Font="Fonts/Text" Text="Select" Position="40 0"/>
     </Composite>
     <Composite Name="Back" Position="760 480">
-      <Image Texture="Textures/ButtonB" Position="0 0"/>
+      <Image Texture="ButtonB" Position="0 0"/>
       <Text Name="TextBack" Font="Fonts/Text" Text="Back" Position="40 0"/>
     </Composite>
   </Sprites>
