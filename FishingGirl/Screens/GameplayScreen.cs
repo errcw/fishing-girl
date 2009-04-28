@@ -20,7 +20,6 @@ namespace FishingGirl.Screens
         public GameplayScreen(FishingGameContext context)
         {
             _context = context;
-            _pauseScreen = new PauseMenuScreen(context);
         }
 
         /// <summary>
@@ -28,7 +27,7 @@ namespace FishingGirl.Screens
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            _pauseScreen.LoadContent(content);
+            _pauseScreen = new PauseMenuScreenFactory().Create(_context, content);
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace FishingGirl.Screens
             Stack.Push(_pauseScreen);
         }
 
-        private PauseMenuScreen _pauseScreen;
+        private MenuScreen _pauseScreen;
 
         private FishingGameContext _context;
     }

@@ -96,7 +96,9 @@
     </Compile>
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
+    <Compile Include="Screens\NagScreen.cs" />
     <Compile Include="Screens\PauseMenuScreen.cs" />
+    <Compile Include="Screens\PauseMenuScreenFactory.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
   </ItemGroup>
   <ItemGroup>

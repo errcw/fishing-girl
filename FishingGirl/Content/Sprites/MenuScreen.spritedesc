@@ -5,8 +5,7 @@
       <Image Texture="Colourable" Position="0 0" Scale="1280 720" Color="0 0 0 0.5" Layer="1"/>
       <Image Name="Frame" Texture="BackgroundMenu" Position="411 245"/>
     </Composite>
-    <Composite Name="Entries" Position="411 245" Color="1 1 1 0" Layer="0">
-    </Composite>
+    <Composite Name="Entries" Position="411 245" Color="1 1 1 0" Layer="0"></Composite>
     <Composite Name="Select" Position="420 480">
       <Image Texture="ButtonA" Position="0 0"/>
       <Text Name="TextSelect" Font="Fonts/Text" Text="Select" Position="40 0"/>

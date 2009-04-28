@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.GamerServices;
 
+using Library.Components;
 using Library.Screen;
 using Library.Storage;
 using Library.Extensions;
@@ -20,18 +21,14 @@ namespace FishingGirl
     public class FishingGame : Microsoft.Xna.Framework.Game
     {
         /// <summary>
-        /// Creats a new game.
+        /// Creates a new game.
         /// </summary>
         public FishingGame()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            _graphics.PreferredBackBufferWidth = 1280;
-            _graphics.PreferredBackBufferHeight = 720;
+            GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Window.Title = Resources.FishingGirl;
-
-            Components.Add(new GamerServicesComponent(this));
-            Components.Add(_storage = new StorageDeviceManager(this));
-            Microsoft.Xna.Framework.GamerServices.Guide.SimulateTrialMode = true;
         }
 
         /// <summary>
@@ -39,14 +36,22 @@ namespace FishingGirl
         /// </summary>
         protected override void Initialize()
         {
+            GamerServicesComponent gamer = new GamerServicesComponent(this);
+            Components.Add(gamer);
+            StorageDeviceManager storage = new StorageDeviceManager(this);
+            Components.Add(storage);
+            TrialModeObserverComponent trial = new TrialModeObserverComponent(this);
+            Components.Add(trial);
+
             _input = new Input();
 
-            FishingGameContext context = new FishingGameContext(this, _input, _storage);
+            FishingGameContext context = new FishingGameContext(this, _input, storage, trial);
 
             _screens = new ScreenStack();
             _screens.Push(_gameplayScreen = new GameplayScreen(context));
             _screens.Push(_titleScreen = new TitleScreen(context));
 
+            Guide.SimulateTrialMode = true;
             base.Initialize();
         }
 
@@ -99,9 +104,6 @@ namespace FishingGirl
             _screens.Draw(_spriteBatch);
         }
 
-        private StorageDeviceManager _storage;
-
-        private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
         private ScreenStack _screens;

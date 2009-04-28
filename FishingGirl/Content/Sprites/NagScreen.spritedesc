@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Sprites Position="-411 -245">
+    <Image Texture="TextBubble" Position="300 0" Layer="1"/>
+    <Text Name="Bubble" Font="Fonts/Text" Position="317 87" Layer="0"/>
+    
+    <Image Texture="BearYellow" Position="75 600"/>
+    <Text Name="Time" Font="Fonts/Text" Position="115 600"/>
+
+    <Image Texture="BearYellow" Position="375 600"/>
+    <Text Name="Badges" Font="Fonts/Text" Position="415 600"/>
+
+    <Image Texture="BearYellow" Position="675 600"/>
+    <Text Name="Lures" Font="Fonts/Text" Position="715 600"/>
+
+    <Image Texture="BearYellow" Position="975 600"/>
+    <Text Name="Fish" Font="Fonts/Text" Position="1015 600"/>
+  </Sprites>
+</XnaContent>

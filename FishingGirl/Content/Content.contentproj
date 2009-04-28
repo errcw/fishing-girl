@@ -174,8 +174,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\Controls.spritedesc">
-      <Name>Controls</Name>
+    <Compile Include="Sprites\NagScreen.spritedesc">
+      <Name>NagScreen</Name>
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
   </ItemGroup>

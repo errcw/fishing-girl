@@ -22,7 +22,7 @@ namespace FishingGirl.Screens
         /// <summary>
         /// If this screen is the root menu of a tree.
         /// </summary>
-        protected bool IsRoot { get; set; }
+        public bool IsRoot { get; set; }
 
         /// <summary>
         /// Creates a new menu screen.
@@ -62,13 +62,20 @@ namespace FishingGirl.Screens
         /// <returns>True if the entry is successfully removed; otherwise, false.</returns>
         public bool RemoveEntry(MenuEntry entry)
         {
-            if (_entries[_selectedEntry] == entry)
-            {
-                // move the focus off the now-defunct entry
-                SetSelected(_selectedEntry - 1);
-            }
+            MenuEntry selectedEntry = _entries[_selectedEntry];
             bool removed = _entries.Remove(entry);
-            _screenDescriptor.GetSprite<CompositeSprite>("Entries").Remove(entry.Sprite);
+            if (removed)
+            {
+                _screenDescriptor.GetSprite<CompositeSprite>("Entries").Remove(entry.Sprite);
+                if (entry == selectedEntry)
+                {
+                    SetSelected(_selectedEntry - 1); // move the focus off the now-defunct entry
+                }
+                else
+                {
+                    _selectedEntry -= 1; // fix the index
+                }
+            }
             return removed;
         }
 
@@ -96,6 +103,15 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
+        /// Adds the given sprite as a decorative entry.
+        /// </summary>
+        /// <param name="sprite">The sprite to add.</param>
+        public void AddDecoration(Sprite sprite)
+        {
+            _screenDescriptor.GetSprite<CompositeSprite>("Entries").Add(sprite);
+        }
+
+        /// <summary>
         /// Draws this screen.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch to draw in.</param>
@@ -107,7 +123,7 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
-        /// Selects the first entry by default.
+        /// Focuses the first selectable entry by default.
         /// </summary>
         protected override void Show(bool pushed)
         {
@@ -227,10 +243,10 @@ namespace FishingGirl.Screens
             return 0;
         }
 
-        private SpriteDescriptor _screenDescriptor;
+        protected SpriteDescriptor _screenDescriptor;
 
-        private List<MenuEntry> _entries = new List<MenuEntry>();
-        private int _selectedEntry;
+        protected List<MenuEntry> _entries = new List<MenuEntry>();
+        protected int _selectedEntry;
 
         protected FishingGameContext _context;
 
@@ -304,8 +320,7 @@ namespace FishingGirl.Screens
         /// Creates a new text menu entry.
         /// </summary>
         /// <param name="sprite">The text sprite to show.</param>
-        public TextMenuEntry(TextSprite sprite)
-            : base(sprite)
+        public TextMenuEntry(TextSprite sprite) : base(sprite)
         {
         }
 

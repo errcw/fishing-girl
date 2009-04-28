@@ -439,47 +439,11 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Change Storage Device.
-        /// </summary>
-        internal static string MenuChangeStorage {
-            get {
-                return ResourceManager.GetString("MenuChangeStorage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Controls.
-        /// </summary>
-        internal static string MenuControls {
-            get {
-                return ResourceManager.GetString("MenuControls", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Credits.
-        /// </summary>
-        internal static string MenuCredits {
-            get {
-                return ResourceManager.GetString("MenuCredits", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Return to Dashboard.
         /// </summary>
         internal static string MenuExit {
             get {
                 return ResourceManager.GetString("MenuExit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to exit?.
-        /// </summary>
-        internal static string MenuExitConfirm {
-            get {
-                return ResourceManager.GetString("MenuExitConfirm", resourceCulture);
             }
         }
         
@@ -498,24 +462,6 @@ namespace FishingGirl.Properties {
         internal static string MenuExitYes {
             get {
                 return ResourceManager.GetString("MenuExitYes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help &amp; Options.
-        /// </summary>
-        internal static string MenuHelpOptions {
-            get {
-                return ResourceManager.GetString("MenuHelpOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to How To Play.
-        /// </summary>
-        internal static string MenuHowToPlay {
-            get {
-                return ResourceManager.GetString("MenuHowToPlay", resourceCulture);
             }
         }
         
@@ -547,47 +493,74 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Settings.
+        ///   Looks up a localized string similar to Collect badges!.
         /// </summary>
-        internal static string MenuSettings {
+        internal static string NagBadges {
             get {
-                return ResourceManager.GetString("MenuSettings", resourceCulture);
+                return ResourceManager.GetString("NagBadges", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volume.
+        ///   Looks up a localized string similar to Buy Fishing Girl now and enjoy hours of fishing fun!.
         /// </summary>
-        internal static string MenuVolume {
+        internal static string NagBubble {
             get {
-                return ResourceManager.GetString("MenuVolume", resourceCulture);
+                return ResourceManager.GetString("NagBubble", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catch larger fish!.
+        /// </summary>
+        internal static string NagFish {
+            get {
+                return ResourceManager.GetString("NagFish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy bigger lures!.
+        /// </summary>
+        internal static string NagLures {
+            get {
+                return ResourceManager.GetString("NagLures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No time limits!.
+        /// </summary>
+        internal static string NagTime {
+            get {
+                return ResourceManager.GetString("NagTime", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string PurchaseMBOK {
+        internal static string PurchaseFailedButton {
             get {
-                return ResourceManager.GetString("PurchaseMBOK", resourceCulture);
+                return ResourceManager.GetString("PurchaseFailedButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Either you are not signed in or you are unable to purchase content..
+        ///   Looks up a localized string similar to You are not signed in, or you cannot purchase content..
         /// </summary>
-        internal static string PurchaseMBText {
+        internal static string PurchaseFailedText {
             get {
-                return ResourceManager.GetString("PurchaseMBText", resourceCulture);
+                return ResourceManager.GetString("PurchaseFailedText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign In?.
+        ///   Looks up a localized string similar to Cannot Purchase.
         /// </summary>
-        internal static string PurchaseMBTitle {
+        internal static string PurchaseFailedTitle {
             get {
-                return ResourceManager.GetString("PurchaseMBTitle", resourceCulture);
+                return ResourceManager.GetString("PurchaseFailedTitle", resourceCulture);
             }
         }
         

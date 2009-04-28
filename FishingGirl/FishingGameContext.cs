@@ -1,5 +1,6 @@
 ﻿using System;
 
+using Library.Components;
 using Library.Storage;
 
 namespace FishingGirl
@@ -25,13 +26,19 @@ namespace FishingGirl
         public readonly StorageDeviceManager Storage;
 
         /// <summary>
+        /// The trial mode observer.
+        /// </summary>
+        public readonly TrialModeObserverComponent Trial;
+
+        /// <summary>
         /// Creates a new context.
         /// </summary>
-        public FishingGameContext(FishingGame game, Input input, StorageDeviceManager storage)
+        public FishingGameContext(FishingGame game, Input input, StorageDeviceManager storage, TrialModeObserverComponent trial)
         {
             Game = game;
             Input = input;
             Storage = storage;
+            Trial = trial;
         }
     }
 }

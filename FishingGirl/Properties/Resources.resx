@@ -298,9 +298,6 @@
   <data name="MenuExit" xml:space="preserve">
     <value>Return to Dashboard</value>
   </data>
-  <data name="MenuHelpOptions" xml:space="preserve">
-    <value>Help &amp; Options</value>
-  </data>
   <data name="MenuPurchase" xml:space="preserve">
     <value>Unlock Full Game</value>
   </data>
@@ -309,21 +306,6 @@
   </data>
   <data name="MenuBadges" xml:space="preserve">
     <value>Badges</value>
-  </data>
-  <data name="MenuControls" xml:space="preserve">
-    <value>Controls</value>
-  </data>
-  <data name="MenuCredits" xml:space="preserve">
-    <value>Credits</value>
-  </data>
-  <data name="MenuHowToPlay" xml:space="preserve">
-    <value>How To Play</value>
-  </data>
-  <data name="MenuSettings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="MenuVolume" xml:space="preserve">
-    <value>Volume</value>
   </data>
   <data name="CreditsDesignArt" xml:space="preserve">
     <value>Design and Art: Daniel Cook</value>
@@ -340,20 +322,14 @@
   <data name="ControlsBButton" xml:space="preserve">
     <value>Switch lures</value>
   </data>
-  <data name="PurchaseMBOK" xml:space="preserve">
+  <data name="PurchaseFailedButton" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="PurchaseMBText" xml:space="preserve">
-    <value>Either you are not signed in or you are unable to purchase content.</value>
+  <data name="PurchaseFailedText" xml:space="preserve">
+    <value>You are not signed in, or you cannot purchase content.</value>
   </data>
-  <data name="PurchaseMBTitle" xml:space="preserve">
-    <value>Sign In?</value>
-  </data>
-  <data name="MenuChangeStorage" xml:space="preserve">
-    <value>Change Storage Device</value>
-  </data>
-  <data name="MenuExitConfirm" xml:space="preserve">
-    <value>Are you sure you want to exit?</value>
+  <data name="PurchaseFailedTitle" xml:space="preserve">
+    <value>Cannot Purchase</value>
   </data>
   <data name="MenuExitNo" xml:space="preserve">
     <value>Back to Main Menu</value>
@@ -372,5 +348,20 @@
   </data>
   <data name="VolumeOff" xml:space="preserve">
     <value>Off</value>
+  </data>
+  <data name="NagBadges" xml:space="preserve">
+    <value>Collect badges!</value>
+  </data>
+  <data name="NagBubble" xml:space="preserve">
+    <value>Buy Fishing Girl now and enjoy hours of fishing fun!</value>
+  </data>
+  <data name="NagFish" xml:space="preserve">
+    <value>Catch larger fish!</value>
+  </data>
+  <data name="NagLures" xml:space="preserve">
+    <value>Buy bigger lures!</value>
+  </data>
+  <data name="NagTime" xml:space="preserve">
+    <value>No time limits!</value>
   </data>
 </root>
