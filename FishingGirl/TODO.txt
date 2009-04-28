@@ -1,1 +1,6 @@
-﻿
+﻿- Add nag screen
+  * Overlay on exit screen
+  * Add entry: Unlock Full Game
+  * Add screen shots on top
+  * Add text on the bottom
+- Add volume controls

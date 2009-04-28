@@ -68,6 +68,7 @@
     <Sprite Texture="Textures/Coin.png"/>
     <Sprite Texture="Textures/Colourable.png"/>
     <Sprite Texture="Textures/Heart1.png"/>
+    <Sprite Texture="Textures/FishEatFish.png"/>
   </Group>
   
   <Group Name="Landscape">

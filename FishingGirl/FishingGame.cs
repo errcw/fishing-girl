@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.GamerServices;
 
 using Library.Screen;
+using Library.Storage;
 using Library.Extensions;
 
 using FishingGirl.Screens;
@@ -29,6 +30,7 @@ namespace FishingGirl
             Window.Title = Resources.FishingGirl;
 
             Components.Add(new GamerServicesComponent(this));
+            Components.Add(_storage = new StorageDeviceManager(this));
             Microsoft.Xna.Framework.GamerServices.Guide.SimulateTrialMode = true;
         }
 
@@ -39,7 +41,7 @@ namespace FishingGirl
         {
             _input = new Input();
 
-            FishingGameContext context = new FishingGameContext(this, _input);
+            FishingGameContext context = new FishingGameContext(this, _input, _storage);
 
             _screens = new ScreenStack();
             _screens.Push(_gameplayScreen = new GameplayScreen(context));
@@ -96,6 +98,8 @@ namespace FishingGirl
             GraphicsDevice.Clear(Color.Black);
             _screens.Draw(_spriteBatch);
         }
+
+        private StorageDeviceManager _storage;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;

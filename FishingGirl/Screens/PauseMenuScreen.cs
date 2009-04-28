@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Library.Screen;
 using Library.Sprite;
 using Library.Sprite.Pipeline;
+using Library.Extensions;
 
 using FishingGirl.Properties;
 
@@ -25,17 +26,32 @@ namespace FishingGirl.Screens
         {
             base.LoadContent(content);
 
-            MenuScreen optionsScreen = BuildOptions(content);
-
             SpriteFont font = content.Load<SpriteFont>("Fonts/Text");
+            MenuScreen optionsScreen = BuildOptions(content);
+            MenuScreen confirmScreen = BuildExitConfirm(content);
+            
             AddEntry(BuildTextEntry(font, Resources.MenuResume, (s, a) => Stack.Pop()));
             if (Guide.IsTrialMode)
             {
-                AddEntry(BuildTextEntry(font, Resources.MenuPurchase, (s, a) => Guide.ShowMarketplace(PlayerIndex.One)));
+                AddEntry(_purchaseEntry = BuildTextEntry(font, Resources.MenuPurchase, (s, a) => ShowPurchaseScreen()));
             }
             AddEntry(BuildTextEntry(font, Resources.MenuHelpOptions, (s, a) => Stack.Push(optionsScreen)));
-            AddEntry(BuildTextEntry(font, Resources.MenuExit, (s, a) => Stack.PopAll()));
+            AddEntry(BuildTextEntry(font, Resources.MenuExit, (s, a) => Stack.Push(confirmScreen)));
             LayoutEntries();
+        }
+
+        /// <summary>
+        /// Poll for the game switching out of trial mode to remove the purchase game menu entry.
+        /// </summary>
+        protected override void UpdateActive(float time)
+        {
+            base.UpdateActive(time);
+            if (_purchaseEntry != null && !Guide.IsTrialMode)
+            {
+                RemoveEntry(_purchaseEntry);
+                LayoutEntries();
+                _purchaseEntry = null;
+            }
         }
 
         /// <summary>
@@ -58,7 +74,11 @@ namespace FishingGirl.Screens
         /// </summary>
         private MenuScreen BuildControls(ContentManager content)
         {
-            return BuildMenuScreen(content, BuildImageEntry(content.Load<ImageSpriteTemplate>("Controls").Create()));
+            SpriteDescriptor controlsDesc = content.Load<SpriteDescriptorTemplate>(@"Sprites\Controls").Create(content);
+            controlsDesc.GetSprite<TextSprite>("AText").Text = Resources.ControlsAButton;
+            controlsDesc.GetSprite<TextSprite>("BText").Text = Resources.ControlsBButton;
+            return BuildMenuScreen(content,
+                BuildImageEntry(controlsDesc.Sprite));
         }
 
         /// <summary>
@@ -66,9 +86,11 @@ namespace FishingGirl.Screens
         /// </summary>
         private MenuScreen BuildSettings(ContentManager content)
         {
-            return BuildMenuScreen(content, BuildImageEntry(content.Load<ImageSpriteTemplate>("Controls").Create()));
+            SpriteFont font = content.Load<SpriteFont>("Fonts/Text");
+            return BuildMenuScreen(content,
+                BuildVolumeControl(content),
+                BuildTextEntry(font, Resources.MenuChangeStorage, (s, a) => _context.Storage.PromptForDevice()));
         }
-
 
         /// <summary>
         /// Builds the credits menu.
@@ -77,9 +99,31 @@ namespace FishingGirl.Screens
         {
             SpriteFont font = content.Load<SpriteFont>("Fonts/Text");
             return BuildMenuScreen(content,
-                BuildTextEntry(font, Resources.CreditsTitle),
+                BuildImageEntry(content.Load<ImageSpriteTemplate>("FishEatFish").Create()),
                 BuildTextEntry(font, Resources.CreditsDesignArt),
                 BuildTextEntry(font, Resources.CreditsDevelopment));
+        }
+
+        /// <summary>
+        /// Builds the exit confirmation screen.
+        /// </summary>
+        private MenuScreen BuildExitConfirm(ContentManager content)
+        {
+            SpriteFont font = content.Load<SpriteFont>("Fonts/Text");
+            return BuildMenuScreen(content,
+                BuildTextEntry(font, Resources.MenuExitConfirm),
+                BuildTextEntry(font, " "), // blank line
+                BuildTextEntry(font, Resources.MenuExitNo, (s, a) => Stack.Pop()),
+                BuildTextEntry(font, Resources.MenuExitYes, (s, a) => Stack.PopAll()));
+        }
+
+        /// <summary>
+        /// Builds the volume control menu entry.
+        /// </summary>
+        private MenuEntry BuildVolumeControl(ContentManager content)
+        {
+            SpriteFont font = content.Load<SpriteFont>("Fonts/Text");
+            return BuildTextEntry(font, Resources.MenuVolume, (s, a) => font=null);
         }
 
         /// <summary>
@@ -120,11 +164,45 @@ namespace FishingGirl.Screens
         /// <summary>
         /// Returns an image menu entry.
         /// </summary>
-        private MenuEntry BuildImageEntry(ImageSprite image)
+        private MenuEntry BuildImageEntry(Sprite image)
         {
             MenuEntry entry = new MenuEntry(image);
             entry.IsSelectable = false;
             return entry;
         }
+
+
+        /// <summary>
+        /// Shows the marketplace purchase screen if possible, or a warning otherwise.
+        /// </summary>
+        private void ShowPurchaseScreen()
+        {
+            try
+            {
+                PlayerIndex player = _context.Input.Controller.Value;
+                if (player.CanPurchaseContent())
+                {
+                    Guide.ShowMarketplace(player);
+                }
+                else
+                {
+                    Guide.BeginShowMessageBox(
+                        player,
+                        Resources.PurchaseMBTitle,
+                        Resources.PurchaseMBText,
+                        new string[] { Resources.PurchaseMBOK },
+                        0,
+                        MessageBoxIcon.Warning,
+                        r => Guide.EndShowMessageBox(r),
+                        new object());
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
+        }
+
+        private MenuEntry _purchaseEntry;
     }
 }

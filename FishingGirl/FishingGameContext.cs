@@ -1,5 +1,7 @@
 ﻿using System;
 
+using Library.Storage;
+
 namespace FishingGirl
 {
     /// <summary>
@@ -18,12 +20,18 @@ namespace FishingGirl
         public readonly Input Input;
 
         /// <summary>
+        /// The storage manager.
+        /// </summary>
+        public readonly StorageDeviceManager Storage;
+
+        /// <summary>
         /// Creates a new context.
         /// </summary>
-        public FishingGameContext(FishingGame game, Input input)
+        public FishingGameContext(FishingGame game, Input input, StorageDeviceManager storage)
         {
             Game = game;
             Input = input;
+            Storage = storage;
         }
     }
 }

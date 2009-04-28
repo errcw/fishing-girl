@@ -296,7 +296,7 @@
     <value>Select</value>
   </data>
   <data name="MenuExit" xml:space="preserve">
-    <value>Return to Community Games</value>
+    <value>Return to Dashboard</value>
   </data>
   <data name="MenuHelpOptions" xml:space="preserve">
     <value>Help &amp; Options</value>
@@ -333,5 +333,44 @@
   </data>
   <data name="CreditsTitle" xml:space="preserve">
     <value>Fishing Girl is...</value>
+  </data>
+  <data name="ControlsAButton" xml:space="preserve">
+    <value>Cast, reel</value>
+  </data>
+  <data name="ControlsBButton" xml:space="preserve">
+    <value>Switch lures</value>
+  </data>
+  <data name="PurchaseMBOK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="PurchaseMBText" xml:space="preserve">
+    <value>Either you are not signed in or you are unable to purchase content.</value>
+  </data>
+  <data name="PurchaseMBTitle" xml:space="preserve">
+    <value>Sign In?</value>
+  </data>
+  <data name="MenuChangeStorage" xml:space="preserve">
+    <value>Change Storage Device</value>
+  </data>
+  <data name="MenuExitConfirm" xml:space="preserve">
+    <value>Are you sure you want to exit?</value>
+  </data>
+  <data name="MenuExitNo" xml:space="preserve">
+    <value>Back to Main Menu</value>
+  </data>
+  <data name="MenuExitYes" xml:space="preserve">
+    <value>Return to Dashboard</value>
+  </data>
+  <data name="VolumeHigh" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="VolumeLow" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="VolumeMedium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="VolumeOff" xml:space="preserve">
+    <value>Off</value>
   </data>
 </root>

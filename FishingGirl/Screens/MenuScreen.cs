@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
+using Library.Extensions;
 using Library.Screen;
 using Library.Sprite;
 using Library.Sprite.Pipeline;
@@ -55,6 +56,23 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
+        /// Removes a menu entry from this menu.
+        /// </summary>
+        /// <param name="entry">The entry to remove.</param>
+        /// <returns>True if the entry is successfully removed; otherwise, false.</returns>
+        public bool RemoveEntry(MenuEntry entry)
+        {
+            if (_entries[_selectedEntry] == entry)
+            {
+                // move the focus off the now-defunct entry
+                SetSelected(_selectedEntry - 1);
+            }
+            bool removed = _entries.Remove(entry);
+            _screenDescriptor.GetSprite<CompositeSprite>("Entries").Remove(entry.Sprite);
+            return removed;
+        }
+
+        /// <summary>
         /// Centers the menu entry sprites vertically and horizontally.
         /// </summary>
         public void LayoutEntries()
@@ -98,7 +116,7 @@ namespace FishingGirl.Screens
             _screenDescriptor.GetSprite("Select").Color = Color.White;
             if (pushed)
             {
-                _selectedEntry = 0;
+                _selectedEntry = FindFirstSelectableEntry();
                 _entries[_selectedEntry].OnFocusChanged(true);
                 _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
             }
@@ -128,29 +146,16 @@ namespace FishingGirl.Screens
                 Stack.Pop();
             }
 
-            int oldSelected = _selectedEntry;
+            int selected = _selectedEntry;
             if (_context.Input.Up.PressedRepeat)
             {
-                _selectedEntry -= 1;
-                if (_selectedEntry < 0)
-                {
-                    _selectedEntry = 0;
-                }
+                selected -= 1;
             }
             else if (_context.Input.Down.PressedRepeat)
             {
-                _selectedEntry += 1;
-                if (_selectedEntry > _entries.Count - 1)
-                {
-                    _selectedEntry = _entries.Count - 1;
-                }
+                selected += 1;
             }
-            if (oldSelected != _selectedEntry)
-            {
-                _entries[oldSelected].OnFocusChanged(false);
-                _entries[_selectedEntry].OnFocusChanged(true);
-                _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
-            }
+            SetSelected(selected);
 
             if (_context.Input.Action.Pressed && _entries[_selectedEntry].IsSelectable)
             {
@@ -189,6 +194,37 @@ namespace FishingGirl.Screens
             {
                 _screenDescriptor.GetSprite("Background").Color = new Color(Color.White, 1 - progress);
             }
+        }
+
+        /// <summary>
+        /// Shows the given index as selected.
+        /// </summary>
+        /// <param name="entryIdx"></param>
+        private void SetSelected(int entryIdx)
+        {
+            if (_selectedEntry == entryIdx)
+            {
+                return;
+            }
+            _entries[_selectedEntry].OnFocusChanged(false);
+            _selectedEntry = MathHelperExtensions.Clamp(entryIdx, 0, _entries.Count - 1);
+            _entries[_selectedEntry].OnFocusChanged(true);
+            _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
+        }
+
+        /// <summary>
+        /// Gets the index of the first selectable menu entry, or zero if none are selectable.
+        /// </summary>
+        private int FindFirstSelectableEntry()
+        {
+            for (int s = 0; s < _entries.Count; s++)
+            {
+                if (_entries[s].IsSelectable)
+                {
+                    return s;
+                }
+            }
+            return 0;
         }
 
         private SpriteDescriptor _screenDescriptor;

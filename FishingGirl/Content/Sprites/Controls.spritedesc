@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Sprites>
+    <Image Texture="Controls" Position="0 0"/>
+    <Text Name="BText" Font="Fonts/Text" Position="285 20"/>
+    <Text Name="AText" Font="Fonts/Text" Position="285 105"/>
+  </Sprites>
+</XnaContent>
