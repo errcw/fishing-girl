@@ -17,6 +17,9 @@ using FishingGirl.Properties;
 
 namespace FishingGirl.Screens
 {
+    /// <summary>
+    /// Creates the pause menu structure.
+    /// </summary>
     public class PauseMenuScreenFactory
     {
         public MenuScreen Create(FishingGameContext context, ContentManager content)
@@ -28,11 +31,13 @@ namespace FishingGirl.Screens
             screen.IsRoot = true;
             screen.LoadContent(content);
 
+            MenuScreen badgesScreen = new BadgesScreen(context);
+            badgesScreen.LoadContent(content);
             MenuScreen confirmScreen = BuildExitConfirm(context, content);
             MenuScreen nagScreen = BuildNag(context, content);
 
             screen.AddEntry(BuildTextEntry(Resources.MenuResume, (s, a) => screen.Stack.Pop()));
-            screen.AddEntry(BuildTextEntry(Resources.MenuBadges, (s, a) => screen.Stack.Pop()));
+            screen.AddEntry(BuildTextEntry(Resources.MenuBadges, (s, a) => screen.Stack.Push(badgesScreen)));
             if (Guide.IsTrialMode)
             {
                 MenuEntry purchase = BuildTextEntry(Resources.MenuPurchase, (s, a) => ShowPurchaseScreen(context));
@@ -72,7 +77,7 @@ namespace FishingGirl.Screens
             screen.AddEntry(BuildTextEntry(Resources.MenuExitYes, (s, a) => screen.Stack.PopAll()));
             screen.LayoutEntries();
 
-            context.Trial.TrialModeEnded += delegate(object s, EventArgs a) { screen.Stack.Pop(); };
+            context.Trial.TrialModeEnded += delegate(object s, EventArgs a) { if (screen.State == ScreenState.Active) { screen.Stack.Pop(); } };
 
             SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>(@"Sprites\NagScreen").Create(content);
             nagDesc.GetSprite<TextSprite>("Bubble").Text = Resources.NagBubble;
@@ -124,6 +129,71 @@ namespace FishingGirl.Screens
             {
                 System.Diagnostics.Debug.WriteLine(e);
             }
+        }
+
+
+        /// <summary>
+        /// A plain text menu entry. 
+        /// </summary>
+        class TextMenuEntry : MenuEntry
+        {
+            /// <summary>
+            /// Creates a new text menu entry.
+            /// </summary>
+            /// <param name="sprite">The text sprite to show.</param>
+            public TextMenuEntry(TextSprite sprite) : base(sprite)
+            {
+            }
+
+            /// <summary>
+            /// Updates the pulsing outline.
+            /// </summary>
+            /// <param name="time">The elapsed time, in seconds, since the last update.</param>
+            public override void Update(float time)
+            {
+                if (!IsSelectable)
+                {
+                    return;
+                }
+                _fadeElapsed += time;
+                if (_fadeElapsed >= FadeDuration)
+                {
+                    _fadeElapsed = 0;
+                    _fadeIn = !_fadeIn;
+                }
+                float p = _fadeElapsed / FadeDuration;
+                float a = (_fadeIn) ? p : 1 - p;
+                ((TextSprite)Sprite).OutlineColor = new Color(OutlineColor, a);
+            }
+
+            /// <summary>
+            /// Sets the outline state.
+            /// </summary>
+            public override void OnFocusChanged(bool focused)
+            {
+                if (!IsSelectable)
+                {
+                    return;
+                }
+                TextSprite textSprite = (TextSprite)Sprite;
+                if (focused)
+                {
+                    textSprite.OutlineColor = OutlineColor;
+                    textSprite.OutlineWidth = 2;
+                    _fadeIn = false;
+                    _fadeElapsed = 0;
+                }
+                else
+                {
+                    textSprite.OutlineWidth = 0;
+                }
+            }
+
+            private bool _fadeIn;
+            private float _fadeElapsed;
+
+            private readonly Color OutlineColor = new Color(207, 79, 79);
+            private const float FadeDuration = 0.6f;
         }
 
         private SpriteFont _menuFont;

@@ -57,7 +57,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FishingGameContext.cs" />
+    <Compile Include="Gameplay\Scene.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="Interface\CameraController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="FishingGame.cs" />
@@ -66,10 +68,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Screens\BadgesScreen.cs" />
     <Compile Include="Screens\GameplayScreen.cs" />
     <Compile Include="Screens\MenuScreen.cs" />
-    <Compile Include="Screens\NagScreen.cs" />
-    <Compile Include="Screens\PauseMenuScreen.cs" />
     <Compile Include="Screens\PauseMenuScreenFactory.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
   </ItemGroup>

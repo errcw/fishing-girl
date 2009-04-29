@@ -69,7 +69,7 @@ namespace FishingGirl.Screens
                 _screenDescriptor.GetSprite<CompositeSprite>("Entries").Remove(entry.Sprite);
                 if (entry == selectedEntry)
                 {
-                    SetSelected(_selectedEntry - 1); // move the focus off the now-defunct entry
+                    SetSelected(0); // move the focus off the now-defunct entry
                 }
                 else
                 {
@@ -123,7 +123,7 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
-        /// Focuses the first selectable entry by default.
+        /// Focuses the first entry by default.
         /// </summary>
         protected override void Show(bool pushed)
         {
@@ -132,7 +132,7 @@ namespace FishingGirl.Screens
             _screenDescriptor.GetSprite("Select").Color = Color.White;
             if (pushed)
             {
-                _selectedEntry = FindFirstSelectableEntry();
+                _selectedEntry = 0;
                 _entries[_selectedEntry].OnFocusChanged(true);
                 _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
             }
@@ -162,16 +162,19 @@ namespace FishingGirl.Screens
                 Stack.Pop();
             }
 
-            int selected = _selectedEntry;
+            int delta = 0;
             if (_context.Input.Up.PressedRepeat)
             {
-                selected -= 1;
+                delta = -1;
             }
             else if (_context.Input.Down.PressedRepeat)
             {
-                selected += 1;
+                delta = 1;
             }
-            SetSelected(selected);
+            if (delta != 0)
+            {
+                SetSelected(delta);
+            }
 
             if (_context.Input.Action.Pressed && _entries[_selectedEntry].IsSelectable)
             {
@@ -213,34 +216,15 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
-        /// Shows the given index as selected.
+        /// Sets the selected menu item.
         /// </summary>
-        /// <param name="entryIdx"></param>
-        private void SetSelected(int entryIdx)
+        /// <param name="deltaIdx">The change in selected index.</param>
+        protected virtual void SetSelected(int deltaIdx)
         {
-            if (_selectedEntry == entryIdx)
-            {
-                return;
-            }
             _entries[_selectedEntry].OnFocusChanged(false);
-            _selectedEntry = MathHelperExtensions.Clamp(entryIdx, 0, _entries.Count - 1);
+            _selectedEntry = MathHelperExtensions.Clamp(_selectedEntry + deltaIdx, 0, _entries.Count - 1);
             _entries[_selectedEntry].OnFocusChanged(true);
             _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
-        }
-
-        /// <summary>
-        /// Gets the index of the first selectable menu entry, or zero if none are selectable.
-        /// </summary>
-        private int FindFirstSelectableEntry()
-        {
-            for (int s = 0; s < _entries.Count; s++)
-            {
-                if (_entries[s].IsSelectable)
-                {
-                    return s;
-                }
-            }
-            return 0;
         }
 
         protected SpriteDescriptor _screenDescriptor;
@@ -309,69 +293,5 @@ namespace FishingGirl.Screens
         public virtual void OnFocusChanged(bool focused)
         {
         }
-    }
-
-    /// <summary>
-    /// A plain text menu entry. 
-    /// </summary>
-    public class TextMenuEntry : MenuEntry
-    {
-        /// <summary>
-        /// Creates a new text menu entry.
-        /// </summary>
-        /// <param name="sprite">The text sprite to show.</param>
-        public TextMenuEntry(TextSprite sprite) : base(sprite)
-        {
-        }
-
-        /// <summary>
-        /// Updates the pulsing outline.
-        /// </summary>
-        /// <param name="time">The elapsed time, in seconds, since the last update.</param>
-        public override void Update(float time)
-        {
-            if (!IsSelectable)
-            {
-                return;
-            }
-            _fadeElapsed += time;
-            if (_fadeElapsed >= FadeDuration)
-            {
-                _fadeElapsed = 0;
-                _fadeIn = !_fadeIn;
-            }
-            float p = _fadeElapsed / FadeDuration;
-            float a = (_fadeIn) ? p : 1 - p;
-            ((TextSprite)Sprite).OutlineColor = new Color(OutlineColor, a);
-        }
-
-        /// <summary>
-        /// Sets the outline state.
-        /// </summary>
-        public override void OnFocusChanged(bool focused)
-        {
-            if (!IsSelectable)
-            {
-                return;
-            }
-            TextSprite textSprite = (TextSprite)Sprite;
-            if (focused)
-            {
-                textSprite.OutlineColor = OutlineColor;
-                textSprite.OutlineWidth = 2;
-                _fadeIn = false;
-                _fadeElapsed = 0;
-            }
-            else
-            {
-                textSprite.OutlineWidth = 0;
-            }
-        }
-
-        private bool _fadeIn;
-        private float _fadeElapsed;
-
-        private readonly Color OutlineColor = new Color(207, 79, 79);
-        private const float FadeDuration = 0.6f;
     }
 }

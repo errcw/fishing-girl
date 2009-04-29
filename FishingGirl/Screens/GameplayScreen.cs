@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Screen;
 using Library.Sprite;
 
+using FishingGirl.Gameplay;
+using FishingGirl.Interface;
+
 namespace FishingGirl.Screens
 {
     /// <summary>
@@ -20,6 +23,9 @@ namespace FishingGirl.Screens
         public GameplayScreen(FishingGameContext context)
         {
             _context = context;
+            _camera = new CameraSprite(_context.Game.GraphicsDevice);
+            _cameraController = new CameraController(_camera);
+            _scene = new Scene(_camera);
         }
 
         /// <summary>
@@ -28,6 +34,7 @@ namespace FishingGirl.Screens
         public void LoadContent(ContentManager content)
         {
             _pauseScreen = new PauseMenuScreenFactory().Create(_context, content);
+            _scene.LoadContent(content);
         }
 
         /// <summary>
@@ -36,7 +43,8 @@ namespace FishingGirl.Screens
         /// <param name="spriteBatch">The sprite batch to draw in.</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None/*, _camera.Transform*/);
+            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None, _camera.Transform);
+            _scene.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
@@ -50,18 +58,18 @@ namespace FishingGirl.Screens
         {
             if (_context.Input.Start.Pressed)
             {
-                PauseGame();
+                Stack.Push(_pauseScreen);
                 return;
             }
+
+            _cameraController.Update(time);
+            _scene.Update(time);
         }
 
-        /// <summary>
-        /// Pauses this game and shows the pause menu.
-        /// </summary>
-        private void PauseGame()
-        {
-            Stack.Push(_pauseScreen);
-        }
+        private CameraSprite _camera;
+        private CameraController _cameraController;
+
+        private Scene _scene;
 
         private MenuScreen _pauseScreen;
 

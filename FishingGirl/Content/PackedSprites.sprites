@@ -62,8 +62,9 @@
     <Sprite Texture="Textures/BackgroundMenu.png"/>
     <Sprite Texture="Textures/ButtonA.png"/>
     <Sprite Texture="Textures/ButtonB.png"/>
+    <Sprite Texture="Textures/ArrowUp.png"/>
+    <Sprite Texture="Textures/ArrowDown.png"/>
     <Sprite Texture="Textures/BannerLogo.png"/>
-    <Sprite Texture="Textures/Controls.png"/>
     <Sprite Texture="Textures/Timer.png"/>
     <Sprite Texture="Textures/Coin.png"/>
     <Sprite Texture="Textures/Colourable.png"/>

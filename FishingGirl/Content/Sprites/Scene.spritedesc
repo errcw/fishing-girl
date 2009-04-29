@@ -4,47 +4,47 @@
     <!-- Background parallax layers -->
     <Composite Name="Background" Layer="0.9">
       <Composite Name="Sky" Layer="1">
-        <Image Texture="Textures/LayerSky" Position="0 0" Layer="1"/>
-        <Image Texture="Textures/Sun" Position="400 5" Layer="0"/>
-        <Image Texture="Textures/Cloud1" Position="30 20" Layer="0"/>
-        <Image Texture="Textures/Cloud2" Position="700 5" Layer="0"/>
-        <Image Texture="Textures/Cloud3" Position="750 80" Layer="0"/>
+        <Image Texture="LayerSky" Position="0 0" Layer="1"/>
+        <Image Texture="Sun" Position="400 5" Layer="0"/>
+        <Image Texture="Cloud1" Position="30 20" Layer="0"/>
+        <Image Texture="Cloud2" Position="700 5" Layer="0"/>
+        <Image Texture="Cloud3" Position="750 80" Layer="0"/>
       </Composite>
-      <Image Name="FarHills" Texture="Textures/LayerFarHills" Origin="0 -70" Layer="0.5"/>
-      <Image Name="NearHills" Texture="Textures/LayerNearHills" Origin="0 -300" Layer="0"/>
+      <Image Name="FarHills" Texture="LayerFarHills" Origin="0 -70" Layer="0.5"/>
+      <Image Name="NearHills" Texture="LayerNearHills" Origin="0 -300" Layer="0"/>
     </Composite>
 
     <!-- Water -->
     <Composite Name="Water" Position="805 700" Layer="0.8">
-      <Image Texture="Textures/Water" Position="0 0" Layer="0"/>
-      <Image Texture="Textures/Water" Position="1020 0" Layer="0"/>
+      <Image Texture="Water" Position="0 0" Layer="0"/>
+      <Image Texture="Water" Position="1020 0" Layer="0"/>
       <Composite Name="Waves" Position="5 0" Layer="1">
-        <Image Texture="Textures/WaterWaves" Position="0 0"/>
-        <Image Texture="Textures/WaterWaves" Position="1024 0"/>
+        <Image Texture="WaterWaves" Position="0 0"/>
+        <Image Texture="WaterWaves" Position="1024 0"/>
       </Composite>
     </Composite>
     
     <!-- Scenery -->
     <Composite Name="Scenery" Layer="0.2">
-      <Image Texture="Textures/Landscape1" Position="105 460" Layer="1"/>
-      <Image Texture="Textures/Landscape2" Position="245 515" Layer="1"/>
-      <Image Texture="Textures/Landscape3" Position="375 420" Layer="1"/>
-      <Image Texture="Textures/Landscape4" Position="640 515" Layer="1"/>
-      <Image Texture="Textures/Landscape5" Position="830 670" Layer="1"/>
-      <Image Name="Cliff" Texture="Textures/Cliff" Position="60 680" Layer="0"/>
+      <Image Texture="Landscape1" Position="105 460" Layer="1"/>
+      <Image Texture="Landscape2" Position="245 515" Layer="1"/>
+      <Image Texture="Landscape3" Position="375 420" Layer="1"/>
+      <Image Texture="Landscape4" Position="640 515" Layer="1"/>
+      <Image Texture="Landscape5" Position="830 670" Layer="1"/>
+      <Image Name="Cliff" Texture="Cliff" Position="60 680" Layer="0"/>
       
-      <Image Texture="Textures/Landscape5" Position="2850 670" Layer="1"/>
-      <Image Texture="Textures/Landscape5" Position="2980 670" Layer="1"/>
-      <Image Texture="Textures/Landscape4" Position="3000 515" Layer="1"/>
-      <Image Texture="Textures/Landscape1" Position="3140 460" Layer="1"/>
-      <Image Texture="Textures/Landscape2" Position="3360 515" Layer="1"/>
-      <Image Name="FarCliff" Texture="Textures/Cliff" Position="2800 680" Origin="790 0" Scale="-1 1" Layer="0"/>
+      <Image Texture="Landscape5" Position="2850 670" Layer="1"/>
+      <Image Texture="Landscape5" Position="2980 670" Layer="1"/>
+      <Image Texture="Landscape4" Position="3000 515" Layer="1"/>
+      <Image Texture="Landscape1" Position="3140 460" Layer="1"/>
+      <Image Texture="Landscape2" Position="3360 515" Layer="1"/>
+      <Image Name="FarCliff" Texture="Cliff" Position="2800 680" Origin="790 0" Scale="-1 1" Layer="0"/>
     </Composite>
     
     <!-- Bear -->
     <Composite Name="Characters" Layer="0.1">
-      <Image Name="Bear" Texture="Textures/BearPurple" Position="780 655"/>
-      <Image Name="Boy" Texture="Textures/BearYellow" Position="2820 655"/>
+      <Image Name="Bear" Texture="BearPurple" Position="780 655"/>
+      <Image Name="Boy" Texture="BearYellow" Position="2820 655"/>
     </Composite>
   </Sprites>
   <Animations>
