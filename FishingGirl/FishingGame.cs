@@ -29,30 +29,16 @@ namespace FishingGirl
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             Window.Title = Resources.FishingGirl;
-        }
 
-        /// <summary>
-        /// Initialises this game.
-        /// </summary>
-        protected override void Initialize()
-        {
-            GamerServicesComponent gamer = new GamerServicesComponent(this);
-            Components.Add(gamer);
-            StorageDeviceManager storage = new StorageDeviceManager(this);
-            Components.Add(storage);
-            TrialModeObserverComponent trial = new TrialModeObserverComponent(this);
-            Components.Add(trial);
+            Components.Add(new GamerServicesComponent(this));
+            Components.Add(_storage = new StorageDeviceManager(this));
+            Components.Add(_trial = new TrialModeObserverComponent(this));
+            //Components.Add(new FPSOverlay(this){FontName=@"Fonts\Text"});
+            //Components.Add(new UnsafeAreaOverlayComponent(this));
 
-            _input = new Input();
-
-            FishingGameContext context = new FishingGameContext(this, _input, storage, trial);
-
-            _screens = new ScreenStack();
-            _screens.Push(_gameplayScreen = new GameplayScreen(context));
-            _screens.Push(_titleScreen = new TitleScreen(context));
+            Content.RootDirectory = "Content";
 
             Guide.SimulateTrialMode = true;
-            base.Initialize();
         }
 
         /// <summary>
@@ -62,9 +48,17 @@ namespace FishingGirl
         {
             base.LoadContent();
 
-            Content.RootDirectory = "Content";
-            _gameplayScreen.LoadContent(Content);
-            _titleScreen.LoadContent(Content);
+            _input = new Input();
+            FishingGameContext context = new FishingGameContext(this, _input, _storage, _trial);
+
+            GameplayScreen gameplayScreen = new GameplayScreen(_context);
+            gameplayScreen.LoadContent(Content);
+            TitleScreen titleScreen = new TitleScreen(_context);
+            titleScreen.LoadContent(Content);
+
+            _screens = new ScreenStack();
+            _screens.Push(gameplayScreen);
+            _screens.Push(titleScreen);
 
             _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
@@ -75,8 +69,6 @@ namespace FishingGirl
         /// <param name="gameTime">A snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             float time = gameTime.GetElapsedSeconds();
             if (time <= 0 || !IsActive)
             {
@@ -90,6 +82,8 @@ namespace FishingGirl
             {
                 Exit();
             }
+
+            base.Update(gameTime);
         }
 
         /// <summary>
@@ -98,18 +92,18 @@ namespace FishingGirl
         /// <param name="gameTime">A snapshot of timing values.</param>     
         protected override void Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
-
             GraphicsDevice.Clear(Color.Black);
             _screens.Draw(_spriteBatch);
+
+            base.Draw(gameTime);
         }
 
         private SpriteBatch _spriteBatch;
 
         private ScreenStack _screens;
-        private TitleScreen _titleScreen;
-        private GameplayScreen _gameplayScreen;
 
+        private StorageDeviceManager _storage;
+        private TrialModeObserverComponent _trial;
         private Input _input;
     }
 }

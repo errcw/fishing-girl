@@ -23,6 +23,8 @@ namespace FishingGirl.Screens
         public GameplayScreen(FishingGameContext context)
         {
             _context = context;
+            _context.Input.ControllerDisconnected += (s, a) => PauseGame();
+
             _camera = new CameraSprite(_context.Game.GraphicsDevice);
             _cameraController = new CameraController(_camera);
             _scene = new Scene(_camera);
@@ -58,12 +60,25 @@ namespace FishingGirl.Screens
         {
             if (_context.Input.Start.Pressed)
             {
-                Stack.Push(_pauseScreen);
+                PauseGame();
                 return;
             }
 
             _cameraController.Update(time);
             _scene.Update(time);
+        }
+
+        protected override void UpdateInactive(float time)
+        {
+            _scene.Update(time);
+        }
+
+        /// <summary>
+        /// Pauses the game and displays the pause menu.
+        /// </summary>
+        private void PauseGame()
+        {
+            Stack.Push(_pauseScreen);
         }
 
         private CameraSprite _camera;
