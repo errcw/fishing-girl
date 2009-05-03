@@ -1,1 +1,15 @@
-﻿- Reintegrate scene, etc.
+﻿TODO
+====
+
+- Add animation sound effects (sound animation)
+- Add transition when A is pressed before the animation finishes
+- Do ending too?
+
+
+Sounds
+======
+
+http://www.freesound.org/samplesViewSingle.php?id=407 (move)
+http://www.freesound.org/samplesViewSingle.php?id=71583 (select)
+http://www.freesound.org/samplesViewSingle.php?id=27361 (lure splash)
+http://www.freesound.org/samplesViewSingle.php?id=20128 (background)

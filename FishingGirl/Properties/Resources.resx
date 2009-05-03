@@ -296,7 +296,7 @@
     <value>Select</value>
   </data>
   <data name="MenuExit" xml:space="preserve">
-    <value>Return to Dashboard</value>
+    <value>Exit to Dashboard</value>
   </data>
   <data name="MenuPurchase" xml:space="preserve">
     <value>Unlock Full Game</value>
@@ -335,7 +335,7 @@
     <value>Back to Main Menu</value>
   </data>
   <data name="MenuExitYes" xml:space="preserve">
-    <value>Return to Dashboard</value>
+    <value>Exit to Dashboard</value>
   </data>
   <data name="VolumeHigh" xml:space="preserve">
     <value>High</value>
@@ -363,5 +363,47 @@
   </data>
   <data name="NagTime" xml:space="preserve">
     <value>No time limits!</value>
+  </data>
+  <data name="MenuChangeStorageDevice" xml:space="preserve">
+    <value>Change Storage Device</value>
+  </data>
+  <data name="MenuControls" xml:space="preserve">
+    <value>Controls</value>
+  </data>
+  <data name="MenuControlsA" xml:space="preserve">
+    <value>Cast, reel</value>
+  </data>
+  <data name="MenuControlsB" xml:space="preserve">
+    <value>Change lure</value>
+  </data>
+  <data name="MenuControlsStart" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="MenuCredits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="MenuCredits1" xml:space="preserve">
+    <value>Fishing Girl is brought to you by...</value>
+  </data>
+  <data name="MenuCredits2" xml:space="preserve">
+    <value>Daniel Cook</value>
+  </data>
+  <data name="MenuCredits3" xml:space="preserve">
+    <value>Eric Woroshow</value>
+  </data>
+  <data name="MenuCredits4" xml:space="preserve">
+    <value>freesound.org: TicTacShutup,</value>
+  </data>
+  <data name="MenuCredits5" xml:space="preserve">
+    <value>whorn1, junggle, acclivity</value>
+  </data>
+  <data name="MenuHelpOptions" xml:space="preserve">
+    <value>Help &amp; Options</value>
+  </data>
+  <data name="MenuHowToPlay" xml:space="preserve">
+    <value>How To Play</value>
+  </data>
+  <data name="MenuSettings" xml:space="preserve">
+    <value>Settings</value>
   </data>
 </root>

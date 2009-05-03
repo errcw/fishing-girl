@@ -439,7 +439,106 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Return to Dashboard.
+        ///   Looks up a localized string similar to Change Storage Device.
+        /// </summary>
+        internal static string MenuChangeStorageDevice {
+            get {
+                return ResourceManager.GetString("MenuChangeStorageDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Controls.
+        /// </summary>
+        internal static string MenuControls {
+            get {
+                return ResourceManager.GetString("MenuControls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cast, reel.
+        /// </summary>
+        internal static string MenuControlsA {
+            get {
+                return ResourceManager.GetString("MenuControlsA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change lure.
+        /// </summary>
+        internal static string MenuControlsB {
+            get {
+                return ResourceManager.GetString("MenuControlsB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause.
+        /// </summary>
+        internal static string MenuControlsStart {
+            get {
+                return ResourceManager.GetString("MenuControlsStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Credits.
+        /// </summary>
+        internal static string MenuCredits {
+            get {
+                return ResourceManager.GetString("MenuCredits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fishing Girl is brought to you by....
+        /// </summary>
+        internal static string MenuCredits1 {
+            get {
+                return ResourceManager.GetString("MenuCredits1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daniel Cook.
+        /// </summary>
+        internal static string MenuCredits2 {
+            get {
+                return ResourceManager.GetString("MenuCredits2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Eric Woroshow.
+        /// </summary>
+        internal static string MenuCredits3 {
+            get {
+                return ResourceManager.GetString("MenuCredits3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to freesound.org: TicTacShutup,.
+        /// </summary>
+        internal static string MenuCredits4 {
+            get {
+                return ResourceManager.GetString("MenuCredits4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to whorn1, junggle, acclivity.
+        /// </summary>
+        internal static string MenuCredits5 {
+            get {
+                return ResourceManager.GetString("MenuCredits5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exit to Dashboard.
         /// </summary>
         internal static string MenuExit {
             get {
@@ -457,11 +556,29 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Return to Dashboard.
+        ///   Looks up a localized string similar to Exit to Dashboard.
         /// </summary>
         internal static string MenuExitYes {
             get {
                 return ResourceManager.GetString("MenuExitYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help &amp; Options.
+        /// </summary>
+        internal static string MenuHelpOptions {
+            get {
+                return ResourceManager.GetString("MenuHelpOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to How To Play.
+        /// </summary>
+        internal static string MenuHowToPlay {
+            get {
+                return ResourceManager.GetString("MenuHowToPlay", resourceCulture);
             }
         }
         
@@ -489,6 +606,15 @@ namespace FishingGirl.Properties {
         internal static string MenuSelect {
             get {
                 return ResourceManager.GetString("MenuSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string MenuSettings {
+            get {
+                return ResourceManager.GetString("MenuSettings", resourceCulture);
             }
         }
         

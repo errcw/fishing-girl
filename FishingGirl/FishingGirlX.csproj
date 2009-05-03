@@ -57,9 +57,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FishingGameContext.cs" />
+    <Compile Include="Gameplay\Fish.cs" />
+    <Compile Include="Gameplay\FishBehavior.cs" />
+    <Compile Include="Gameplay\FishDescription.cs" />
+    <Compile Include="Gameplay\FishingState.cs" />
+    <Compile Include="Gameplay\FishMovement.cs" />
+    <Compile Include="Gameplay\Ocean.cs" />
     <Compile Include="Gameplay\Scene.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Interface\CameraController.cs" />
+    <Compile Include="Interface\Guide.cs" />
+    <Compile Include="Interface\GuideText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="FishingGame.cs" />
@@ -73,6 +81,7 @@
     <Compile Include="Screens\MenuScreen.cs" />
     <Compile Include="Screens\PauseMenuScreenFactory.cs" />
     <Compile Include="Screens\TitleScreen.cs" />
+    <Compile Include="Screens\TransitionScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

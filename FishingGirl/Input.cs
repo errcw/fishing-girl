@@ -20,7 +20,7 @@ namespace FishingGirl
         /// <summary>
         /// Registers the actions.
         /// </summary>
-        public Input()
+        public Input(FishingGame game) : base(game)
         {
             Register(Action, Polling.Any(Polling.One(Buttons.A), Polling.One(Buttons.Start)));
             Register(Cancel, Polling.Any(Polling.One(Buttons.B), Polling.One(Buttons.Back)));

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
   <Sprites Layer="0.401">
-    <Image Name="Body" Texture="Textures/FishSmall1Body" Position="0 0" Origin="16.5 13"/>
-    <Image Name="Fin" Texture="Textures/FishSmall1Fin" Position="-3 -10" Origin="2 15" Layer="1"/>
-    <Image Name="Tail" Texture="Textures/FishSmall1Tail" Position="15 0" Origin="2 14" Layer="1"/>
+    <Image Name="Body" Texture="FishSmall1Body" Position="0 0" Origin="16.5 13"/>
+    <Image Name="Fin" Texture="FishSmall1Fin" Position="-3 -10" Origin="2 15" Layer="1"/>
+    <Image Name="Tail" Texture="FishSmall1Tail" Position="15 0" Origin="2 14" Layer="1"/>
   </Sprites>
   <Animations>
     <Composite Name="Swim" Loop="true">

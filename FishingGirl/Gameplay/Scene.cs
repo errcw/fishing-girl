@@ -34,7 +34,7 @@ namespace FishingGirl.Gameplay
             get
             {
                 Sprite cliff = _scene.GetSprite("Cliff");
-                return cliff.Position.X + cliff.Size.X;
+                return cliff.Position.X + cliff.Size.X + _scene.GetSprite("LeftIsland").Position.X;
             }
         }
 
@@ -45,7 +45,7 @@ namespace FishingGirl.Gameplay
         {
             get
             {
-                return _scene.GetSprite("FarCliff").Position.X;
+                return _scene.GetSprite("FarCliff").Position.X + _scene.GetSprite("RightIsland").Position.X;
             }
         }
 
@@ -56,7 +56,7 @@ namespace FishingGirl.Gameplay
         {
             get
             {
-                return _scene.GetSprite("Bear").Position;
+                return _scene.GetSprite("Girl").Position + _scene.GetSprite("LeftIsland").Position;
             }
         }
 
@@ -88,9 +88,28 @@ namespace FishingGirl.Gameplay
             _scene.GetSprite("Sky").Position = _camera.Position;
             _scene.GetSprite("FarHills").Position = _camera.Position - (_camera.Position / 10);
             _scene.GetSprite("NearHills").Position = _camera.Position - (_camera.Position / 5);
-
+            
+            // idle animations
             _scene.GetAnimation("Waves").Update(time);
-            _scene.GetAnimation("BoyJump").Update(time);
+            _scene.GetAnimation("BoyJumping").Update(time);
+            
+        }
+
+        /// <summary>
+        /// Updates the story animation.
+        /// </summary>
+        /// <param name="time">The elapsed time, in seconds, since the last update.</param>
+        public void UpdateStory(float time)
+        {
+            _scene.GetAnimation("Story").Update(time);
+        }
+
+        /// <summary>
+        /// Resets the positions of the scene items for gameplay.
+        /// </summary>
+        public void EndStory()
+        {
+            _scene.GetAnimation("EndStory").Update(1f);
         }
 
         /// <summary>
@@ -102,8 +121,7 @@ namespace FishingGirl.Gameplay
             // draw sections separately to preserve layers
             _scene.GetSprite("Background").Draw(spriteBatch);
             _scene.GetSprite("Water").Draw(spriteBatch);
-            _scene.GetSprite("Scenery").Draw(spriteBatch);
-            _scene.GetSprite("Characters").Draw(spriteBatch);
+            _scene.GetSprite("Islands").Draw(spriteBatch);
         }
 
         private SpriteDescriptor _scene;

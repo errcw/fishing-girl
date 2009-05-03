@@ -53,11 +53,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <Compile Include="Fonts\Money.spritefont">
-      <Name>Money</Name>
-      <Importer>FontDescriptionImporter</Importer>
-      <Processor>FontDescriptionProcessor</Processor>
-    </Compile>
     <Compile Include="Fonts\Text.spritefont">
       <Name>Text</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -176,6 +171,24 @@
   <ItemGroup>
     <Compile Include="Sprites\NagScreen.spritedesc">
       <Name>NagScreen</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\MenuMove.wav">
+      <Name>MenuMove</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Sounds\MenuSelect.wav">
+      <Name>MenuSelect</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Controls.spritedesc">
+      <Name>Controls</Name>
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
   </ItemGroup>

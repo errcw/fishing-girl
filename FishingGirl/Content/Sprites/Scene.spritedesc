@@ -24,43 +24,117 @@
       </Composite>
     </Composite>
     
-    <!-- Scenery -->
-    <Composite Name="Scenery" Layer="0.2">
-      <Image Texture="Landscape1" Position="105 460" Layer="1"/>
-      <Image Texture="Landscape2" Position="245 515" Layer="1"/>
-      <Image Texture="Landscape3" Position="375 420" Layer="1"/>
-      <Image Texture="Landscape4" Position="640 515" Layer="1"/>
-      <Image Texture="Landscape5" Position="830 670" Layer="1"/>
-      <Image Name="Cliff" Texture="Cliff" Position="60 680" Layer="0"/>
-      
-      <Image Texture="Landscape5" Position="2850 670" Layer="1"/>
-      <Image Texture="Landscape5" Position="2980 670" Layer="1"/>
-      <Image Texture="Landscape4" Position="3000 515" Layer="1"/>
-      <Image Texture="Landscape1" Position="3140 460" Layer="1"/>
-      <Image Texture="Landscape2" Position="3360 515" Layer="1"/>
-      <Image Name="FarCliff" Texture="Cliff" Position="2800 680" Origin="790 0" Scale="-1 1" Layer="0"/>
-    </Composite>
-    
-    <!-- Bear -->
-    <Composite Name="Characters" Layer="0.1">
-      <Image Name="Bear" Texture="BearPurple" Position="780 655"/>
-      <Image Name="Boy" Texture="BearYellow" Position="2820 655"/>
+    <!-- Islands -->
+    <Composite Name="Islands" Layer="0.2">
+      <Composite Name="LeftIsland" Position="60 680">
+        <Image Texture="Landscape1" Position="45 -220" Layer="1"/>
+        <Image Texture="Landscape2" Position="185 -165" Layer="1"/>
+        <Image Texture="Landscape3" Position="315 -260" Layer="1"/>
+        <Image Texture="Landscape4" Position="580 -165" Layer="1"/>
+        <Image Texture="Landscape5" Position="770 -10" Layer="1"/>
+        <Image Name="Cliff" Texture="Cliff" Position="0 0" Layer="0.5"/>
+
+        <Image Name="Girl" Texture="BearPurple" Position="720 -25" Layer="0"/>
+        <Image Name="Girl?" Texture="QuestionMark" Position="733 -52" Layer="0" Color="1 1 1 0"/>
+        <Image Name="Girl!" Texture="ExclamationMark" Position="736 -52" Layer="0" Color="1 1 1 0"/>
+      </Composite>
+      <Composite Name="RightIsland" Position="800 680">
+        <Image Texture="Landscape5" Position="50 -10" Layer="1"/>
+        <Image Texture="Landscape5" Position="180 -10" Layer="1"/>
+        <Image Texture="Landscape4" Position="200 -165" Layer="1"/>
+        <Image Texture="Landscape1" Position="340 -220" Layer="1"/>
+        <Image Texture="Landscape2" Position="560 -165" Layer="1"/>
+        <Image Name="FarCliff" Texture="Cliff" Position="0 0" Origin="790 0" Scale="-1 1" Layer="0.5"/>
+
+        <Image Name="Boy" Texture="BearYellow" Position="20 -25" Layer="0"/>
+        <Image Name="Boy?" Texture="QuestionMark" Position="33 -52" Layer="0" Color="1 1 1 0"/>
+        <Image Name="Boy!" Texture="ExclamationMark" Position="36 -52" Layer="0" Color="1 1 1 0"/>
+      </Composite>
     </Composite>
   </Sprites>
   <Animations>
+    <!-- Idle animations -->
     <Sequential Name="Waves" Loop="true">
       <Position Sprite="Waves" Target="265 0" Duration="5" Easing="Uniform"/>
       <Position Sprite="Waves" Target="5 0" Duration="0" Easing="Uniform"/>
     </Sequential>
-    <Sequential Name="BoyJump" Loop="true">
-      <Position Sprite="Boy" Target="2820 635" Duration="0.25" Easing="QuadraticOut"/>
-      <Position Sprite="Boy" Target="2820 655" Duration="0.25" Easing="QuadraticIn"/>
+    <Sequential Name="BoyJumping" Loop="true">
+      <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+      <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
       <Delay Delay="0.5"/>
-      <Position Sprite="Boy" Target="2820 635" Duration="0.25" Easing="QuadraticOut"/>
-      <Position Sprite="Boy" Target="2820 655" Duration="0.25" Easing="QuadraticIn"/>
-      <Position Sprite="Boy" Target="2820 635" Duration="0.25" Easing="QuadraticOut"/>
-      <Position Sprite="Boy" Target="2820 655" Duration="0.25" Easing="QuadraticIn"/>
+      <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+      <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+      <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+      <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
       <Delay Delay="0.5"/>
     </Sequential>
+    
+    <!-- Initial story -->
+    <Composite Name="Story">
+      <!-- Island moving -->
+      <Sequential>
+        <Delay Delay="1.0"/>
+        <Position Sprite="RightIsland" Target="2800 680" Duration="50" Easing="QuadraticIn"/>
+      </Sequential>
+      
+      <!-- Furballs -->
+      <Sequential>
+        <!-- Jumping around happily -->
+        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+
+        <!-- Island starts to move; confusion -->
+        <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
+        <Delay Delay="0.5"/>
+        <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
+        <Delay Delay="4.5"/>
+        
+        <!-- Confusion turns to shcck -->
+        <Composite>
+          <Color Sprite="Boy?" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
+          <Color Sprite="Girl?" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
+          <Color Sprite="Boy!" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
+          <Color Sprite="Girl!" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
+        </Composite>
+        <Delay Delay="2"/>
+        
+        <!-- Shock gives way -->
+        <Composite>
+          <Color Sprite="Boy!" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
+          <Color Sprite="Girl!" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
+        </Composite>
+        
+        <!-- To jumping! -->
+        <Sequential Loop="true">
+          <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+          <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+          <Delay Delay="0.5"/>
+          <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+          <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+          <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+          <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+          <Delay Delay="0.5"/>
+        </Sequential>
+      </Sequential>
+    </Composite>
+    <!-- Reset the actors -->
+    <Composite Name="EndStory">
+      <Position Sprite="Girl" Target="720 -25" Duration="0" Easing="Uniform"/>
+      <Color Sprite="Girl?" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      <Color Sprite="Girl!" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      <Color Sprite="Boy?" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      <Color Sprite="Boy!" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      <Position Sprite="RightIsland" Target="2800 680" Duration="0" Easing="Uniform"/>
+    </Composite>
   </Animations>
 </SpriteDescriptor>

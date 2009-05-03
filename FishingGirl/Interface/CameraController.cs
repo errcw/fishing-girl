@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using Library.Sprite;
 using Library.Animation;
 
+using FishingGirl.Gameplay;
+
 namespace FishingGirl.Interface
 {
     /// <summary>
@@ -18,15 +20,15 @@ namespace FishingGirl.Interface
         /// </summary>
         /// <param name="camera">The camera to control.</param>
         /// <param name="fishing">The fishing state to monitor.</param>
-        public CameraController(CameraSprite camera/*, FishingState fishing*/)
+        public CameraController(CameraSprite camera, FishingState fishing)
         {
             _camera = camera;
             _camera.Position = InitialPosition;
             SetCameraFocus(InitialFocus);
 
-            /*_fishing = fishing;
+            _fishing = fishing;
             _fishing.ActionChanged += OnActionChanged;
-            _fishing.Event += OnFishingEvent;*/
+            _fishing.Event += OnFishingEvent;
         }
 
         /// <summary>
@@ -34,7 +36,6 @@ namespace FishingGirl.Interface
         /// </summary>
         public void Update(float time)
         {
-            /*
             if (_followLure)
             {
                 SetCameraFocus(_fishing.LurePosition);
@@ -46,7 +47,6 @@ namespace FishingGirl.Interface
                     _cameraAnimation = null;
                 }
             }
-            */
             UpdateDebugControls();
         }
 
@@ -72,7 +72,6 @@ namespace FishingGirl.Interface
                centrePosition.Y - _camera.Size.Y / 2);
         }
 
-        /*
         /// <summary>
         /// Checks the action for the lure hitting the water.
         /// </summary>
@@ -88,8 +87,8 @@ namespace FishingGirl.Interface
                 {
                     // undo the caught transform if necessary
                     _cameraAnimation = new CompositeAnimation(
-                        new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Easing.QuadraticOut),
-                        new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Easing.QuadraticOut));
+                        new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)),
+                        new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)));
                 }
             }
             else if (e.Action == FishingAction.Cast)
@@ -108,15 +107,14 @@ namespace FishingGirl.Interface
                 FishingState fishingState = (FishingState)stateObj;
                 _cameraAnimation = new SequentialAnimation(
                     new CompositeAnimation(
-                        new PositionAnimation(_camera, GetFocusPosition(CatchFocus), CatchScaleTime, Easing.QuadraticOut),
-                        new ScaleAnimation(_camera, CatchScale, CatchScaleTime, Easing.QuadraticOut)),
+                        new PositionAnimation(_camera, GetFocusPosition(CatchFocus), CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)),
+                        new ScaleAnimation(_camera, CatchScale, CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut))),
                     new DelayAnimation(CatchDelayTime),
                     new CompositeAnimation(
-                        new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Easing.QuadraticOut),
-                        new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Easing.QuadraticOut)));
+                        new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)),
+                        new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut))));
             }
         }
-        */
 
         /// <summary>
         /// Implements debug camera controls.
@@ -146,13 +144,13 @@ namespace FishingGirl.Interface
 #endif
         }
 
-        //private FishingState _fishing;
+        private FishingState _fishing;
 
         private CameraSprite _camera;
         private IAnimation _cameraAnimation;
         private bool _followLure;
 
-        private readonly Vector2 InitialPosition = new Vector2(2200, 150);
+        private readonly Vector2 InitialPosition = new Vector2(100, 150);
         private readonly Vector2 InitialFocus = new Vector2(740, 510);
         private readonly Vector2 SwingFocus = new Vector2(900, 540);
         private readonly Vector2 CatchFocus = new Vector2(1200, 750);

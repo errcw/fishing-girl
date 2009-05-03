@@ -69,12 +69,16 @@
     <Sprite Texture="Textures/Coin.png"/>
     <Sprite Texture="Textures/Colourable.png"/>
     <Sprite Texture="Textures/Heart1.png"/>
+    <Sprite Texture="Textures/Controls.png"/>
   </Group>
   
   <Group Name="Landscape">
     <Sprite Texture="Textures/BearPurple.png"/>
     <Sprite Texture="Textures/BearYellow.png"/>
     <Sprite Texture="Textures/Bird.png"/>
+
+    <Sprite Texture="Textures/QuestionMark.png"/>
+    <Sprite Texture="Textures/ExclamationMark.png"/>
 
     <Sprite Texture="Textures/RodBronze.png"/>
     <Sprite Texture="Textures/RodSilver.png"/>

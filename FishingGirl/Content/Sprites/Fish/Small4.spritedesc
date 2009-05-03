@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
   <Sprites Layer="0.404">
-    <Image Name="Body" Texture="Textures/FishSmall4Body" Position="0 0" Origin="16 13"/>
-    <Image Name="Tail" Texture="Textures/FishSmall4Tail" Position="14 -1" Origin="2 23" Layer="1"/>
+    <Image Name="Body" Texture="FishSmall4Body" Position="0 0" Origin="16 13"/>
+    <Image Name="Tail" Texture="FishSmall4Tail" Position="14 -1" Origin="2 23" Layer="1"/>
   </Sprites>
   <Animations>
     <Composite Name="Swim" Loop="true">

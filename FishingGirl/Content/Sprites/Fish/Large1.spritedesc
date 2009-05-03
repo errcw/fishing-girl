@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
   <Sprites Layer="0.409">
-    <Image Name="Body" Texture="Textures/FishLarge1Body" Position="0 0" Origin="84.5 38.5"/>
-    <Image Name="Mouth" Texture="Textures/FishLarge1Mouth" Position="-27.5 4.5" Origin="55 6" Rotation="0" Layer="1"/>
-    <Image Name="Fin" Texture="Textures/FishLarge1Fin" Position="5.5 33.5" Origin="6 4" Layer="1"/>
-    <Image Name="Tail" Texture="Textures/FishLarge1Tail" Position="81.5 3.5" Origin="2 18" Layer="1"/>
+    <Image Name="Body" Texture="FishLarge1Body" Position="0 0" Origin="84.5 38.5"/>
+    <Image Name="Mouth" Texture="FishLarge1Mouth" Position="-27.5 4.5" Origin="55 6" Rotation="0" Layer="1"/>
+    <Image Name="Fin" Texture="FishLarge1Fin" Position="5.5 33.5" Origin="6 4" Layer="1"/>
+    <Image Name="Tail" Texture="FishLarge1Tail" Position="81.5 3.5" Origin="2 18" Layer="1"/>
   </Sprites>
   <Animations>
     <Composite Name="Swim" Loop="true">

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
   <Sprites>
-    <Image Texture="Colourable" Position="0 0" Scale="1280 720" Color="0 0 0 0.5" Layer="1"/>
+    <!--<Image Texture="Colourable" Position="0 0" Scale="1280 720" Color="0 0 0 0.5" Layer="1"/>-->
     <Image Texture="BannerLogo" Position="0 0"/>
     <Text Name="Text" Font="Fonts/Text" Text="Press" Position="550 600"/>
     <Image Name="Button" Texture="ButtonA" Position="640 616" Origin="16 16"/>

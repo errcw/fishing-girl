@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -43,6 +44,8 @@ namespace FishingGirl.Screens
             _screenDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/MenuScreen").Create(content);
             _screenDescriptor.GetSprite<TextSprite>("TextSelect").Text = Resources.MenuSelect;
             _screenDescriptor.GetSprite<TextSprite>("TextBack").Text = Resources.MenuBack;
+            _soundMove = content.Load<SoundEffect>("Sounds/MenuMove");
+            _soundSelect = content.Load<SoundEffect>("Sounds/MenuSelect");
         }
 
         /// <summary>
@@ -179,6 +182,7 @@ namespace FishingGirl.Screens
             if (_context.Input.Action.Pressed && _entries[_selectedEntry].IsSelectable)
             {
                 _entries[_selectedEntry].OnSelected();
+                _soundSelect.Play();
             }
 
             _entries[_selectedEntry].Update(time);
@@ -221,13 +225,19 @@ namespace FishingGirl.Screens
         /// <param name="deltaIdx">The change in selected index.</param>
         protected virtual void SetSelected(int deltaIdx)
         {
+            int selected = _selectedEntry;
             _entries[_selectedEntry].OnFocusChanged(false);
             _selectedEntry = MathHelperExtensions.Clamp(_selectedEntry + deltaIdx, 0, _entries.Count - 1);
             _entries[_selectedEntry].OnFocusChanged(true);
             _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
+            if (selected != _selectedEntry)
+            {
+                _soundMove.Play();
+            }
         }
 
         protected SpriteDescriptor _screenDescriptor;
+        protected SoundEffect _soundMove, _soundSelect;
 
         protected List<MenuEntry> _entries = new List<MenuEntry>();
         protected int _selectedEntry;

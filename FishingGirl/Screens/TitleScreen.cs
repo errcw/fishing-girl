@@ -28,7 +28,7 @@ namespace FishingGirl.Screens
             _context = context;
             ShowBeneath = true;
             TransitionOnTime = 0f;
-            TransitionOffTime = 0.5f;
+            TransitionOffTime = 1.5f;
         }
 
         /// <summary>

@@ -24,35 +24,32 @@ namespace FishingGirl.Screens
     {
         public MenuScreen Create(FishingGameContext context, ContentManager content)
         {
-            // use a common font
-            _menuFont = content.Load<SpriteFont>("Fonts/Text");
+            _menuFont = content.Load<SpriteFont>("Fonts/Text"); // use a common font
 
             MenuScreen screen = new MenuScreen(context);
             screen.IsRoot = true;
             screen.LoadContent(content);
 
-            MenuScreen badgesScreen = new BadgesScreen(context);
-            badgesScreen.LoadContent(content);
+            MenuScreen badgesScreen = BuildBadges(context, content);
+            MenuScreen optionsScreen = BuildOptions(context, content);
             MenuScreen confirmScreen = BuildExitConfirm(context, content);
             MenuScreen nagScreen = BuildNag(context, content);
 
             screen.AddEntry(BuildTextEntry(Resources.MenuResume, (s, a) => screen.Stack.Pop()));
-            screen.AddEntry(BuildTextEntry(Resources.MenuBadges, (s, a) => screen.Stack.Push(badgesScreen)));
             if (Guide.IsTrialMode)
             {
                 MenuEntry purchase = BuildTextEntry(Resources.MenuPurchase, (s, a) => ShowPurchaseScreen(context));
                 screen.AddEntry(purchase);
                 context.Trial.TrialModeEnded += delegate(object s, EventArgs a) { screen.RemoveEntry(purchase); screen.LayoutEntries(); };
             }
+            screen.AddEntry(BuildTextEntry(Resources.MenuBadges, (s, a) => screen.Stack.Push(badgesScreen)));
+            screen.AddEntry(BuildTextEntry(Resources.MenuHelpOptions, (s, a) => screen.Stack.Push(optionsScreen)));
             screen.AddEntry(BuildTextEntry(Resources.MenuExit, (s, a) => screen.Stack.Push(Guide.IsTrialMode ? nagScreen : confirmScreen)));
             screen.LayoutEntries();
 
             return screen;
         }
 
-        /// <summary>
-        /// Builds the exit confirmation screen.
-        /// </summary>
         private MenuScreen BuildExitConfirm(FishingGameContext context, ContentManager content)
         {
             MenuScreen screen = new MenuScreen(context);
@@ -63,9 +60,6 @@ namespace FishingGirl.Screens
             return screen;
         }
 
-        /// <summary>
-        /// Builds the buy-me nag screen.
-        /// </summary>
         private MenuScreen BuildNag(FishingGameContext context, ContentManager content)
         {
             MenuScreen screen = new MenuScreen(context);
@@ -79,7 +73,7 @@ namespace FishingGirl.Screens
 
             context.Trial.TrialModeEnded += delegate(object s, EventArgs a) { if (screen.State == ScreenState.Active) { screen.Stack.Pop(); } };
 
-            SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>(@"Sprites\NagScreen").Create(content);
+            SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>("Sprites/NagScreen").Create(content);
             nagDesc.GetSprite<TextSprite>("Bubble").Text = Resources.NagBubble;
             nagDesc.GetSprite<TextSprite>("Time").Text = Resources.NagTime;
             nagDesc.GetSprite<TextSprite>("Badges").Text = Resources.NagBadges;
@@ -90,6 +84,67 @@ namespace FishingGirl.Screens
             return screen;
         }
 
+        private MenuScreen BuildBadges(FishingGameContext context, ContentManager content)
+        {
+            BadgesScreen badgesScreen = new BadgesScreen(context);
+            badgesScreen.LoadContent(content);
+            return badgesScreen;
+        }
+
+        private MenuScreen BuildOptions(FishingGameContext context, ContentManager content)
+        {
+            MenuScreen screen = new MenuScreen(context);
+            screen.LoadContent(content);
+
+            MenuScreen controlsScreen = BuildControls(context, content);
+            MenuScreen creditsScreen = BuildCredits(context, content);
+            MenuScreen settingsScreen = BuildSettings(context, content);
+
+            screen.AddEntry(BuildTextEntry(Resources.MenuControls, (s, a) => screen.Stack.Push(controlsScreen)));
+            screen.AddEntry(BuildTextEntry(Resources.MenuCredits, (s, a) => screen.Stack.Push(creditsScreen)));
+            screen.AddEntry(BuildTextEntry(Resources.MenuSettings, (s, a) => screen.Stack.Push(settingsScreen)));
+
+            screen.LayoutEntries();
+            return screen;
+        }
+
+        private MenuScreen BuildControls(FishingGameContext context, ContentManager content)
+        {
+            MenuScreen screen = new MenuScreen(context);
+            screen.LoadContent(content);
+
+            SpriteDescriptor controlsDesc = content.Load<SpriteDescriptorTemplate>("Sprites/Controls").Create(content);
+            controlsDesc.GetSprite<TextSprite>("AText").Text = Resources.MenuControlsA;
+            controlsDesc.GetSprite<TextSprite>("BText").Text = Resources.MenuControlsB;
+            controlsDesc.GetSprite<TextSprite>("StartText").Text = Resources.MenuControlsStart;
+            screen.AddEntry(BuildImageEntry(controlsDesc.Sprite));
+
+            screen.LayoutEntries();
+            return screen;
+        }
+
+        private MenuScreen BuildCredits(FishingGameContext context, ContentManager content)
+        {
+            MenuScreen screen = new MenuScreen(context);
+            screen.LoadContent(content);
+            screen.AddEntry(BuildTextEntry(Resources.MenuCredits1));
+            screen.AddEntry(BuildTextEntry(Resources.MenuCredits2));
+            screen.AddEntry(BuildTextEntry(Resources.MenuCredits3));
+            screen.AddEntry(BuildTextEntry(Resources.MenuCredits4));
+            screen.AddEntry(BuildTextEntry(Resources.MenuCredits5));
+            screen.LayoutEntries();
+            return screen;
+        }
+
+        private MenuScreen BuildSettings(FishingGameContext context, ContentManager content)
+        {
+            MenuScreen screen = new MenuScreen(context);
+            screen.LoadContent(content);
+            screen.AddEntry(BuildTextEntry(Resources.MenuChangeStorageDevice, (s, a) => context.Storage.PromptForDevice()));
+            screen.LayoutEntries();
+            return screen;
+        }
+
         /// <summary>
         /// Returns a text menu entry.
         /// </summary>
@@ -97,6 +152,26 @@ namespace FishingGirl.Screens
         {
             MenuEntry entry = new TextMenuEntry(new TextSprite(_menuFont, text));
             entry.Selected += e;
+            return entry;
+        }
+
+        /// <summary>
+        /// Returns a non-selectable textual menu entry.
+        /// </summary>
+        private MenuEntry BuildTextEntry(string text)
+        {
+            MenuEntry entry = new MenuEntry(new TextSprite(_menuFont, text));
+            entry.IsSelectable = false;
+            return entry;
+        }
+
+        /// <summary>
+        /// Returns a non-selectable image entry.
+        /// </summary>
+        private MenuEntry BuildImageEntry(Sprite sprite)
+        {
+            MenuEntry entry = new MenuEntry(sprite);
+            entry.IsSelectable = false;
             return entry;
         }
 

@@ -33,6 +33,8 @@ namespace FishingGirl
             Components.Add(new GamerServicesComponent(this));
             Components.Add(_storage = new StorageDeviceManager(this));
             Components.Add(_trial = new TrialModeObserverComponent(this));
+            Components.Add(_input = new Input(this));
+            Components.Add(_screens = new ScreenStack(this));
             //Components.Add(new FPSOverlay(this){FontName=@"Fonts\Text"});
             //Components.Add(new UnsafeAreaOverlayComponent(this));
 
@@ -48,19 +50,15 @@ namespace FishingGirl
         {
             base.LoadContent();
 
-            _input = new Input();
             FishingGameContext context = new FishingGameContext(this, _input, _storage, _trial);
 
-            GameplayScreen gameplayScreen = new GameplayScreen(_context);
+            GameplayScreen gameplayScreen = new GameplayScreen(context);
             gameplayScreen.LoadContent(Content);
-            TitleScreen titleScreen = new TitleScreen(_context);
+            TitleScreen titleScreen = new TitleScreen(context);
             titleScreen.LoadContent(Content);
 
-            _screens = new ScreenStack();
             _screens.Push(gameplayScreen);
             _screens.Push(titleScreen);
-
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         /// <summary>
@@ -74,15 +72,10 @@ namespace FishingGirl
             {
                 return; // discard "empty" updates
             }
-
-            _input.Update(time);
-            _screens.Update(time);
-
             if (_screens.ActiveScreen == null)
             {
                 Exit();
             }
-
             base.Update(gameTime);
         }
 
@@ -93,17 +86,12 @@ namespace FishingGirl
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
-            _screens.Draw(_spriteBatch);
-
             base.Draw(gameTime);
         }
 
-        private SpriteBatch _spriteBatch;
-
         private ScreenStack _screens;
-
+        private Input _input;
         private StorageDeviceManager _storage;
         private TrialModeObserverComponent _trial;
-        private Input _input;
     }
 }
