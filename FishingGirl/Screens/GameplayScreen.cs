@@ -28,12 +28,12 @@ namespace FishingGirl.Screens
 
             _camera = new CameraSprite(_context.Game.GraphicsDevice);
             
-            _scene = new Scene(_camera);
+            _scene = new Scene();
             _fishing = new FishingState(this, _scene);
             _ocean = new Ocean(_fishing);
 
-            _guideText = new GuideText(_camera);
-            _guide = new Guide(_guideText, this, _fishing);
+            _guideView = new GuideView(_camera);
+            _guide = new Guide(_guideView, this, _fishing);
 
             _cameraController = new CameraController(_camera, _fishing);
 
@@ -45,15 +45,23 @@ namespace FishingGirl.Screens
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            _transitionScreen = new TransitionScreen();
-            _transitionScreen.LoadContent(content);
-            _pauseScreen = new PauseMenuScreenFactory().Create(_context, content);
+            _guideView.LoadContent(content);
 
-            _guideText.LoadContent(content);
-            
             _scene.LoadContent(content);
             _fishing.LoadContent(content);
             _ocean.LoadContent(content);
+
+            // create the views after loading the content
+            _sceneView = new SceneView(_scene, _camera);
+            _oceanView = new OceanView(_ocean);
+            _fishingView = new FishingView(_fishing, _context);
+            _fishCaughtView = new FishCaughtView(_fishing);
+            _fishEatenView = new FishEatenView(_fishing);
+
+            // load the other necessary support bits
+            _transitionScreen = new TransitionScreen();
+            _transitionScreen.LoadContent(content);
+            _pauseScreen = new PauseMenuScreenFactory().Create(_context, content);
         }
 
         /// <summary>
@@ -63,13 +71,18 @@ namespace FishingGirl.Screens
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None, _camera.Transform);
-            _scene.Draw(spriteBatch);
-            _ocean.Draw(spriteBatch);
-            _fishing.Draw(spriteBatch);
+            _sceneView.Draw(spriteBatch);
+            if (_state == GameState.Game)
+            {
+                _fishingView.Draw(spriteBatch);
+                _fishCaughtView.Draw(spriteBatch);
+                _fishEatenView.Draw(spriteBatch);
+            }
+            _oceanView.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-            _guideText.Draw(spriteBatch);
+            _guideView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -104,6 +117,9 @@ namespace FishingGirl.Screens
             if (_state == GameState.Story || _state == GameState.Transition)
             {
                 _scene.UpdateStory(time);
+
+                _ocean.Update(time);
+                _oceanView.Update(time);
             }
         }
 
@@ -120,12 +136,18 @@ namespace FishingGirl.Screens
             }
 
             _cameraController.Update(time);
+
             _scene.Update(time);
+            _sceneView.Update(time);
             _ocean.Update(time);
+            _oceanView.Update(time);
             _fishing.Update(time, _context.Input);
+            _fishingView.Update(time);
+            _fishCaughtView.Update(time);
+            _fishEatenView.Update(time);
 
             _guide.Update(time);
-            _guideText.Update(time);
+            _guideView.Update(time);
         }
 
         /// <summary>
@@ -152,11 +174,18 @@ namespace FishingGirl.Screens
         private CameraController _cameraController;
 
         private Scene _scene;
+        private SceneView _sceneView;
+
         private Ocean _ocean;
+        private OceanView _oceanView;
+
         private FishingState _fishing;
+        private FishingView _fishingView;
+        private FishCaughtView _fishCaughtView;
+        private FishEatenView _fishEatenView;
 
         private Guide _guide;
-        private GuideText _guideText;
+        private GuideView _guideView;
 
         private TransitionScreen _transitionScreen;
         private MenuScreen _pauseScreen;

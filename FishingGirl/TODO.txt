@@ -1,9 +1,11 @@
 ﻿TODO
 ====
 
-- Add animation sound effects (sound animation)
-- Add transition when A is pressed before the animation finishes
-- Do ending too?
+- Add sound effects: story, menu, fishing
+- Fix fishing mechanics
+- Add store, lure types
+- Add badges
+- Add ending
 
 
 Sounds

@@ -38,7 +38,7 @@
         <Image Name="Girl?" Texture="QuestionMark" Position="733 -52" Layer="0" Color="1 1 1 0"/>
         <Image Name="Girl!" Texture="ExclamationMark" Position="736 -52" Layer="0" Color="1 1 1 0"/>
       </Composite>
-      <Composite Name="RightIsland" Position="800 680">
+      <Composite Name="RightIsland" Position="2800 680">
         <Image Texture="Landscape5" Position="50 -10" Layer="1"/>
         <Image Texture="Landscape5" Position="180 -10" Layer="1"/>
         <Image Texture="Landscape4" Position="200 -165" Layer="1"/>
@@ -73,6 +73,7 @@
     <Composite Name="Story">
       <!-- Island moving -->
       <Sequential>
+        <Position Sprite="RightIsland" Target="800 680" Duration="0" Easing="QuadraticIn"/>
         <Delay Delay="1.0"/>
         <Position Sprite="RightIsland" Target="2800 680" Duration="50" Easing="QuadraticIn"/>
       </Sequential>

@@ -20,7 +20,7 @@ namespace FishingGirl.Interface
         /// </summary>
         /// <param name="text">The text used to display the guide.</param>
         /// <param name="fishing">The game state to monitor.</param>
-        public Guide(GuideText text, GameplayScreen game, FishingState fishing)
+        public Guide(GuideView text, GameplayScreen game, FishingState fishing)
         {
             _text = text;
             fishing.ActionChanged += OnActionChanged;
@@ -114,7 +114,7 @@ namespace FishingGirl.Interface
         private bool _showBrokenGuide = true;
         private bool _showLureGuide = false;
 
-        private GuideText _text;
+        private GuideView _text;
         private DelayAnimation _textTimeout;
 
         private const float ReelInGuideTime = 3f;

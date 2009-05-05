@@ -7,11 +7,21 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Library.Sprite;
 using Library.Sprite.Pipeline;
-using Library.Animation;
-using Library.Extensions;
 
 namespace FishingGirl.Gameplay
 {
+    /// <summary>
+    /// The state of a fish.
+    /// </summary>
+    public enum FishState
+    {
+        Swimming,
+        ChasingLure,
+        Hooked,
+        Eaten,
+        Caught
+    }
+
     /// <summary>
     /// A fish.
     /// </summary>
@@ -20,35 +30,37 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// A description of this fish.
         /// </summary>
-        public FishDescription Description
-        {
-            get
-            {
-                return _description;
-            }
-        }
+        public FishDescription Description { get { return _description; } }
 
         /// <summary>
         /// The movement of this fish.
         /// </summary>
-        public FishMovement Movement
-        {
-            get
-            {
-                return _movement;
-            }
-        }
+        public FishMovement Movement { get { return _movement; } }
+
+        /// <summary>
+        /// The position of this fish.
+        /// </summary>
+        public Vector2 Position { get { return _position; } }
+
+        /// <summary>
+        /// The velocity of this fish.
+        /// </summary>
+        public Vector2 Velocity { get { return _velocity; } }
+
+        /// <summary>
+        /// The current action of this fish.
+        /// </summary>
+        public FishState State { get { return _state; } }
 
         /// <summary>
         /// The sprite used to draw this fish.
         /// </summary>
-        public Sprite Sprite
-        {
-            get
-            {
-                return _sprite;
-            }
-        }
+        public SpriteDescriptor Sprite { get { return _fishDescriptor; } }
+
+        /// <summary>
+        /// The fishing state to which this fish is bound.
+        /// </summary>
+        internal FishingState Fishing { get { return _fishing; } }
 
         /// <summary>
         /// Creates a new fish.
@@ -59,6 +71,9 @@ namespace FishingGirl.Gameplay
             _movement = movement;
             _behavior = behavior;
             _fishing = fishing;
+
+            _position = new Vector2(700f, _movement.Range.Y);
+            _velocity = _targetVelocity = new Vector2(_movement.Speed, 0f);
         }
 
         /// <summary>
@@ -67,13 +82,7 @@ namespace FishingGirl.Gameplay
         public void LoadContent(ContentManager content)
         {
             _fishDescriptor = content.Load<SpriteDescriptorTemplate>(_description.DescriptorName).Create(content);
-            _sprite = (CompositeSprite)_fishDescriptor.Sprite;
-
             _mouthOffset = _fishDescriptor.GetSprite("Body").Size.X / 2f;
-            _swimAnimation = _fishDescriptor.GetAnimation("Swim");
-
-            _sprite.Position = new Vector2(700f, _movement.Range.Y);
-            _velocity = _targetVelocity = new Vector2(_movement.Speed, 0f);
         }
 
         /// <summary>
@@ -82,63 +91,38 @@ namespace FishingGirl.Gameplay
         /// <param name="time">The time, in seconds, since the last update.</param>
         public void Update(float time)
         {
-            UpdateAnimations(time);
-            if (_hooked)
+            switch (_state)
             {
-                UpdateHooked(time);
-            }
-            else
-            {
-                bool wasChasingLure = _chasingLure;
-                _chasingLure = IsLureVisible(_fishing.LurePosition);
-                if (_chasingLure)
-                {
-                    if (!wasChasingLure)
-                    {
-                        OnChaseStart();
-                    }
+                case FishState.Swimming:
+                    UpdateSwim(time);
+                    break;
+
+                case FishState.ChasingLure:
                     UpdateChase(time);
-                }
-                else
-                {
-                    if (wasChasingLure)
-                    {
-                        OnChaseEnd();
-                    }
-                    UpdateIdle(time);
-                }
+                    break;
 
-                UpdatePosition(time);
-                _sprite.Rotation = GetRotation();
-                _sprite.Scale = GetScale();
+                case FishState.Eaten: goto case FishState.Hooked;
+                case FishState.Caught: goto case FishState.Hooked;
+                case FishState.Hooked:
+                    UpdateHooked(time);
+                    break;
             }
         }
 
         /// <summary>
-        /// Draws this fish.
+        /// Occurs when this fish is eaten.
         /// </summary>
-        /// <param name="spriteBatch">The sprite batch to draw in.</param>
-        public void Draw(SpriteBatch spriteBatch)
+        public void OnEaten()
         {
-            _sprite.Draw(spriteBatch);
+            _state = FishState.Eaten;
         }
 
         /// <summary>
-        /// Updates the animations managed by this fish.
+        /// Occurs when this fish is caught.
         /// </summary>
-        private void UpdateAnimations(float time)
+        public void OnCaught()
         {
-            if (!_hooked)
-            {
-                _swimAnimation.Update(_chasingLure ? time * 2 : time);
-            }
-            if (_mouthAnimation != null)
-            {
-                if (!_mouthAnimation.Update(time))
-                {
-                    _mouthAnimation = null;
-                }
-            }
+            _state = FishState.Caught;
         }
 
         /// <summary>
@@ -164,28 +148,36 @@ namespace FishingGirl.Gameplay
                 }
             }
 
-            _sprite.Position += _velocity * time;
+            _position += _velocity * time;
         }
 
         /// <summary>
         /// Updates this fish when no lure is in sight.
         /// </summary>
-        private void UpdateIdle(float time)
+        private void UpdateSwim(float time)
         {
+            UpdatePosition(time);
+
+            if (IsLureVisible(_fishing.LurePosition))
+            {
+                _state = FishState.ChasingLure;
+                return;
+            }
+
             Vector2 direction = new Vector2(_velocity.X > 0 ? 1f : -1f, 0f);
-            if (_sprite.Position.X < _movement.Range.X)
+            if (_position.X < _movement.Range.X)
             {
                 direction.X = 1f;
             }
-            else if (_sprite.Position.X > _movement.Range.Z)
+            else if (_position.X > _movement.Range.Z)
             {
                 direction.X = -1f;
             }
-            if (_sprite.Position.Y < _movement.Range.Y)
+            if (_position.Y < _movement.Range.Y)
             {
                 direction.Y = 1f;
             }
-            else if (_sprite.Position.Y > _movement.Range.W)
+            else if (_position.Y > _movement.Range.W)
             {
                 direction.Y = -1f;
             }
@@ -201,19 +193,26 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private void UpdateChase(float time)
         {
-            _chasingLure = true;
+            UpdatePosition(time);
+
+            if (!IsLureVisible(_fishing.LurePosition))
+            {
+                _state = FishState.Swimming;
+                return;
+            }
 
             Vector2 toLure = _fishing.LurePosition - GetMouthPosition();
             if (toLure.Length() <= LureBiteDistance)
             {
                 if (_fishing.BiteLure(this))
                 {
-                    OnHooked();
+                    _state = FishState.Hooked;
+                    return;
                 }
             }
             else
             {
-                Vector2 v = Vector2.Normalize(_fishing.LurePosition - _sprite.Position);
+                Vector2 v = Vector2.Normalize(_fishing.LurePosition - _position);
                 v *= (_movement.Speed * _behavior.LungeSpeedMultiplier);
                 _targetVelocity = v;
             }
@@ -224,45 +223,7 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private void UpdateHooked(float time)
         {
-            _sprite.Position = _fishing.LurePosition;
-
-            if (!MathHelperExtensions.EpsilonEquals(_sprite.Origin.X, 0f, 2f))
-            {
-                float rot = HookedFallSpeed * time;
-                _sprite.Rotation -= rot;
-                _sprite.Origin = Vector2.Transform(_sprite.Origin,
-                    Quaternion.CreateFromAxisAngle(Vector3.UnitZ, (_sprite.Scale.X > 0) ? rot : -rot));
-            }
-        }
-
-        /// <summary>
-        /// Indicates that this fish has started chasing a lure.
-        /// </summary>
-        private void OnChaseStart()
-        {
-            OpenMouth();
-        }
-
-        /// <summary>
-        /// Indicates this fish has stopped chasing a lure.
-        /// </summary>
-        private void OnChaseEnd()
-        {
-            CloseMouth();
-        }
-
-        /// <summary>
-        /// Indicates this fish has been hooked by a lure.
-        /// </summary>
-        private void OnHooked()
-        {
-            _hooked = true;
-
-            _sprite.Scale = new Vector2(Math.Sign(_sprite.Scale.X), 1f);
-            _sprite.Origin = _sprite.Position - _fishing.LurePosition;
-            _sprite.Position = _fishing.LurePosition;
-
-            CloseMouth();
+            _position = _fishing.LurePosition;
         }
 
         /// <summary>
@@ -293,7 +254,7 @@ namespace FishingGirl.Gameplay
         private Vector2 GetMouthPosition()
         {
             Vector2 facing = GetFacing();
-            Vector2 mouthPosition = _sprite.Position + _mouthOffset * facing;
+            Vector2 mouthPosition = _position + _mouthOffset * facing;
             return mouthPosition;
         }
 
@@ -305,82 +266,14 @@ namespace FishingGirl.Gameplay
             return Vector2.Normalize(_velocity);
         }
 
-        /// <summary>
-        /// Returns a rotation that indicates the current velocity of this fish.
-        /// </summary>
-        private float GetRotation()
-        {
-            Vector2 facing = Vector2.Normalize(_velocity);
-            double angle = Math.Acos(Math.Abs(facing.X));
-            if (facing.Y < 0)
-            {
-                angle = -angle;
-            }
-            return (float)angle;
-        }
+        private FishState _state;
 
-        /// <summary>
-        /// Returns a scale that indicates the current velocity of this fish.
-        /// </summary>
-        private Vector2 GetScale()
-        {
-            float scaleX = 1f;
-            float speed = _velocity.Length();
-            if (speed < _movement.Speed)
-            {
-                scaleX = Math.Max(speed / _movement.Speed, MinScale);
-            }
-            if (_velocity.X > 0)
-            {
-                scaleX = -scaleX;
-            }
-            return new Vector2(scaleX, 1f);
-        }
-
-        /// <summary>
-        /// Starts the mouth open animation.
-        /// </summary>
-        private void OpenMouth()
-        {
-            _mouthAnimation = _fishDescriptor.GetAnimation("MouthOpen");
-            if (_mouthAnimation != null)
-            {
-                _mouthAnimation.Start();
-            }
-        }
-
-        /// <summary>
-        /// Starts the mouth closed animation.
-        /// </summary>
-        private void CloseMouth()
-        {
-            IAnimation closeAnimation = _fishDescriptor.GetAnimation("MouthClose");
-            if (closeAnimation != null)
-            {
-                closeAnimation.Start();
-                if (_mouthAnimation != null)
-                {
-                    _mouthAnimation = new SequentialAnimation(_mouthAnimation, closeAnimation);
-                }
-                else
-                {
-                    _mouthAnimation = closeAnimation;
-                }
-            }
-        }
-
+        private Vector2 _position;
         private Vector2 _velocity;
         private Vector2 _targetVelocity;
 
-        private bool _chasingLure;
-        private bool _hooked;
-
         private SpriteDescriptor _fishDescriptor;
-        private Sprite _sprite;
-
         private float _mouthOffset;
-        private IAnimation _swimAnimation;
-        private IAnimation _mouthAnimation;
 
         private FishDescription _description;
         private FishMovement _movement;
@@ -388,11 +281,6 @@ namespace FishingGirl.Gameplay
 
         private FishingState _fishing;
 
-        private const float LureSightDistance = 150f;
-        private const float LureSightAngle = (float)(Math.PI / 6);
         private const float LureBiteDistance = 5f;
-
-        private const float HookedFallSpeed = 3f;
-        private const float MinScale = 0.2f;
     }
 }

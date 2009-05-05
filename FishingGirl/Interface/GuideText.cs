@@ -13,13 +13,13 @@ namespace FishingGirl.Interface
     /// <summary>
     /// Displays a text label to guide the player's actions.
     /// </summary>
-    public class GuideText
+    public class GuideView
     {
         /// <summary>
         /// Creates a new guide text display.
         /// </summary>
         /// <param name="camera">The camera viewing this text.</param>
-        public GuideText(CameraSprite camera)
+        public GuideView(CameraSprite camera)
         {
             TitleAreaOffset = new Vector2(camera.TitleSafeArea.X, 0f);
         }

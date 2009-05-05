@@ -192,6 +192,44 @@
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Fishing\RodSilver.spritedesc">
+      <Name>RodSilver</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\RodLegendary.spritedesc">
+      <Name>RodLegendary</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\RodGold.spritedesc">
+      <Name>RodGold</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\LureSmall.spritedesc">
+      <Name>LureSmall</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\Line.spritedesc">
+      <Name>Line</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\LureMedium.spritedesc">
+      <Name>LureMedium</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\LureBomb.spritedesc">
+      <Name>LureBomb</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\LureLarge.spritedesc">
+      <Name>LureLarge</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+    <Compile Include="Sprites\Fishing\RodBronze.spritedesc">
+      <Name>RodBronze</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v3.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

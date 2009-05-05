@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites>
+    <Image Texture="Colourable" Color="0.259 0.302 0.349 1.00" Layer="0.55"/>
+  </Sprites>
+</SpriteDescriptor>

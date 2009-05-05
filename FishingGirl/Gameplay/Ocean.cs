@@ -18,6 +18,21 @@ namespace FishingGirl.Gameplay
     public class Ocean
     {
         /// <summary>
+        /// The fish in this ocean.
+        /// </summary>
+        public ICollection<Fish> Fish { get { return _fishes; } }
+
+        /// <summary>
+        /// Occurs when a fish is added to this ocean.
+        /// </summary>
+        public event EventHandler<FishEventArgs> FishAdded;
+
+        /// <summary>
+        /// Occurs when a fish is removed from this ocean.
+        /// </summary>
+        public event EventHandler<FishEventArgs> FishRemoved;
+
+        /// <summary>
         /// Creates a new ocean.
         /// </summary>
         /// <param name="fishing">The fishing state.</param>
@@ -25,7 +40,6 @@ namespace FishingGirl.Gameplay
         {
             _fishing = fishing;
             _fishing.Event += OnFishingEvent;
-            CreateFishes();
         }
 
         /// <summary>
@@ -34,7 +48,8 @@ namespace FishingGirl.Gameplay
         public void LoadContent(ContentManager content)
         {
             _content = content;
-            _fishes.ForEach(fish => fish.LoadContent(content));
+
+            CreateFishes();
 
             // run the simulation for a few ticks to put the fish into position
             for (int i = 0; i < 60 * 30; i++)
@@ -54,18 +69,9 @@ namespace FishingGirl.Gameplay
             List<RespawningFish> respawning = _respawningFishes.Where(fish => fish.Update(time)).ToList();
             foreach (RespawningFish fish in respawning)
             {
-                _fishes.Add(fish.Fish);
+                AddFish(fish.Fish);
                 _respawningFishes.Remove(fish);
             }
-        }
-
-        /// <summary>
-        /// Draws all the fish in this ocean.
-        /// </summary>
-        /// <param name="spriteBatch">The sprite batch to draw in.</param>
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            _fishes.ForEach(fish => fish.Draw(spriteBatch));
         }
 
         /// <summary>
@@ -73,42 +79,42 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private void CreateFishes()
         {
-            _fishes.Add(CreateFish(FishSize.Small, 900f, 1200f, 800f));
-            _fishes.Add(CreateFish(FishSize.Small, 1250f, 1400f, 820f));
-            _fishes.Add(CreateFish(FishSize.Medium, 920f, 1250f, 900f));
-            _fishes.Add(CreateFish(FishSize.Small, 1000f, 1400f, 950f));
-            _fishes.Add(CreateFish(FishSize.Small, 1450f, 1600f, 940f));
-            _fishes.Add(CreateFish(FishSize.Small, 1100f, 1400f, 1200f));
-            _fishes.Add(CreateFish(FishSize.Medium, 900f, 1600f, 1100f));
-            _fishes.Add(CreateFish(FishSize.Medium, 1450f, 1650f, 810f));
-            _fishes.Add(CreateFish(FishSize.Large, 1600f, 2000f, 1180f));
-            _fishes.Add(CreateFish(FishSize.Small, 1750f, 1900f, 820f));
-            _fishes.Add(CreateFish(FishSize.Medium, 1950f, 2250f, 800f));
-            _fishes.Add(CreateFish(FishSize.Large, 1800f, 2200f, 900f));
-            _fishes.Add(CreateFish(FishSize.Medium, 1950f, 2250f, 1100f));
-            _fishes.Add(CreateFish(FishSize.Medium, 1500f, 1680f, 1000f));
-            _fishes.Add(CreateFish(FishSize.Small, 1720f, 1900f, 1000f));
-            _fishes.Add(CreateFish(FishSize.Small, 1800f, 2000f, 1050f));
-            _fishes.Add(CreateFish(FishSize.Large, 930f, 1300f, 1400f));
-            _fishes.Add(CreateFish(FishSize.Medium, 1350f, 1500f, 1300f));
-            _fishes.Add(CreateFish(FishSize.Small, 1550f, 1650f, 1250f));
-            _fishes.Add(CreateFish(FishSize.VeryLarge, 1100, 1500f, 1700f));
-            _fishes.Add(CreateFish(FishSize.Small, 2275f, 2400f, 790f));
-            _fishes.Add(CreateFish(FishSize.Small, 2600f, 2700f, 875f));
-            _fishes.Add(CreateFish(FishSize.Small, 2250f, 2750f, 910f));
-            _fishes.Add(CreateFish(FishSize.Medium, 2300f, 2520f, 960f));
-            _fishes.Add(CreateFish(FishSize.Small, 2500f, 2725f, 1000f));
-            _fishes.Add(CreateFish(FishSize.Medium, 2400f, 2650f, 1075f));
-            _fishes.Add(CreateFish(FishSize.Small, 2220f, 2500f, 1120f));
-            _fishes.Add(CreateFish(FishSize.Large, 2300f, 2720f, 1250f));
-            _fishes.Add(CreateFish(FishSize.Small, 1750f, 2000f, 1300f));
-            _fishes.Add(CreateFish(FishSize.Medium, 1600f, 1900f, 1400f));
-            _fishes.Add(CreateFish(FishSize.Medium, 2400f, 2750f, 1375f));
-            _fishes.Add(CreateFish(FishSize.VeryLarge, 2000f, 2300f, 1500f));
+            AddFish(CreateFish(FishSize.Small, 900f, 1200f, 800f));
+            AddFish(CreateFish(FishSize.Small, 1250f, 1400f, 820f));
+            AddFish(CreateFish(FishSize.Medium, 920f, 1250f, 900f));
+            AddFish(CreateFish(FishSize.Small, 1000f, 1400f, 950f));
+            AddFish(CreateFish(FishSize.Small, 1450f, 1600f, 940f));
+            AddFish(CreateFish(FishSize.Small, 1100f, 1400f, 1200f));
+            AddFish(CreateFish(FishSize.Medium, 900f, 1600f, 1100f));
+            AddFish(CreateFish(FishSize.Medium, 1450f, 1650f, 810f));
+            AddFish(CreateFish(FishSize.Large, 1600f, 2000f, 1180f));
+            AddFish(CreateFish(FishSize.Small, 1750f, 1900f, 820f));
+            AddFish(CreateFish(FishSize.Medium, 1950f, 2250f, 800f));
+            AddFish(CreateFish(FishSize.Large, 1800f, 2200f, 900f));
+            AddFish(CreateFish(FishSize.Medium, 1950f, 2250f, 1100f));
+            AddFish(CreateFish(FishSize.Medium, 1500f, 1680f, 1000f));
+            AddFish(CreateFish(FishSize.Small, 1720f, 1900f, 1000f));
+            AddFish(CreateFish(FishSize.Small, 1800f, 2000f, 1050f));
+            AddFish(CreateFish(FishSize.Large, 930f, 1300f, 1400f));
+            AddFish(CreateFish(FishSize.Medium, 1350f, 1500f, 1300f));
+            AddFish(CreateFish(FishSize.Small, 1550f, 1650f, 1250f));
+            AddFish(CreateFish(FishSize.VeryLarge, 1100, 1500f, 1700f));
+            AddFish(CreateFish(FishSize.Small, 2275f, 2400f, 790f));
+            AddFish(CreateFish(FishSize.Small, 2600f, 2700f, 875f));
+            AddFish(CreateFish(FishSize.Small, 2250f, 2750f, 910f));
+            AddFish(CreateFish(FishSize.Medium, 2300f, 2520f, 960f));
+            AddFish(CreateFish(FishSize.Small, 2500f, 2725f, 1000f));
+            AddFish(CreateFish(FishSize.Medium, 2400f, 2650f, 1075f));
+            AddFish(CreateFish(FishSize.Small, 2220f, 2500f, 1120f));
+            AddFish(CreateFish(FishSize.Large, 2300f, 2720f, 1250f));
+            AddFish(CreateFish(FishSize.Small, 1750f, 2000f, 1300f));
+            AddFish(CreateFish(FishSize.Medium, 1600f, 1900f, 1400f));
+            AddFish(CreateFish(FishSize.Medium, 2400f, 2750f, 1375f));
+            AddFish(CreateFish(FishSize.VeryLarge, 2000f, 2300f, 1500f));
         }
 
         /// <summary>
-        /// Creates a semi-ranom fish. The fish's rarity, modifier, and speed are chosen randomly.
+        /// Creates a semi-random fish. The fish's rarity, modifier, and speed are chosen randomly.
         /// </summary>
         /// <param name="size">The size of the fish.</param>
         /// <param name="left">The left side of fish's path.</param>
@@ -131,7 +137,10 @@ namespace FishingGirl.Gameplay
                 (float)(Math.PI / 6),
                 2f);
 
-            return new Fish(description, movement, behavior, _fishing);
+            Fish fish = new Fish(description, movement, behavior, _fishing);
+            fish.LoadContent(_content);
+
+            return fish;
         }
 
         /// <summary>
@@ -145,10 +154,10 @@ namespace FishingGirl.Gameplay
                 fish.Movement.Range.X,
                 fish.Movement.Range.Z,
                 fish.Movement.Range.Y + 5f);
-            respawn.LoadContent(_content);
-            _respawningFishes.Add(new RespawningFish(
-                respawn,
-                GetRandomRespawnTime(respawn.Description)));
+            _respawningFishes.Add(
+                new RespawningFish(
+                    respawn,
+                    GetRandomRespawnTime(respawn.Description)));
         }
 
         /// <summary>
@@ -251,8 +260,35 @@ namespace FishingGirl.Gameplay
             if (e.Event == FishingEvent.FishCaught ||
                 e.Event == FishingEvent.FishEaten)
             {
-                _fishes.Remove(e.Fish);
+                RemoveFish(e.Fish);
                 AddFishToRespawn(e.Fish);
+            }
+        }
+
+        /// <summary>
+        /// Adds a fish to this ocean.
+        /// </summary>
+        /// <param name="fish">The fish to add.</param>
+        private void AddFish(Fish fish)
+        {
+            _fishes.Add(fish);
+            if (FishAdded != null)
+            {
+                FishAdded(this, new FishEventArgs(fish));
+            }
+        }
+
+        /// <summary>
+        /// Removes a fish from this ocean.
+        /// </summary>
+        /// <param name="fish">The fish to remove.</param>
+        /// <param name="reason">The reason for the removal.</param>
+        private void RemoveFish(Fish fish)
+        {
+            _fishes.Remove(fish);
+            if (FishRemoved != null)
+            {
+                FishRemoved(this, new FishEventArgs(fish));
             }
         }
 
