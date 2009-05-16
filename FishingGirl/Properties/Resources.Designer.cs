@@ -223,15 +223,6 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ....
-        /// </summary>
-        internal static string GuideCastingWait {
-            get {
-                return ResourceManager.GetString("GuideCastingWait", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Press _B_ to change lures.
         /// </summary>
         internal static string GuideChangeLures {
@@ -520,7 +511,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to freesound.org: TicTacShutup,.
+        ///   Looks up a localized string similar to freesound.org: vitriolix,.
         /// </summary>
         internal static string MenuCredits4 {
             get {
@@ -529,7 +520,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to whorn1, junggle, acclivity.
+        ///   Looks up a localized string similar to digifishmusic, acclivity, smcameron.
         /// </summary>
         internal static string MenuCredits5 {
             get {

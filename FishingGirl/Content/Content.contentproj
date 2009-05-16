@@ -48,8 +48,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fonts\DistanceMarker.spritefont">
-      <Name>DistanceMarker</Name>
+    <Compile Include="Fonts\TextSmallest.spritefont">
+      <Name>TextSmallest</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
@@ -228,6 +228,27 @@
     <Compile Include="Sprites\Fishing\RodBronze.spritedesc">
       <Name>RodBronze</Name>
       <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\Ocean.mp3">
+      <Name>Ocean</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\Splash.wav">
+      <Name>Splash</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\Whoosh.wav">
+      <Name>Whoosh</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\v3.0\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

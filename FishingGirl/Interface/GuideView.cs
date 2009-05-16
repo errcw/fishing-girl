@@ -18,10 +18,8 @@ namespace FishingGirl.Interface
         /// <summary>
         /// Creates a new guide text display.
         /// </summary>
-        /// <param name="camera">The camera viewing this text.</param>
-        public GuideView(CameraSprite camera)
+        public GuideView()
         {
-            TitleAreaOffset = new Vector2(camera.TitleSafeArea.X, 0f);
         }
 
         /// <summary>
@@ -29,8 +27,7 @@ namespace FishingGirl.Interface
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            _bubble = content.Load<SpriteDescriptorTemplate>("Sprites/GuideView").Create(content);
-            _bubble.Sprite.Origin += TitleAreaOffset;
+            _bubble = content.Load<SpriteDescriptorTemplate>("Sprites/GuideView").Create();
 
             _font = content.Load<SpriteFont>("Fonts/Text");
             _buttonA = content.Load<ImageSpriteTemplate>("ButtonA").Create();

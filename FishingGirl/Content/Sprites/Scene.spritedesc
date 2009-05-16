@@ -95,24 +95,24 @@
         <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
 
         <!-- Island starts to move; confusion -->
-        <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
+        <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
         <Delay Delay="0.5"/>
-        <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
+        <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
         <Delay Delay="4.5"/>
         
         <!-- Confusion turns to shcck -->
         <Composite>
-          <Color Sprite="Boy?" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
-          <Color Sprite="Girl?" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
-          <Color Sprite="Boy!" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
-          <Color Sprite="Girl!" Target="1 1 1 1" Duration="0.25" Easing="Uniform"/>
+          <Color Sprite="Boy?" Target="1 1 1 0" Duration="0.2" Easing="Uniform"/>
+          <Color Sprite="Girl?" Target="1 1 1 0" Duration="0.2" Easing="Uniform"/>
+          <Color Sprite="Boy!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+          <Color Sprite="Girl!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
         </Composite>
         <Delay Delay="2"/>
         
         <!-- Shock gives way -->
         <Composite>
-          <Color Sprite="Boy!" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
-          <Color Sprite="Girl!" Target="1 1 1 0" Duration="0.1" Easing="Uniform"/>
+          <Color Sprite="Boy!" Target="1 1 1 0" Duration="0.2" Easing="Uniform"/>
+          <Color Sprite="Girl!" Target="1 1 1 0" Duration="0.2" Easing="Uniform"/>
         </Composite>
         
         <!-- To jumping! -->

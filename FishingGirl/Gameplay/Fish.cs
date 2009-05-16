@@ -81,7 +81,7 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            _fishDescriptor = content.Load<SpriteDescriptorTemplate>(_description.DescriptorName).Create(content);
+            _fishDescriptor = content.Load<SpriteDescriptorTemplate>(_description.DescriptorName).Create();
             _mouthOffset = _fishDescriptor.GetSprite("Body").Size.X / 2f;
         }
 

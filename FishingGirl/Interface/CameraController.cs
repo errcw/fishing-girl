@@ -81,7 +81,7 @@ namespace FishingGirl.Interface
             {
                 _followLure = false;
             }
-            else if (e.Action == FishingAction.PullBack)
+            else if (e.Action == FishingAction.Swing)
             {
                 if (_camera.Scale != Vector2.One)
                 {

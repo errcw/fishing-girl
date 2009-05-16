@@ -2,6 +2,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
 
 using Library.Animation;
 using Library.Sprite;
@@ -20,7 +21,7 @@ namespace FishingGirl.Interface
         /// Creates a new fishing state view.
         /// </summary>
         /// <param name="state">The fishing state to draw.</param>
-        /// <param name="context">The interface context.</param>
+        /// <param name="context">The context from which to load the content.</param>
         public FishingView(FishingState state, FishingGameContext context)
         {
             _state = state;
@@ -31,6 +32,9 @@ namespace FishingGirl.Interface
             _rod = _state.RodSprites[(int)_state.Rod].Sprite;
             _line = _state.LineSprite.Sprite;
 
+            _releaseEffect = context.Game.Content.Load<SoundEffect>("Sounds/Whoosh");
+            _splashEffect = context.Game.Content.Load<SoundEffect>("Sounds/Splash");
+
             _context = context;
         }
 
@@ -40,6 +44,8 @@ namespace FishingGirl.Interface
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
         public void Update(float time)
         {
+            _rod = _state.RodSprites[(int)_state.Rod].Sprite; //TODO remove
+
             UpdateRod(time);
             UpdateLure(time);
             UpdateLine(time);
@@ -80,6 +86,14 @@ namespace FishingGirl.Interface
             {
                 _rod = _state.RodSprites[(int)_state.Rod].Sprite;
                 _lureAnimation = new ColorAnimation(_lure, Color.White, 0.5f, Interpolation.InterpolateColor(Easing.Uniform));
+            }
+            else if (e.Action == FishingAction.Cast)
+            {
+                _releaseEffect.Play(0.4f);
+            }
+            else if (e.Action == FishingAction.Reel)
+            {
+                _splashEffect.Play(0.2f);
             }
         }
 
@@ -155,8 +169,10 @@ namespace FishingGirl.Interface
         private Sprite _rod;
         private Sprite _lure;
         private Sprite _line;
-
         private IAnimation _lureAnimation;
+
+        private SoundEffect _releaseEffect;
+        private SoundEffect _splashEffect;
 
         private FishingGameContext _context;
     }

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
-  <Sprites>
-    <Image Texture="RodSilver" Position="35 18" Origin="16 11" Layer="0.55"/>
+  <Sprites Position="35 18" Layer="0.55">
+    <Image Texture="RodSilver" Origin="16 11"/>
   </Sprites>
 </SpriteDescriptor>

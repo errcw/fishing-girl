@@ -3,6 +3,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 
 using Library.Screen;
 using Library.Sprite;
@@ -31,8 +33,9 @@ namespace FishingGirl.Screens
             _scene = new Scene();
             _fishing = new FishingState(this, _scene);
             _ocean = new Ocean(_fishing);
+            _money = new Money(_fishing);
 
-            _guideView = new GuideView(_camera);
+            _guideView = new GuideView();
             _guide = new Guide(_guideView, this, _fishing);
 
             _cameraController = new CameraController(_camera, _fishing);
@@ -58,10 +61,19 @@ namespace FishingGirl.Screens
             _fishCaughtView = new FishCaughtView(_fishing);
             _fishEatenView = new FishEatenView(_fishing);
 
+            _distanceView = new DistanceView(_scene, _fishing);
+            _distanceView.LoadContent(content);
+
+            _moneyView = new MoneyView(_money);
+            _moneyView.LoadContent(content);
+
             // load the other necessary support bits
             _transitionScreen = new TransitionScreen();
             _transitionScreen.LoadContent(content);
             _pauseScreen = new PauseMenuScreenFactory().Create(_context, content);
+
+            _oceanSong = content.Load<Song>("Sounds/Ocean");
+            MediaPlayer.Volume = 0.1f;
         }
 
         /// <summary>
@@ -77,13 +89,47 @@ namespace FishingGirl.Screens
                 _fishingView.Draw(spriteBatch);
                 _fishCaughtView.Draw(spriteBatch);
                 _fishEatenView.Draw(spriteBatch);
+                _distanceView.Draw(spriteBatch);
             }
             _oceanView.Draw(spriteBatch);
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-            _guideView.Draw(spriteBatch);
-            spriteBatch.End();
+            if (_state == GameState.Game)
+            {
+                spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+                _guideView.Draw(spriteBatch);
+                _moneyView.Draw(spriteBatch);
+                spriteBatch.End();
+            }
+        }
+
+        /// <summary>
+        /// Starts/resumes the background noises.
+        /// </summary>
+        protected override void Show(bool pushed)
+        {
+            base.Show(pushed);
+            if (pushed)
+            {
+                MediaPlayer.Play(_oceanSong);
+            }
+            else
+            {
+                MediaPlayer.Resume();
+            }
+        }
+
+        /// <summary>
+        /// Pauses the background noises.
+        /// </summary>
+        /// <param name="popped"></param>
+        protected override void Hide(bool popped)
+        {
+            base.Hide(popped);
+            if (!popped && _state == GameState.Game)
+            {
+                MediaPlayer.Pause();
+            }
         }
 
         /// <summary>
@@ -145,6 +191,8 @@ namespace FishingGirl.Screens
             _fishingView.Update(time);
             _fishCaughtView.Update(time);
             _fishEatenView.Update(time);
+            _distanceView.Update(time);
+            _moneyView.Update(time);
 
             _guide.Update(time);
             _guideView.Update(time);
@@ -183,12 +231,18 @@ namespace FishingGirl.Screens
         private FishingView _fishingView;
         private FishCaughtView _fishCaughtView;
         private FishEatenView _fishEatenView;
+        private DistanceView _distanceView;
+
+        private Money _money;
+        private MoneyView _moneyView;
 
         private Guide _guide;
         private GuideView _guideView;
 
         private TransitionScreen _transitionScreen;
         private MenuScreen _pauseScreen;
+
+        private Song _oceanSong;
 
         private FishingGameContext _context;
     }

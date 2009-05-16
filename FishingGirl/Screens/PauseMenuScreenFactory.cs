@@ -73,7 +73,7 @@ namespace FishingGirl.Screens
 
             context.Trial.TrialModeEnded += delegate(object s, EventArgs a) { if (screen.State == ScreenState.Active) { screen.Stack.Pop(); } };
 
-            SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>("Sprites/NagScreen").Create(content);
+            SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>("Sprites/NagScreen").Create();
             nagDesc.GetSprite<TextSprite>("Bubble").Text = Resources.NagBubble;
             nagDesc.GetSprite<TextSprite>("Time").Text = Resources.NagTime;
             nagDesc.GetSprite<TextSprite>("Badges").Text = Resources.NagBadges;
@@ -113,7 +113,7 @@ namespace FishingGirl.Screens
             MenuScreen screen = new MenuScreen(context);
             screen.LoadContent(content);
 
-            SpriteDescriptor controlsDesc = content.Load<SpriteDescriptorTemplate>("Sprites/Controls").Create(content);
+            SpriteDescriptor controlsDesc = content.Load<SpriteDescriptorTemplate>("Sprites/Controls").Create();
             controlsDesc.GetSprite<TextSprite>("AText").Text = Resources.MenuControlsA;
             controlsDesc.GetSprite<TextSprite>("BText").Text = Resources.MenuControlsB;
             controlsDesc.GetSprite<TextSprite>("StartText").Text = Resources.MenuControlsStart;

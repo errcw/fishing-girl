@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
-  <Sprites Name="Root" Position="15 -175" Layer="0">
+  <Sprites Name="Root" Position="75 -175" Layer="0">
     <Image Texture="TextBubble" Position="0 0" Layer="1"/>
     <Composite Name="Text" Position="30 90" Layer="0"></Composite>
     <Composite Name="Money" Position="600 90" Color="1 1 1 0">
@@ -9,7 +9,7 @@
     </Composite>
   </Sprites>
   <Animations>
-    <Position Name="Show" Sprite="Root" Target="15 -5" Duration="0.75" Easing="QuadraticOut"/>
-    <Position Name="Hide" Sprite="Root" Target="15 -175" Duration="0.75" Easing="Uniform"/>
+    <Position Name="Show" Sprite="Root" Target="75 -5" Duration="0.75" Easing="QuadraticOut"/>
+    <Position Name="Hide" Sprite="Root" Target="75 -175" Duration="0.75" Easing="Uniform"/>
   </Animations>
 </SpriteDescriptor>

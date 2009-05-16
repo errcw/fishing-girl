@@ -74,7 +74,7 @@ namespace FishingGirl.Interface
         /// </summary>
         private void OnActionChanged(object stateObj, FishingActionEventArgs e)
         {
-            if (e.Action == FishingAction.PullBack && _fish != null)
+            if (e.Action == FishingAction.Swing && _fish != null)
             {
                 _fishAnimation =
                     new ColorAnimation(_fish.Sprite.Sprite, Color.TransparentWhite, 0.25f, Interpolation.InterpolateColor(Easing.Uniform));

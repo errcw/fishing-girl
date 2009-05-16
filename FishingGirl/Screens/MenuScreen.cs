@@ -41,7 +41,7 @@ namespace FishingGirl.Screens
         /// </summary>
         public virtual void LoadContent(ContentManager content)
         {
-            _screenDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/MenuScreen").Create(content);
+            _screenDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/MenuScreen").Create();
             _screenDescriptor.GetSprite<TextSprite>("TextSelect").Text = Resources.MenuSelect;
             _screenDescriptor.GetSprite<TextSprite>("TextBack").Text = Resources.MenuBack;
             _soundMove = content.Load<SoundEffect>("Sounds/MenuMove");

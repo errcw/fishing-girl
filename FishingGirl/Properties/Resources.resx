@@ -129,9 +129,6 @@
   <data name="GuideCastingStart" xml:space="preserve">
     <value>Hold _A_ to start casting</value>
   </data>
-  <data name="GuideCastingWait" xml:space="preserve">
-    <value>...</value>
-  </data>
   <data name="Common" xml:space="preserve">
     <value>Common</value>
   </data>
@@ -392,10 +389,10 @@
     <value>Eric Woroshow</value>
   </data>
   <data name="MenuCredits4" xml:space="preserve">
-    <value>freesound.org: TicTacShutup,</value>
+    <value>freesound.org: vitriolix,</value>
   </data>
   <data name="MenuCredits5" xml:space="preserve">
-    <value>whorn1, junggle, acclivity</value>
+    <value>digifishmusic, acclivity, smcameron</value>
   </data>
   <data name="MenuHelpOptions" xml:space="preserve">
     <value>Help &amp; Options</value>

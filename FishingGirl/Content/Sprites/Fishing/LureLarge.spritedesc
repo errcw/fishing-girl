@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
-  <Sprites>
-    <Image Texture="LureLarge" Origin="29 29" Layer="0.56"/>
+  <Sprites Layer="0.56">
+    <Image Texture="LureLarge" Origin="29 29"/>
   </Sprites>
 </SpriteDescriptor>

@@ -19,7 +19,6 @@ namespace FishingGirl.Gameplay
     public enum FishingAction
     {
         Idle,
-        PullBack,
         Swing,
         Cast,
         Reel
@@ -74,7 +73,6 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public event EventHandler<FishingEventArgs> Event;
 
-
         /// <summary>
         /// The type of lure used to fish.
         /// </summary>
@@ -93,7 +91,7 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The rotation of the rod.
         /// </summary>
-        public float RodRotation { get { return _rodRotation; } }
+        public float RodRotation { get; private set; }
 
 
         public SpriteDescriptor[] RodSprites { get; private set; }
@@ -121,20 +119,20 @@ namespace FishingGirl.Gameplay
             RodSprites = new SpriteDescriptor[4];
             for (RodType rod = RodType.Bronze; rod <= RodType.Legendary; rod++)
             {
-                RodSprites[(int)rod] = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Rod" + rod.ToString()).Create(content);
+                RodSprites[(int)rod] = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Rod" + rod.ToString()).Create();
                 RodSprites[(int)rod].Sprite.Position += _scene.PlayerPosition;
             }
             Rod = RodType.Bronze;
-            _rodRotation = SwingInitialRotation;
+            RodRotation = SwingInitialRotation;
 
             LureSprites = new SpriteDescriptor[4];
             for (LureType lure = LureType.Small; lure <= LureType.Bomb; lure++)
             {
-                LureSprites[(int)lure] = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Lure" + lure.ToString()).Create(content);
+                LureSprites[(int)lure] = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Lure" + lure.ToString()).Create();
             }
             Lure = LureType.Small;
 
-            LineSprite = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Line").Create(content);
+            LineSprite = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Line").Create();
 
             _lurePosition = GetRodTipPosition() + new Vector2(5f, 15f);
 
@@ -220,17 +218,23 @@ namespace FishingGirl.Gameplay
 
             _stateTick = delegate(float elapsed, Input input)
             {
-                if (_rodRotation > SwingInitialRotation)
+                if (RodRotation > SwingInitialRotation)
                 {
-                    _rodRotation -= IdleSpeed * elapsed;
-                    if (_rodRotation < SwingInitialRotation)
+                    RodRotation -= IdleSpeed * elapsed;
+                    if (RodRotation < SwingInitialRotation)
                     {
-                        _rodRotation = SwingInitialRotation;
+                        RodRotation = SwingInitialRotation;
                     }
                 }
-                if (input.Action.Pressed && _rodRotation <= SwingInitialRotation)
+                if (input.Action.Pressed && RodRotation <= SwingInitialRotation)
                 {
                     EnterSwingingState();
+                }
+
+                //TODO remove
+                if (input.Cancel.PressedRepeat)
+                {
+                    Rod = (RodType)(((int)Rod + 1) % 4);
                 }
             };
         }
@@ -240,36 +244,33 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private void EnterSwingingState()
         {
-            float swingPosition = 0f;
+            OnActionChanged(FishingAction.Swing);
 
-            OnActionChanged(FishingAction.PullBack);
+            float swingPosition = 0f;
+            float swingSweep = GetSwingSweep(Rod);
 
             _stateTick = delegate(float elapsed, Input input)
             {
                 if (input.Action.Down)
                 {
                     swingPosition += SwingSpeed * elapsed;
-                    if (swingPosition > Math.PI / 2f)
+
+                    float rotation = swingPosition;
+                    if (swingPosition > swingSweep)
                     {
-                        OnActionChanged(FishingAction.Swing);
+                        rotation = 2 * swingSweep - swingPosition;
                     }
-                    _rodRotation = (float)(Math.Sin(swingPosition) * SwingRotationSweep + SwingInitialRotation);
-                    if (_rodRotation <= SwingInitialRotation)
+
+                    RodRotation = rotation + SwingInitialRotation;
+                    if (RodRotation <= SwingInitialRotation)
                     {
-                        _rodRotation = SwingInitialRotation;
+                        RodRotation = SwingInitialRotation;
                         EnterIdleState();
                     }
                 }
                 else
                 {
-                    if (swingPosition > Math.PI / 2f)
-                    {
-                        EnterCastingState();
-                    }
-                    else
-                    {
-                        EnterIdleState();
-                    }
+                    EnterCastingState();
                 }
             };
         }
@@ -281,13 +282,15 @@ namespace FishingGirl.Gameplay
         {
             OnActionChanged(FishingAction.Cast);
 
-            _lineLength = float.MaxValue; // let the line spool out
-            _lureVelocity *= GetCastingVelocityScale(Rod);
+            float power = (RodRotation - SwingInitialRotation) / CastingMaxSweep;
+            _lineLength = Math.Max(power * CastingMaxDistance, CastingMinDistance);
+            _lureVelocity = CastingMaxVelocity * power;
 
             _stateTick = delegate(float elapsed, Input input)
             {
-                if (_lurePosition.X > _scene.FarShoreX)
+                if (_lurePosition.X > _scene.FarShore.X && _lurePosition.Y > _scene.FarShore.Y)
                 {
+                    System.Diagnostics.Debug.WriteLine("Lure at far island");
                     //TODO _game.EndGame(GameEndReason.CaughtBoy);
                 }
                 else if (_lurePosition.Y > _scene.WaterLevel)
@@ -295,9 +298,9 @@ namespace FishingGirl.Gameplay
                     _lineLength = Vector2.Distance(_lurePosition, GetRodTipPosition()); // set the length
                     EnterReelingState();
                 }
-                if (_rodRotation > SwingInitialRotation)
+                if (RodRotation > SwingInitialRotation)
                 {
-                    _rodRotation -= CastingSpeed * elapsed;
+                    RodRotation -= CastingSpeed * elapsed;
                 }
             };
         }
@@ -316,7 +319,7 @@ namespace FishingGirl.Gameplay
             {
                 if (input.Action.Down)
                 {
-                    _lineLength -= ReelSpeed * elapsed;
+                    _lineLength -= GetReelSpeed() * elapsed;
                     if (_lineLength <= IdleLineLength)
                     {
                         if (_hookedFish != null)
@@ -365,7 +368,7 @@ namespace FishingGirl.Gameplay
         {
             Sprite rod = RodSprites[(int)Rod].Sprite;
             Vector2 tip = new Vector2(199, 10) - new Vector2(16, 11);
-            tip = Vector2.Transform(tip, Quaternion.CreateFromAxisAngle(Vector3.UnitZ, -_rodRotation));
+            tip = Vector2.Transform(tip, Quaternion.CreateFromAxisAngle(Vector3.UnitZ, -RodRotation));
             tip = tip + rod.Position;
             return tip;
         }
@@ -380,18 +383,26 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
-        /// Returns the casting velocity scale factor applied by the given rod type.
+        /// Returns the maximum swing angle for the specified type of rod.
         /// </summary>
-        private float GetCastingVelocityScale(RodType rod)
+        private float GetSwingSweep(RodType rod)
         {
             switch (rod)
             {
-                case RodType.Bronze: return 0.8f;
-                case RodType.Silver: return 1f;
-                case RodType.Gold: return 1.2f;
-                case RodType.Legendary: return 1.35f;
-                default: return 1f;
+                case RodType.Bronze: return MathHelper.Pi / 3f;
+                case RodType.Silver: return MathHelper.Pi / 2f;
+                case RodType.Gold: return MathHelper.Pi / 1.4f;
+                case RodType.Legendary: return MathHelper.Pi / 1.25f;
+                default: return 0f;
             }
+        }
+
+        /// <summary>
+        /// Returns the reeling speed.
+        /// </summary>
+        private float GetReelSpeed()
+        {
+            return _lureBroken ? 2 * ReelSpeed : ReelSpeed;
         }
 
         /// <summary>
@@ -438,8 +449,6 @@ namespace FishingGirl.Gameplay
         private Vector2 _lureAcceleration = new Vector2(0f, 500f);
         private bool _lureBroken;
 
-        private float _rodRotation = 0f;
-
         private Fish _hookedFish;
 
         private GameplayScreen _game;
@@ -447,11 +456,13 @@ namespace FishingGirl.Gameplay
 
         private const float IdleSpeed = 1.0f;
         private const float IdleLineLength = 30f;
-        private const float SwingSpeed = 2.1f;
+        private const float SwingSpeed = 2f;
         private const float SwingInitialRotation = (float)(Math.PI / 8);
-        private const float SwingRotationSweep = (float)(Math.PI / 1.5);
-        private const float CastingSpeed = 3f;
-        private const float CastingVelocityScale = 0.8f;
+        private const float CastingSpeed = 2f;
+        private const float CastingMinDistance = 200f;
+        private const float CastingMaxDistance = 2000f;
+        private const float CastingMaxSweep = MathHelper.Pi / 1.25f;
+        private readonly Vector2 CastingMaxVelocity = new Vector2(1100, -600);
         private const float ReelSpeed = 150f;
 
         private const float AirFriction = 1f;

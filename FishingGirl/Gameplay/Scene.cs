@@ -26,9 +26,9 @@ namespace FishingGirl.Gameplay
         public float ShoreX { get; private set; }
 
         /// <summary>
-        /// The X coordinate of the far shore.
+        /// The coordinate of the far shore.
         /// </summary>
-        public float FarShoreX { get; private set; }
+        public Vector2 FarShore { get; private set; }
 
         /// <summary>
         /// The (fixed) positon of the player character.
@@ -46,11 +46,19 @@ namespace FishingGirl.Gameplay
         /// <param name="content">The content manager to load.</param>
         public void LoadContent(ContentManager content)
         {
-            Sprite = content.Load<SpriteDescriptorTemplate>("Sprites/Scene").Create(content);
+            Sprite = content.Load<SpriteDescriptorTemplate>("Sprites/Scene").Create();
+
             WaterLevel = Sprite.GetSprite("Water").Position.Y + 25f;
-            ShoreX = Sprite.GetSprite("Cliff").Position.X + Sprite.GetSprite("Cliff").Size.X + Sprite.GetSprite("LeftIsland").Position.X;
-            FarShoreX = Sprite.GetSprite("FarCliff").Position.X + Sprite.GetSprite("RightIsland").Position.X;
-            PlayerPosition = Sprite.GetSprite("Girl").Position + Sprite.GetSprite("LeftIsland").Position;
+
+            Vector2 leftIslandPos = Sprite.GetSprite("LeftIsland").Position;
+            Sprite cliff = Sprite.GetSprite("Cliff");
+            ShoreX = cliff.Position.X + cliff.Size.X + leftIslandPos.X;
+
+            Vector2 farCliffPos = Sprite.GetSprite("FarCliff").Position;
+            Vector2 rightIslandPos = Sprite.GetSprite("RightIsland").Position;
+            FarShore = farCliffPos + rightIslandPos;
+
+            PlayerPosition = Sprite.GetSprite("Girl").Position + leftIslandPos;
         }
 
         /// <summary>

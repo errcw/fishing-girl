@@ -3,12 +3,12 @@
   <Sprites Position="-1000 -1000" Origin="0 -60" Layer="0">
     <Composite Name="DistanceMarker">
       <Image Texture="BackgroundSmall" Position="0 0" Layer="1"/>
-      <Text Name="DistanceText" Font="Fonts/DistanceMarker" Position="4 5" Layer="0"/>
+      <Text Name="DistanceText" Font="Fonts/TextSmallest" Position="4 5" Layer="0"/>
     </Composite>
     <Composite Name="BestMarker" Color="1 1 1 0">
       <Image Texture="BackgroundSmall" Position="140 0" Layer="1"/>
       <Image Texture="Heart1" Position="147 9" Layer="0.5"/>
-      <Text Name="BestText" Font="Fonts/DistanceMarker" Position="170 5" Layer="0"/>
+      <Text Name="BestText" Font="Fonts/TextSmallest" Position="170 5" Layer="0"/>
     </Composite>
   </Sprites>
   <Animations>

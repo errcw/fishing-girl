@@ -1,17 +1,16 @@
 ﻿TODO
 ====
 
-- Add sound effects: story, menu, fishing
-- Fix fishing mechanics
-- Add store, lure types
+- Add sound effects: story, fishing (bite lure, eaten, caught)
+- Add store, lure types, rod types
 - Add badges
+  * Catch every type of fish
+  * Finish the game
+  * Earn 500 points
+  * Cast X m with the Bronze Rod, Y m with the Silver Rod, etc.
+  * Buy every type of lure and every type of rod
+  * Win with X:XX time left
 - Add ending
-
-
-Sounds
-======
-
-http://www.freesound.org/samplesViewSingle.php?id=407 (move)
-http://www.freesound.org/samplesViewSingle.php?id=71583 (select)
-http://www.freesound.org/samplesViewSingle.php?id=27361 (lure splash)
-http://www.freesound.org/samplesViewSingle.php?id=20128 (background)
+  * Reel in island
+  * Run out of time
+- Fish trying to escape the lure?

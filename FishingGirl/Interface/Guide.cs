@@ -54,9 +54,6 @@ namespace FishingGirl.Interface
                     case FishingAction.Idle:
                         _text.Show(Resources.GuideCastingStart);
                         break;
-                    case FishingAction.PullBack:
-                        _text.Show(Resources.GuideCastingWait);
-                        break;
                     case FishingAction.Swing:
                         _text.Show(Resources.GuideCastingRelease);
                         break;

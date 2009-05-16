@@ -36,7 +36,7 @@ namespace FishingGirl.Screens
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            _screenDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/TitleScreen").Create(content);
+            _screenDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/TitleScreen").Create();
             _screenDescriptor.GetSprite<TextSprite>("Text").Text = Resources.TitlePrompt;
         }
 

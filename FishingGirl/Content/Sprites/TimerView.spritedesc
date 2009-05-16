@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
   <Sprites Origin="-155 15" Layer="0">
-    <Image Texture="Textures/BackgroundSmall" Position="0 0" Layer="1"/>
-    <Image Name="Timer" Texture="Textures/Timer" Position="17 18" Origin="9 9"/>
+    <Image Texture="BackgroundSmall" Position="0 0" Layer="1"/>
+    <Image Name="Timer" Texture="Timer" Position="17 18" Origin="9 9"/>
     <Text Name="Text" Font="Fonts/Money" Text="0:00" Position="77 2" Origin="10 0"/>
   </Sprites>
   <Animations>
