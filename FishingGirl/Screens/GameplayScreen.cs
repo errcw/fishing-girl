@@ -34,6 +34,7 @@ namespace FishingGirl.Screens
             _fishing = new FishingState(this, _scene);
             _ocean = new Ocean(_fishing);
             _money = new Money(_fishing);
+            _timer = new Timer(_fishing);
 
             _guideView = new GuideView();
             _guide = new Guide(_guideView, this, _fishing);
@@ -67,6 +68,9 @@ namespace FishingGirl.Screens
             _moneyView = new MoneyView(_money);
             _moneyView.LoadContent(content);
 
+            _timerView = new TimerView(_timer);
+            _timerView.LoadContent(content);
+
             // load the other necessary support bits
             _transitionScreen = new TransitionScreen();
             _transitionScreen.LoadContent(content);
@@ -99,6 +103,7 @@ namespace FishingGirl.Screens
                 spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
                 _guideView.Draw(spriteBatch);
                 _moneyView.Draw(spriteBatch);
+                _timerView.Draw(spriteBatch);
                 spriteBatch.End();
             }
         }
@@ -185,14 +190,20 @@ namespace FishingGirl.Screens
 
             _scene.Update(time);
             _sceneView.Update(time);
+
             _ocean.Update(time);
             _oceanView.Update(time);
+
             _fishing.Update(time, _context.Input);
             _fishingView.Update(time);
             _fishCaughtView.Update(time);
             _fishEatenView.Update(time);
             _distanceView.Update(time);
+
             _moneyView.Update(time);
+
+            _timer.Update(time);
+            _timerView.Update(time);
 
             _guide.Update(time);
             _guideView.Update(time);
@@ -235,6 +246,9 @@ namespace FishingGirl.Screens
 
         private Money _money;
         private MoneyView _moneyView;
+
+        private Timer _timer;
+        private TimerView _timerView;
 
         private Guide _guide;
         private GuideView _guideView;
