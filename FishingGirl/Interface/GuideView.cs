@@ -16,13 +16,6 @@ namespace FishingGirl.Interface
     public class GuideView
     {
         /// <summary>
-        /// Creates a new guide text display.
-        /// </summary>
-        public GuideView()
-        {
-        }
-
-        /// <summary>
         /// Creates the text sprites.
         /// </summary>
         public void LoadContent(ContentManager content)

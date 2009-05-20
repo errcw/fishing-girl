@@ -34,6 +34,7 @@ namespace FishingGirl.Interface
 
             _releaseEffect = context.Game.Content.Load<SoundEffect>("Sounds/Whoosh");
             _splashEffect = context.Game.Content.Load<SoundEffect>("Sounds/Splash");
+            _caughtEffect = context.Game.Content.Load<SoundEffect>("Sounds/Caught");
 
             _context = context;
         }
@@ -64,36 +65,45 @@ namespace FishingGirl.Interface
 
         private void OnFishingEvent(object stateObj, FishingEventArgs e)
         {
-            if (e.Event == FishingEvent.FishHooked || e.Event == FishingEvent.FishEaten)
+            switch (e.Event)
             {
-                Vector2 vibration = GetLureFeedback(e.Fish);
-                _context.Input.AddVibration(Vibrations.FadeOut(vibration.X, vibration.Y, 1f, Easing.Uniform));
-            }
-            else if (e.Event == FishingEvent.LureBroke)
-            {
-                _context.Input.AddVibration(Vibrations.FadeOut(0.15f, 0.2f, 1f, Easing.Uniform));
-                _lureAnimation = new ColorAnimation(_lure, Color.TransparentWhite, 0.5f, Interpolation.InterpolateColor(Easing.Uniform));
-            }
-            else if (e.Event == FishingEvent.LureChanged)
-            {
-                _lure = _state.LureSprites[(int)_state.Lure].Sprite;
+                case FishingEvent.FishHooked: goto case FishingEvent.FishEaten;
+                case FishingEvent.FishEaten:
+                    Vector2 vibration = GetLureFeedback(e.Fish);
+                    _context.Input.AddVibration(Vibrations.FadeOut(vibration.X, vibration.Y, 1f, Easing.Uniform));
+                    break;
+
+                case FishingEvent.LureBroke:
+                    _context.Input.AddVibration(Vibrations.FadeOut(0.15f, 0.2f, 1f, Easing.Uniform));
+                    _lureAnimation = new ColorAnimation(_lure, Color.TransparentWhite, 0.5f, Interpolation.InterpolateColor(Easing.Uniform));
+                    break;
+
+                case FishingEvent.LureChanged:
+                    _lure = _state.LureSprites[(int)_state.Lure].Sprite;
+                    break;
+
+                case FishingEvent.FishCaught:
+                    _caughtEffect.Play(0.4f);
+                    break;
             }
         }
 
         private void OnActionChanged(object stateObj, FishingActionEventArgs e)
         {
-            if (e.Action == FishingAction.Idle)
+            switch (e.Action)
             {
-                _rod = _state.RodSprites[(int)_state.Rod].Sprite;
-                _lureAnimation = new ColorAnimation(_lure, Color.White, 0.5f, Interpolation.InterpolateColor(Easing.Uniform));
-            }
-            else if (e.Action == FishingAction.Cast)
-            {
-                _releaseEffect.Play(0.4f);
-            }
-            else if (e.Action == FishingAction.Reel)
-            {
-                _splashEffect.Play(0.2f);
+                case FishingAction.Idle:
+                    _rod = _state.RodSprites[(int)_state.Rod].Sprite;
+                    _lureAnimation = new ColorAnimation(_lure, Color.White, 0.5f, Interpolation.InterpolateColor(Easing.Uniform));
+                    break;
+
+                case FishingAction.Cast:
+                    _releaseEffect.Play(0.4f);
+                    break;
+
+                case FishingAction.Reel:
+                    _splashEffect.Play(0.2f);
+                    break;
             }
         }
 
@@ -173,6 +183,7 @@ namespace FishingGirl.Interface
 
         private SoundEffect _releaseEffect;
         private SoundEffect _splashEffect;
+        private SoundEffect _caughtEffect;
 
         private FishingGameContext _context;
     }

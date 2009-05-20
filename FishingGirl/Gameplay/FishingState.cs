@@ -33,7 +33,8 @@ namespace FishingGirl.Gameplay
         FishEaten,
         FishCaught,
         LureBroke,
-        LureChanged
+        LureChanged,
+        LureIsland
     }
 
     /// <summary>
@@ -109,6 +110,7 @@ namespace FishingGirl.Gameplay
         {
             _game = game;
             _scene = scene;
+            EnterIdleState();
         }
 
         /// <summary>
@@ -135,9 +137,6 @@ namespace FishingGirl.Gameplay
             LineSprite = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Line").Create();
 
             _lurePosition = GetRodTipPosition() + new Vector2(5f, 15f);
-
-            // once the rod is fully initialized we can set the inital state
-            EnterIdleState();
         }
 
         /// <summary>
@@ -180,7 +179,7 @@ namespace FishingGirl.Gameplay
                 }
                 else
                 {
-                    SetLureBroken(true);
+                    _lureBroken = true;
                     OnFishingEvent(FishingEvent.LureBroke);
                 }
             }
@@ -198,7 +197,7 @@ namespace FishingGirl.Gameplay
                 else
                 {
                     _hookedFish = null;
-                    SetLureBroken(true);
+                    _lureBroken = true;
                     OnFishingEvent(FishingEvent.LureBroke);
                 }
             }
@@ -214,7 +213,7 @@ namespace FishingGirl.Gameplay
 
             _lureFriction = AirFriction;
             _lureAcceleration = AirGravity;
-            SetLureBroken(false);
+            _lureBroken = false;
 
             _stateTick = delegate(float elapsed, Input input)
             {
@@ -290,8 +289,7 @@ namespace FishingGirl.Gameplay
             {
                 if (_lurePosition.X > _scene.FarShore.X && _lurePosition.Y > _scene.FarShore.Y)
                 {
-                    System.Diagnostics.Debug.WriteLine("Lure at far island");
-                    //TODO _game.EndGame(GameEndReason.CaughtBoy);
+                    EnterIslandState();
                 }
                 else if (_lurePosition.Y > _scene.WaterLevel)
                 {
@@ -336,6 +334,26 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
+        /// Enters the island state.
+        /// </summary>
+        private void EnterIslandState()
+        {
+            OnFishingEvent(FishingEvent.LureIsland);
+
+            _lureVelocity = Vector2.Zero;
+            _lureAcceleration = Vector2.Zero;
+            _lureFriction = 0f;
+
+            Vector2 offset = _lurePosition - _scene.FarShore;
+            
+            _stateTick = delegate(float elapsed, Input input)
+            {
+                // have the lure follow the moving island
+                _lurePosition = _scene.FarShore + offset;
+            };
+        }
+
+        /// <summary>
         /// Updates the position of the lure.
         /// </summary>
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
@@ -360,7 +378,6 @@ namespace FishingGirl.Gameplay
             _lureVelocity = (_lurePosition - lurePreviousPos) / time;
         }
 
-
         /// <summary>
         /// Returns the position of the tip of the fishing rod.
         /// </summary>
@@ -371,15 +388,6 @@ namespace FishingGirl.Gameplay
             tip = Vector2.Transform(tip, Quaternion.CreateFromAxisAngle(Vector3.UnitZ, -RodRotation));
             tip = tip + rod.Position;
             return tip;
-        }
-
-        /// <summary>
-        /// Sets the visibility of the lure, fading it in or out as appropriate.
-        /// </summary>
-        /// <param name="broken">If the lure is broken.</param>
-        private void SetLureBroken(bool broken)
-        {
-            _lureBroken = broken;
         }
 
         /// <summary>
@@ -443,10 +451,10 @@ namespace FishingGirl.Gameplay
 
         private float _lineLength = IdleLineLength;
 
-        private Vector2 _lurePosition = Vector2.Zero;
-        private Vector2 _lureVelocity = Vector2.Zero;
-        private float _lureFriction = 1f;
-        private Vector2 _lureAcceleration = new Vector2(0f, 500f);
+        private Vector2 _lurePosition;
+        private Vector2 _lureVelocity;
+        private float _lureFriction;
+        private Vector2 _lureAcceleration;
         private bool _lureBroken;
 
         private Fish _hookedFish;

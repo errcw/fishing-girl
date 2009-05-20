@@ -47,6 +47,13 @@ namespace FishingGirl.Interface
                     _cameraAnimation = null;
                 }
             }
+            if (_scaleAnimation != null)
+            {
+                if (!_scaleAnimation.Update(time))
+                {
+                    _scaleAnimation = null;
+                }
+            }
             UpdateDebugControls();
         }
 
@@ -59,7 +66,7 @@ namespace FishingGirl.Interface
                 _camera,
                 GetFocusPosition(position),
                 1f,
-                Interpolation.InterpolateVector2(Easing.QuadraticOut));
+                Interpolate);
         }
 
         /// <summary>
@@ -85,10 +92,10 @@ namespace FishingGirl.Interface
             {
                 if (_camera.Scale != Vector2.One)
                 {
-                    // undo the caught transform if necessary
-                    _cameraAnimation = new CompositeAnimation(
-                        new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)),
-                        new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)));
+                    SetCameraFocus(SwingFocus);
+                    // update the scale animation separately to keep it from
+                    // being overwritten by the lure-tracking animation
+                    _scaleAnimation = new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolate);
                 }
             }
             else if (e.Action == FishingAction.Cast)
@@ -107,12 +114,12 @@ namespace FishingGirl.Interface
                 FishingState fishingState = (FishingState)stateObj;
                 _cameraAnimation = new SequentialAnimation(
                     new CompositeAnimation(
-                        new PositionAnimation(_camera, GetFocusPosition(CatchFocus), CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)),
-                        new ScaleAnimation(_camera, CatchScale, CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut))),
+                        new PositionAnimation(_camera, GetFocusPosition(CatchFocus), CatchScaleTime, Interpolate),
+                        new ScaleAnimation(_camera, CatchScale, CatchScaleTime, Interpolate)),
                     new DelayAnimation(CatchDelayTime),
                     new CompositeAnimation(
-                        new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut)),
-                        new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolation.InterpolateVector2(Easing.QuadraticOut))));
+                        new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Interpolate),
+                        new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolate)));
             }
         }
 
@@ -148,6 +155,7 @@ namespace FishingGirl.Interface
 
         private CameraSprite _camera;
         private IAnimation _cameraAnimation;
+        private IAnimation _scaleAnimation;
         private bool _followLure;
 
         private readonly Vector2 InitialPosition = new Vector2(100, 150);
@@ -157,5 +165,6 @@ namespace FishingGirl.Interface
         private readonly Vector2 CatchScale = new Vector2(1.5f, 1.5f);
         private const float CatchScaleTime = 1f;
         private const float CatchDelayTime = 3f;
+        private readonly Interpolate<Vector2> Interpolate = Interpolation.InterpolateVector2(Easing.QuadraticOut);
     }
 }

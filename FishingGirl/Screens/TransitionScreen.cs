@@ -21,11 +21,11 @@ namespace FishingGirl.Screens
         /// <summary>
         /// The colour to fade to.
         /// </summary>
-        public Color Color { get; set; }
+        public Color FadeColor { get; set; }
 
         public TransitionScreen()
         {
-            Color = Color.White;
+            FadeColor = Color.White;
             TransitionOnTime = 1.5f;
             TransitionOffTime = 1.5f;
             ShowBeneath = true;
@@ -47,7 +47,7 @@ namespace FishingGirl.Screens
 
         protected override void UpdateTransitionOn(float time, float progress, bool pushed)
         {
-            _background.Color = new Color(Color.White, progress); // fade in
+            _background.Color = new Color(FadeColor, progress); // fade in
         }
 
         protected override void UpdateActive(float time)
@@ -57,7 +57,7 @@ namespace FishingGirl.Screens
 
         protected override void UpdateTransitionOff(float time, float progress, bool popped)
         {
-            _background.Color = new Color(Color.White, 1 - progress); // fade out
+            _background.Color = new Color(FadeColor, 1 - progress); // fade out
         }
 
         private Sprite _background;

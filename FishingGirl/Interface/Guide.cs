@@ -23,6 +23,7 @@ namespace FishingGirl.Interface
         public Guide(GuideView text, GameplayScreen game, FishingState fishing)
         {
             _text = text;
+            _text.Show(Resources.GuideCastingStart); // initial state
             fishing.ActionChanged += OnActionChanged;
             fishing.Event += OnFishingEvent;
         }

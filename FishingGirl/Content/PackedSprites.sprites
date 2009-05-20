@@ -70,6 +70,7 @@
     <Sprite Texture="Textures/Colourable.png"/>
     <Sprite Texture="Textures/Heart1.png"/>
     <Sprite Texture="Textures/Controls.png"/>
+    <Sprite Texture="Textures/OverlayEnd.png"/>
   </Group>
   
   <Group Name="Landscape">

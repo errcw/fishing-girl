@@ -67,16 +67,11 @@ namespace FishingGirl
         /// <param name="gameTime">A snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            float time = gameTime.GetElapsedSeconds();
-            if (time <= 0 || !IsActive)
-            {
-                return; // discard "empty" updates
-            }
+            base.Update(gameTime);
             if (_screens.ActiveScreen == null)
             {
                 Exit();
             }
-            base.Update(gameTime);
         }
 
         /// <summary>

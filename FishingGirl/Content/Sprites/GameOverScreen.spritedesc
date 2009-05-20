@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites>
+    <Image Texture="Colourable" Position="0 0" Scale="1280 720" Color="0.047 0.0 0.176 0.75" Layer="1"/>
+    
+    <Text Name="Ending" Font="Fonts/Text" Text="Night has fallen and the boy is lost at sea." Position="392 250"/>
+
+    <Text Name="Prompt1" Font="Fonts/Text" Text="Press" Position="508 600"/>
+    <Image Texture="ButtonA" Position="593 616" Origin="16 16"/>
+    <Text Name="Prompt2" Font="Fonts/Text" Text="to play again" Position="618 600"/>
+  </Sprites>
+</SpriteDescriptor>

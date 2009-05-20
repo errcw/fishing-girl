@@ -160,6 +160,33 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Press.
+        /// </summary>
+        internal static string EndingPrompt1 {
+            get {
+                return ResourceManager.GetString("EndingPrompt1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to to play again.
+        /// </summary>
+        internal static string EndingPrompt2 {
+            get {
+                return ResourceManager.GetString("EndingPrompt2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Night has fallen and the boy is lost at sea..
+        /// </summary>
+        internal static string EndingText {
+            get {
+                return ResourceManager.GetString("EndingText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to a fat.
         /// </summary>
         internal static string Fat {

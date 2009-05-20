@@ -82,6 +82,27 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
+        /// Updates the ending animation.
+        /// </summary>
+        /// <param name="time">The elapsed time, in seconds, since the last update.</param>
+        public void UpdateEnding(float time)
+        {
+            Sprite.GetAnimation("StoryWin").Update(time);
+            Sprite.GetAnimation("Waves").Update(time);
+
+            // update the position of the island
+            FarShore = Sprite.GetSprite("FarCliff").Position + Sprite.GetSprite("RightIsland").Position;
+        }
+
+        /// <summary>
+        /// Resets the positions of the scene items for the story.
+        /// </summary>
+        public void StartStory()
+        {
+            Sprite.GetAnimation("Story").Start();
+        }
+
+        /// <summary>
         /// Resets the positions of the scene items for gameplay.
         /// </summary>
         public void EndStory()

@@ -27,57 +27,28 @@ namespace FishingGirl.Screens
         {
             _context = context;
             _context.Input.ControllerDisconnected += (s, a) => PauseGame();
-
             _camera = new CameraSprite(_context.Game.GraphicsDevice);
-            
-            _scene = new Scene();
-            _fishing = new FishingState(this, _scene);
-            _ocean = new Ocean(_fishing);
-            _money = new Money(_fishing);
-            _timer = new Timer(_fishing);
-
-            _guideView = new GuideView();
-            _guide = new Guide(_guideView, this, _fishing);
-
-            _cameraController = new CameraController(_camera, _fishing);
-
             _state = GameState.Story;
         }
 
         /// <summary>
-        /// Loads the content for this screen.
+        /// Loads the content for the game.
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            _guideView.LoadContent(content);
+            StartGame(content);
 
-            _scene.LoadContent(content);
-            _fishing.LoadContent(content);
-            _ocean.LoadContent(content);
-
-            // create the views after loading the content
-            _sceneView = new SceneView(_scene, _camera);
-            _oceanView = new OceanView(_ocean);
-            _fishingView = new FishingView(_fishing, _context);
-            _fishCaughtView = new FishCaughtView(_fishing);
-            _fishEatenView = new FishEatenView(_fishing);
-
-            _distanceView = new DistanceView(_scene, _fishing);
-            _distanceView.LoadContent(content);
-
-            _moneyView = new MoneyView(_money);
-            _moneyView.LoadContent(content);
-
-            _timerView = new TimerView(_timer);
-            _timerView.LoadContent(content);
-
-            // load the other necessary support bits
             _transitionScreen = new TransitionScreen();
             _transitionScreen.LoadContent(content);
+
+            _endScreen = new GameOverScreen(_context);
+            _endScreen.LoadContent(content);
+
             _pauseScreen = new PauseMenuScreenFactory().Create(_context, content);
 
             _oceanSong = content.Load<Song>("Sounds/Ocean");
             MediaPlayer.Volume = 0.1f;
+            MediaPlayer.IsRepeating = true;
         }
 
         /// <summary>
@@ -86,54 +57,75 @@ namespace FishingGirl.Screens
         /// <param name="spriteBatch">The sprite batch to draw in.</param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None, _camera.Transform);
-            _sceneView.Draw(spriteBatch);
-            if (_state == GameState.Game)
+            switch (_state)
             {
-                _fishingView.Draw(spriteBatch);
-                _fishCaughtView.Draw(spriteBatch);
-                _fishEatenView.Draw(spriteBatch);
-                _distanceView.Draw(spriteBatch);
-            }
-            _oceanView.Draw(spriteBatch);
-            spriteBatch.End();
+                case GameState.Transition: goto case GameState.Story;
+                case GameState.Story:
+                    DrawStory(spriteBatch);
+                    break;
 
-            if (_state == GameState.Game)
-            {
-                spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
-                _guideView.Draw(spriteBatch);
-                _moneyView.Draw(spriteBatch);
-                _timerView.Draw(spriteBatch);
-                spriteBatch.End();
+                default:
+                    DrawGame(spriteBatch);
+                    break;
             }
         }
 
         /// <summary>
-        /// Starts/resumes the background noises.
+        /// Draws all the items in the story sequence.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch to draw in.</param>
+        private void DrawStory(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None, _camera.Transform);
+            _sceneView.Draw(spriteBatch);
+            _oceanView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        /// <summary>
+        /// Draws the all items in the game and interface.
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch to draw in.</param>
+        private void DrawGame(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None, _camera.Transform);
+            _sceneView.Draw(spriteBatch);
+            _fishingView.Draw(spriteBatch);
+            _fishCaughtView.Draw(spriteBatch);
+            _fishEatenView.Draw(spriteBatch);
+            _distanceView.Draw(spriteBatch);
+            _oceanView.Draw(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
+            _guideView.Draw(spriteBatch);
+            _moneyView.Draw(spriteBatch);
+            _timerView.Draw(spriteBatch);
+            spriteBatch.End();
+        }
+
+        /// <summary>
+        /// Triggers the appropriate actions when this screen is displayed.
         /// </summary>
         protected override void Show(bool pushed)
         {
             base.Show(pushed);
-            if (pushed)
+            if (_state == GameState.EndLose)
             {
-                MediaPlayer.Play(_oceanSong);
+                // start a new game when this screen is shown again
+                _state = GameState.Game;
+                StartGame(_context.Game.Content);
             }
             else
             {
-                MediaPlayer.Resume();
-            }
-        }
-
-        /// <summary>
-        /// Pauses the background noises.
-        /// </summary>
-        /// <param name="popped"></param>
-        protected override void Hide(bool popped)
-        {
-            base.Hide(popped);
-            if (!popped && _state == GameState.Game)
-            {
-                MediaPlayer.Pause();
+                if (pushed)
+                {
+                    MediaPlayer.Play(_oceanSong);
+                }
+                else
+                {
+                    MediaPlayer.Resume();
+                }
             }
         }
 
@@ -157,21 +149,25 @@ namespace FishingGirl.Screens
                 case GameState.Game:
                     UpdateGame(time);
                     break;
+
+                case GameState.EndWin:
+                    UpdateGameOver(time);
+                    break;
             }
         }
 
         /// <summary>
-        /// Updates the introduction animation.
+        /// Updates the game in the background.
         /// </summary>
         protected override void UpdateInactive(float time)
         {
-            if (_state == GameState.Story || _state == GameState.Transition)
+            if (_state != GameState.Story && _state != GameState.Transition)
             {
-                _scene.UpdateStory(time);
-
-                _ocean.Update(time);
-                _oceanView.Update(time);
+                return;
             }
+            _scene.UpdateStory(time);
+            _ocean.Update(time);
+            _oceanView.Update(time);
         }
 
         /// <summary>
@@ -205,8 +201,79 @@ namespace FishingGirl.Screens
             _timer.Update(time);
             _timerView.Update(time);
 
+            if (_timer.Time <= 0f)
+            {
+                _state = GameState.EndLose;
+                Stack.Push(_endScreen);
+            }
+
             _guide.Update(time);
             _guideView.Update(time);
+        }
+
+        /// <summary>
+        /// Updates the win animation for this frame.
+        /// </summary>
+        /// <param name="time">The elapsed time, in seconds, since the last update.</param>
+        private void UpdateGameOver(float time)
+        {
+            _scene.UpdateEnding(time);
+            _sceneView.Update(time);
+
+            _ocean.Update(time);
+            _oceanView.Update(time);
+
+            _fishing.Update(time, _context.Input);
+            if (_scene.FarShore.X > 950)
+            {
+                // only draw when the shore is far
+                _fishingView.Update(time);
+            }
+
+            _cameraController.Update(time);
+        }
+
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        /// <param name="content">The content manager to load from.</param>
+        private void StartGame(ContentManager content)
+        {
+            // create the game objects
+            _scene = new Scene();
+            _scene.LoadContent(content);
+
+            _fishing = new FishingState(this, _scene);
+            _fishing.LoadContent(content);
+            _fishing.Event += OnFishingEvent;
+
+            _ocean = new Ocean(_fishing);
+            _ocean.LoadContent(content);
+
+            _money = new Money(_fishing);
+            _timer = new Timer(_fishing);
+
+            // create the views
+            _sceneView = new SceneView(_scene, _camera);
+            _oceanView = new OceanView(_ocean);
+            _fishingView = new FishingView(_fishing, _context);
+            _fishCaughtView = new FishCaughtView(_fishing);
+            _fishEatenView = new FishEatenView(_fishing);
+
+            _distanceView = new DistanceView(_scene, _fishing);
+            _distanceView.LoadContent(content);
+
+            _moneyView = new MoneyView(_money);
+            _moneyView.LoadContent(content);
+
+            _timerView = new TimerView(_timer);
+            _timerView.LoadContent(content);
+
+            _guideView = new GuideView();
+            _guideView.LoadContent(content);
+            _guide = new Guide(_guideView, this, _fishing);
+
+            _cameraController = new CameraController(_camera, _fishing);
         }
 
         /// <summary>
@@ -215,16 +282,30 @@ namespace FishingGirl.Screens
         private void PauseGame()
         {
             Stack.Push(_pauseScreen);
+            MediaPlayer.Pause();
         }
 
         /// <summary>
-        /// The state of the game.
+        /// Watches for the game-over event.
+        /// </summary>
+        private void OnFishingEvent(object fishingObj, FishingEventArgs args)
+        {
+            if (args.Event == FishingEvent.LureIsland)
+            {
+                _state = GameState.EndWin;
+            }
+        }
+
+        /// <summary>
+        /// The state/stage of the game.
         /// </summary>
         private enum GameState
         {
             Story,
             Transition,
-            Game
+            Game,
+            EndLose,
+            EndWin
         }
 
         private GameState _state;
@@ -255,6 +336,7 @@ namespace FishingGirl.Screens
 
         private TransitionScreen _transitionScreen;
         private MenuScreen _pauseScreen;
+        private GameOverScreen _endScreen;
 
         private Song _oceanSong;
 
