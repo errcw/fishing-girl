@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Name="Root">
+    <Image Name="Overlay" Texture="OverlayEnd" Position="640 360" Origin="640 360" Scale="10 10" Layer="1"/>
+    
+    <Text Name="Ending" Font="Fonts/Text" Text="And they lived happily ever after" Position="444 125"/>
+
+    <Text Name="Prompt1" Font="Fonts/Text" Text="Press" Position="508 600"/>
+    <Image Texture="ButtonA" Position="593 616" Origin="16 16"/>
+    <Text Name="Prompt2" Font="Fonts/Text" Text="to play again" Position="618 600"/>
+  </Sprites>
+  <Animations>
+    <Sequential Name="Show">
+      <Composite>
+        <Scale Sprite="Overlay" Target="10 10" Duration="0" Easing="Uniform"/>
+        <Color Sprite="Overlay" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      </Composite>
+      <Composite>
+        <Color Sprite="Overlay" Target="1 1 1 1" Duration="0.2" Easing="Uniform"/>
+        <Scale Sprite="Overlay" Target="1 1" Duration="1" Easing="Uniform"/>
+      </Composite>
+    </Sequential>
+  </Animations>
+</SpriteDescriptor>

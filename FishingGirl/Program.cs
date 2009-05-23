@@ -1,4 +1,5 @@
 using System;
+using Library.Components;
 
 namespace FishingGirl
 {
@@ -9,9 +10,19 @@ namespace FishingGirl
         /// </summary>
         static void Main(string[] args)
         {
-            using (FishingGame game = new FishingGame())
+            try
             {
-                game.Run();
+                using (FishingGame game = new FishingGame())
+                {
+                    game.Run();
+                }
+            }
+            catch (Exception e)
+            {
+                using (ExceptionDebugGame game = new ExceptionDebugGame(e))
+                {
+                    game.Run();
+                }
             }
         }
     }

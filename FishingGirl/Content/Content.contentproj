@@ -271,8 +271,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\GameOverScreen.spritedesc">
-      <Name>GameOverScreen</Name>
+    <Compile Include="Sprites\EndingLoseScreen.spritedesc">
+      <Name>EndingLoseScreen</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\EndingWinScreen.spritedesc">
+      <Name>EndingWinScreen</Name>
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
   </ItemGroup>

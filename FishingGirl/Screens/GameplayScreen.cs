@@ -110,7 +110,7 @@ namespace FishingGirl.Screens
         protected override void Show(bool pushed)
         {
             base.Show(pushed);
-            if (_state == GameState.EndLose)
+            if (_state == GameState.Ended)
             {
                 // start a new game when this screen is shown again
                 _state = GameState.Game;
@@ -150,7 +150,7 @@ namespace FishingGirl.Screens
                     UpdateGame(time);
                     break;
 
-                case GameState.EndWin:
+                case GameState.EndStory:
                     UpdateGameOver(time);
                     break;
             }
@@ -203,8 +203,7 @@ namespace FishingGirl.Screens
 
             if (_timer.Time <= 0f)
             {
-                _state = GameState.EndLose;
-                Stack.Push(_endScreen);
+                EndGame(false);
             }
 
             _guide.Update(time);
@@ -217,20 +216,28 @@ namespace FishingGirl.Screens
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
         private void UpdateGameOver(float time)
         {
-            _scene.UpdateEnding(time);
+            _cameraController.Update(time);
+
+            if (!_scene.UpdateEnding(time))
+            {
+                EndGame(true);
+                return;
+            }
             _sceneView.Update(time);
 
             _ocean.Update(time);
             _oceanView.Update(time);
 
             _fishing.Update(time, _context.Input);
-            if (_scene.FarShore.X > 950)
+            if (_scene.FarShore.X - _scene.ShoreX > EndingStoryCloseThreshold)
             {
                 // only draw when the shore is far
                 _fishingView.Update(time);
             }
-
-            _cameraController.Update(time);
+            else
+            {
+                _fishingView.UpdateHide(time);
+            }
         }
 
         /// <summary>
@@ -273,7 +280,7 @@ namespace FishingGirl.Screens
             _guideView.LoadContent(content);
             _guide = new Guide(_guideView, this, _fishing);
 
-            _cameraController = new CameraController(_camera, _fishing);
+            _cameraController = new CameraController(_camera, _scene, _fishing);
         }
 
         /// <summary>
@@ -286,13 +293,24 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
+        /// Starts the end-of-game screen sequence.
+        /// </summary>
+        /// <param name="won">True if the current game was won; otherwise, false.</param>
+        private void EndGame(bool won)
+        {
+            _state = GameState.Ended;
+            _endScreen.IsWon = won;
+            Stack.Push(_endScreen);
+        }
+
+        /// <summary>
         /// Watches for the game-over event.
         /// </summary>
         private void OnFishingEvent(object fishingObj, FishingEventArgs args)
         {
             if (args.Event == FishingEvent.LureIsland)
             {
-                _state = GameState.EndWin;
+                _state = GameState.EndStory;
             }
         }
 
@@ -304,8 +322,8 @@ namespace FishingGirl.Screens
             Story,
             Transition,
             Game,
-            EndLose,
-            EndWin
+            EndStory,
+            Ended,
         }
 
         private GameState _state;
@@ -341,5 +359,7 @@ namespace FishingGirl.Screens
         private Song _oceanSong;
 
         private FishingGameContext _context;
+
+        private const float EndingStoryCloseThreshold = 150f;
     }
 }

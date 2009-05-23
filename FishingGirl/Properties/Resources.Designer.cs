@@ -160,6 +160,15 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Night has fallen and the boy is lost at sea..
+        /// </summary>
+        internal static string EndingLostText {
+            get {
+                return ResourceManager.GetString("EndingLostText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Press.
         /// </summary>
         internal static string EndingPrompt1 {
@@ -178,11 +187,11 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Night has fallen and the boy is lost at sea..
+        ///   Looks up a localized string similar to And they lived happily ever after!.
         /// </summary>
-        internal static string EndingText {
+        internal static string EndingWinText {
             get {
-                return ResourceManager.GetString("EndingText", resourceCulture);
+                return ResourceManager.GetString("EndingWinText", resourceCulture);
             }
         }
         

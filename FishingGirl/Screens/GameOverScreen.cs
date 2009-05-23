@@ -12,8 +12,22 @@ using FishingGirl.Properties;
 
 namespace FishingGirl.Screens
 {
+    /// <summary>
+    /// Displays the end-of-game narrative.
+    /// </summary>
     public class GameOverScreen : Screen
     {
+        /// <summary>
+        /// If the game should display the winning or losing screen.
+        /// </summary>
+        public bool IsWon
+        {
+            set
+            {
+                _screenDesc = value ? _screenDescWon : _screenDescLost;
+            }
+        }
+
         public GameOverScreen(FishingGameContext context)
         {
             _context = context;
@@ -29,11 +43,15 @@ namespace FishingGirl.Screens
         /// <param name="content">The content manager to load from.</param>
         public void LoadContent(ContentManager content)
         {
-            _screenDesc = content.Load<SpriteDescriptorTemplate>("Sprites/GameOverScreen").Create();
-            _screenDesc.Sprite.Color = Color.TransparentWhite;
-            _screenDesc.GetSprite<TextSprite>("Ending").Text = Resources.EndingText;
-            _screenDesc.GetSprite<TextSprite>("Prompt1").Text = Resources.EndingPrompt1;
-            _screenDesc.GetSprite<TextSprite>("Prompt2").Text = Resources.EndingPrompt2;
+            _screenDescLost = content.Load<SpriteDescriptorTemplate>("Sprites/EndingLoseScreen").Create();
+            _screenDescLost.GetSprite<TextSprite>("Ending").Text = Resources.EndingLostText;
+            _screenDescLost.GetSprite<TextSprite>("Prompt1").Text = Resources.EndingPrompt1;
+            _screenDescLost.GetSprite<TextSprite>("Prompt2").Text = Resources.EndingPrompt2;
+
+            _screenDescWon = content.Load<SpriteDescriptorTemplate>("Sprites/EndingWinScreen").Create();
+            _screenDescWon.GetSprite<TextSprite>("Ending").Text = Resources.EndingWinText;
+            _screenDescWon.GetSprite<TextSprite>("Prompt1").Text = Resources.EndingPrompt1;
+            _screenDescWon.GetSprite<TextSprite>("Prompt2").Text = Resources.EndingPrompt2;
 
             _transitionScreen = new TransitionScreen();
             _transitionScreen.FadeColor = Color.Black;
@@ -51,18 +69,26 @@ namespace FishingGirl.Screens
             spriteBatch.End();
         }
 
+        protected override void Show(bool pushed)
+        {
+            base.Show(pushed);
+            if (pushed)
+            {
+                _screenDesc.GetAnimation("Show").Start();
+            }
+        }
+
         protected override void UpdateTransitionOn(float time, float progress, bool pushed)
         {
             if (pushed)
             {
-                // coming from game, so fade in this screen
-                _screenDesc.Sprite.Color = new Color(_screenDesc.Sprite.Color, progress);
+                // coming from game, so show this screen
+                _screenDesc.GetAnimation("Show").Update(time);
             }
             else
             {
                 // coming from transition to new game, so remove this screen
                 Stack.Pop();
-                _screenDesc.Sprite.Color = Color.TransparentWhite; // reset
             }
         }
 
@@ -74,7 +100,10 @@ namespace FishingGirl.Screens
             }
         }
 
+        private SpriteDescriptor _screenDescLost;
+        private SpriteDescriptor _screenDescWon;
         private SpriteDescriptor _screenDesc;
+
         private TransitionScreen _transitionScreen;
 
         private FishingGameContext _context;

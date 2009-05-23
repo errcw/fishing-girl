@@ -53,6 +53,28 @@ namespace FishingGirl.Interface
         }
 
         /// <summary>
+        /// Hides all the elements of the fishing state.
+        /// </summary>
+        /// <param name="time">The elapsed time, in seconds, since the last update.</param>
+        public void UpdateHide(float time)
+        {
+            if (_hideAnimation == null)
+            {
+                _hideAnimation = new CompositeAnimation(
+                    new ColorAnimation(_lure, Color.TransparentWhite, 1f, InterpolateColor),
+                    new ColorAnimation(_rod, Color.TransparentWhite, 1f, InterpolateColor),
+                    new ColorAnimation(_line, Color.TransparentWhite, 1f, InterpolateColor));
+            }
+            else
+            {
+                if (!_hideAnimation.Update(time))
+                {
+                    _hideAnimation = null;
+                }
+            }
+        }
+
+        /// <summary>
         /// Draws the fishing state.
         /// </summary>
         /// <param name="spriteBatch">The sprite batch to draw in.</param>
@@ -75,7 +97,7 @@ namespace FishingGirl.Interface
 
                 case FishingEvent.LureBroke:
                     _context.Input.AddVibration(Vibrations.FadeOut(0.15f, 0.2f, 1f, Easing.Uniform));
-                    _lureAnimation = new ColorAnimation(_lure, Color.TransparentWhite, 0.5f, Interpolation.InterpolateColor(Easing.Uniform));
+                    _lureAnimation = new ColorAnimation(_lure, Color.TransparentWhite, 0.5f, InterpolateColor);
                     break;
 
                 case FishingEvent.LureChanged:
@@ -94,7 +116,7 @@ namespace FishingGirl.Interface
             {
                 case FishingAction.Idle:
                     _rod = _state.RodSprites[(int)_state.Rod].Sprite;
-                    _lureAnimation = new ColorAnimation(_lure, Color.White, 0.5f, Interpolation.InterpolateColor(Easing.Uniform));
+                    _lureAnimation = new ColorAnimation(_lure, Color.White, 0.5f, InterpolateColor);
                     break;
 
                 case FishingAction.Cast:
@@ -180,11 +202,14 @@ namespace FishingGirl.Interface
         private Sprite _lure;
         private Sprite _line;
         private IAnimation _lureAnimation;
+        private IAnimation _hideAnimation;
 
         private SoundEffect _releaseEffect;
         private SoundEffect _splashEffect;
         private SoundEffect _caughtEffect;
 
         private FishingGameContext _context;
+
+        private readonly Interpolate<Color> InterpolateColor = Interpolation.InterpolateColor(Easing.Uniform);
     }
 }

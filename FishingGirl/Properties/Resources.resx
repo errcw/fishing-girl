@@ -409,7 +409,10 @@
   <data name="EndingPrompt2" xml:space="preserve">
     <value>to play again</value>
   </data>
-  <data name="EndingText" xml:space="preserve">
+  <data name="EndingLostText" xml:space="preserve">
     <value>Night has fallen and the boy is lost at sea.</value>
+  </data>
+  <data name="EndingWinText" xml:space="preserve">
+    <value>And they lived happily ever after!</value>
   </data>
 </root>

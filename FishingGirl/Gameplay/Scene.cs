@@ -36,6 +36,11 @@ namespace FishingGirl.Gameplay
         public Vector2 PlayerPosition { get; private set; }
 
         /// <summary>
+        /// The position of the non-player character.
+        /// </summary>
+        public Vector2 NPCPosition { get; private set; }
+
+        /// <summary>
         /// The scene sprite.
         /// </summary>
         public SpriteDescriptor Sprite { get; private set; }
@@ -59,6 +64,7 @@ namespace FishingGirl.Gameplay
             FarShore = farCliffPos + rightIslandPos;
 
             PlayerPosition = Sprite.GetSprite("Girl").Position + leftIslandPos;
+            NPCPosition = Sprite.GetSprite("Boy").Position + rightIslandPos;
         }
 
         /// <summary>
@@ -85,13 +91,18 @@ namespace FishingGirl.Gameplay
         /// Updates the ending animation.
         /// </summary>
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
-        public void UpdateEnding(float time)
+        /// <returns>True if the animation is still running; otherwise, false.</returns>
+        public bool UpdateEnding(float time)
         {
-            Sprite.GetAnimation("StoryWin").Update(time);
+            bool running = Sprite.GetAnimation("StoryWin").Update(time);
             Sprite.GetAnimation("Waves").Update(time);
 
-            // update the position of the island
-            FarShore = Sprite.GetSprite("FarCliff").Position + Sprite.GetSprite("RightIsland").Position;
+            // update the position of the island and boy
+            Vector2 rightIslandPos = Sprite.GetSprite("RightIsland").Position;
+            FarShore = Sprite.GetSprite("FarCliff").Position + rightIslandPos;
+            NPCPosition = Sprite.GetSprite("Boy").Position + rightIslandPos;
+
+            return running;
         }
 
         /// <summary>

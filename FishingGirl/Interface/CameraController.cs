@@ -19,12 +19,15 @@ namespace FishingGirl.Interface
         /// Creates a new camera controller.
         /// </summary>
         /// <param name="camera">The camera to control.</param>
+        /// <param name="scene">The scene displaying the action.</param>
         /// <param name="fishing">The fishing state to monitor.</param>
-        public CameraController(CameraSprite camera, FishingState fishing)
+        public CameraController(CameraSprite camera, Scene scene, FishingState fishing)
         {
             _camera = camera;
             _camera.Position = InitialPosition;
             SetCameraFocus(InitialFocus);
+
+            _scene = scene;
 
             _fishing = fishing;
             _fishing.ActionChanged += OnActionChanged;
@@ -39,6 +42,10 @@ namespace FishingGirl.Interface
             if (_followLure)
             {
                 SetCameraFocus(_fishing.LurePosition);
+            }
+            else if (_followNPC)
+            {
+                SetCameraFocus(_scene.NPCPosition);
             }
             if (_cameraAnimation != null)
             {
@@ -111,7 +118,6 @@ namespace FishingGirl.Interface
         {
             if (e.Event == FishingEvent.FishCaught)
             {
-                FishingState fishingState = (FishingState)stateObj;
                 _cameraAnimation = new SequentialAnimation(
                     new CompositeAnimation(
                         new PositionAnimation(_camera, GetFocusPosition(CatchFocus), CatchScaleTime, Interpolate),
@@ -121,14 +127,19 @@ namespace FishingGirl.Interface
                         new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Interpolate),
                         new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolate)));
             }
+            else if (e.Event == FishingEvent.LureIsland)
+            {
+                _followLure = false;
+                _followNPC = true;
+            }
         }
 
         /// <summary>
         /// Implements debug camera controls.
         /// </summary>
+        [System.Diagnostics.Conditional("DEBUG")]
         private void UpdateDebugControls()
         {
-#if DEBUG
             const float CAMINC = 15f;
             KeyboardState keys = Keyboard.GetState();
             GamePadState pad = GamePad.GetState(PlayerIndex.One);
@@ -148,15 +159,16 @@ namespace FishingGirl.Interface
             {
                 _camera.Position = new Vector2(_camera.Position.X, _camera.Position.Y + CAMINC);
             }
-#endif
         }
 
+        private Scene _scene;
         private FishingState _fishing;
 
         private CameraSprite _camera;
         private IAnimation _cameraAnimation;
         private IAnimation _scaleAnimation;
         private bool _followLure;
+        private bool _followNPC;
 
         private readonly Vector2 InitialPosition = new Vector2(100, 150);
         private readonly Vector2 InitialFocus = new Vector2(740, 510);

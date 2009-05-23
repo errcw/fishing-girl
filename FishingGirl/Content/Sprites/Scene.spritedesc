@@ -55,7 +55,6 @@
         <Image Name="BoyHeart" Texture="Heart1" Position="30 -45" Layer="0" Color="1 1 1 0"/>
       </Composite>
     </Composite>
-    <Image Name="Overlay" Texture="OverlayEnd" Position="0 0" Layer="0"/>
   </Sprites>
   <Animations>
     <!-- Idle animations -->
@@ -164,12 +163,22 @@
         </Composite>
 
         <!-- Jumping -->
-        <Sequential Loop="true">
-          <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
-          <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
-          <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
-          <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
-        </Sequential>
+        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+        <Composite>
+          <Position Sprite="Girl" Target="720 -45" Duration="0.5" Easing="QuadraticOut"/>
+          <Position Sprite="Boy" Target="20 -45" Duration="0.5" Easing="QuadraticOut"/>
+        </Composite>
       </Sequential>
 
       <!-- Music -->
