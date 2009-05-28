@@ -27,6 +27,8 @@ namespace FishingGirl.Screens
         {
             _context = context;
             _context.Input.ControllerDisconnected += (s, a) => PauseGame();
+            _context.Game.Exiting += (s, a) => ExitGame();
+
             _camera = new CameraSprite(_context.Game.GraphicsDevice);
             _state = GameState.Story;
         }
@@ -301,6 +303,13 @@ namespace FishingGirl.Screens
             _state = GameState.Ended;
             _endScreen.IsWon = won;
             Stack.Push(_endScreen);
+        }
+
+        /// <summary>
+        /// Saves the current state when the game is exiting.
+        /// </summary>
+        private void ExitGame()
+        {
         }
 
         /// <summary>

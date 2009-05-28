@@ -94,6 +94,7 @@
     <Compile Include="Gameplay\Money.cs" />
     <Compile Include="Gameplay\Ocean.cs" />
     <Compile Include="Gameplay\Scene.cs" />
+    <Compile Include="Gameplay\Store.cs" />
     <Compile Include="Gameplay\Timer.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Interface\CameraController.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Interface\MoneyView.cs" />
     <Compile Include="Interface\OceanView.cs" />
     <Compile Include="Interface\SceneView.cs" />
+    <Compile Include="Interface\StoreView.cs" />
     <Compile Include="Interface\TimerView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

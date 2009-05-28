@@ -76,6 +76,8 @@ namespace FishingGirl.Screens
 
         protected override void SetSelected(int deltaIdx)
         {
+            int selected = _selectedBadge;
+
             _entries[_selectedEntry].OnFocusChanged(false);
 
             int nextEntry = _selectedEntry + deltaIdx;
@@ -104,6 +106,11 @@ namespace FishingGirl.Screens
             _downArrow.Color = (_listWindowBaseIndex == _badgeEntries.Count - NumberDisplayed) ? Color.TransparentWhite : Color.White;
 
             _entries[_selectedEntry].OnFocusChanged(true);
+
+            if (selected != _selectedBadge)
+            {
+                _soundMove.Play();
+            }
         }
 
         private List<BadgeMenuEntry> _badgeEntries;
