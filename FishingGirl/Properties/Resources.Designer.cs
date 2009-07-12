@@ -520,7 +520,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fishing Girl is brought to you by....
+        ///   Looks up a localized string similar to Daniel Cook and Eric Woroshow.
         /// </summary>
         internal static string MenuCredits1 {
             get {
@@ -529,7 +529,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Daniel Cook.
+        ///   Looks up a localized string similar to present FISHING GIRL with.
         /// </summary>
         internal static string MenuCredits2 {
             get {
@@ -538,7 +538,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Eric Woroshow.
+        ///   Looks up a localized string similar to freesound.org: vitriolix,.
         /// </summary>
         internal static string MenuCredits3 {
             get {
@@ -547,7 +547,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to freesound.org: vitriolix,.
+        ///   Looks up a localized string similar to digifishmusic, acclivity, smcameron.
         /// </summary>
         internal static string MenuCredits4 {
             get {
@@ -556,7 +556,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to digifishmusic, acclivity, smcameron.
+        ///   Looks up a localized string similar to dobroide, some others.
         /// </summary>
         internal static string MenuCredits5 {
             get {

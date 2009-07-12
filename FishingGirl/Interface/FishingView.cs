@@ -105,7 +105,7 @@ namespace FishingGirl.Interface
                     break;
 
                 case FishingEvent.FishCaught:
-                    _caughtEffect.Play(0.4f);
+                    _caughtEffect.Play(0.4f, 0f, 0f);
                     break;
             }
         }
@@ -120,11 +120,11 @@ namespace FishingGirl.Interface
                     break;
 
                 case FishingAction.Cast:
-                    _releaseEffect.Play(0.4f);
+                    _releaseEffect.Play(0.4f, 0f, 0f);
                     break;
 
                 case FishingAction.Reel:
-                    _splashEffect.Play(0.2f);
+                    _splashEffect.Play(0.2f, 0f, 0f);
                     break;
             }
         }

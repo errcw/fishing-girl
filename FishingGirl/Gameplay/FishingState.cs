@@ -94,11 +94,19 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public float RodRotation { get; private set; }
 
+        /// <summary>
+        /// The length of the fishing line.
+        /// </summary>
+        public float MaxCastDistance
+        {
+            get { return ((GetSwingSweep(Rod) - SwingInitialRotation) / CastingMaxSweep) * CastingMaxDistance; }
+        }
 
+        /// <summary>
+        /// Sprites describing how to draw this state.
+        /// </summary>
         public SpriteDescriptor[] RodSprites { get; private set; }
-
         public SpriteDescriptor[] LureSprites { get; private set; }
-
         public SpriteDescriptor LineSprite { get; private set; }
 
         /// <summary>

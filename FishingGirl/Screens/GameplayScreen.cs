@@ -40,6 +40,9 @@ namespace FishingGirl.Screens
         {
             StartGame(content);
 
+            _storeScreen = new StoreScreen(_context);
+            _storeScreen.LoadContent(content);
+
             _transitionScreen = new TransitionScreen();
             _transitionScreen.LoadContent(content);
 
@@ -97,6 +100,7 @@ namespace FishingGirl.Screens
             _fishEatenView.Draw(spriteBatch);
             _distanceView.Draw(spriteBatch);
             _oceanView.Draw(spriteBatch);
+            _storeView.Draw(spriteBatch);
             spriteBatch.End();
 
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
@@ -200,6 +204,9 @@ namespace FishingGirl.Screens
 
             _moneyView.Update(time);
 
+            _store.Update(time);
+            _storeView.Update(time);
+
             _timer.Update(time);
             _timerView.Update(time);
 
@@ -262,6 +269,9 @@ namespace FishingGirl.Screens
             _money = new Money(_fishing);
             _timer = new Timer(_fishing);
 
+            _store = new Store(_money, _fishing);
+            _store.Hit += OnStoreHit;
+
             // create the views
             _sceneView = new SceneView(_scene, _camera);
             _oceanView = new OceanView(_ocean);
@@ -277,6 +287,9 @@ namespace FishingGirl.Screens
 
             _timerView = new TimerView(_timer);
             _timerView.LoadContent(content);
+
+            _storeView = new StoreView(_store);
+            _storeView.LoadContent(content);
 
             _guideView = new GuideView();
             _guideView.LoadContent(content);
@@ -324,6 +337,15 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
+        /// Watches for the store screen.
+        /// </summary>
+        private void OnStoreHit(object store, EventArgs args)
+        {
+            _storeScreen.Store = (Store)store;
+            Stack.Push(_storeScreen);
+        }
+
+        /// <summary>
         /// The state/stage of the game.
         /// </summary>
         private enum GameState
@@ -352,6 +374,9 @@ namespace FishingGirl.Screens
         private FishEatenView _fishEatenView;
         private DistanceView _distanceView;
 
+        private Store _store;
+        private StoreView _storeView;
+
         private Money _money;
         private MoneyView _moneyView;
 
@@ -361,6 +386,7 @@ namespace FishingGirl.Screens
         private Guide _guide;
         private GuideView _guideView;
 
+        private StoreScreen _storeScreen;
         private TransitionScreen _transitionScreen;
         private MenuScreen _pauseScreen;
         private GameOverScreen _endScreen;

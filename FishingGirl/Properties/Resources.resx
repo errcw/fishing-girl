@@ -380,19 +380,19 @@
     <value>Credits</value>
   </data>
   <data name="MenuCredits1" xml:space="preserve">
-    <value>Fishing Girl is brought to you by...</value>
+    <value>Daniel Cook and Eric Woroshow</value>
   </data>
   <data name="MenuCredits2" xml:space="preserve">
-    <value>Daniel Cook</value>
+    <value>present FISHING GIRL with</value>
   </data>
   <data name="MenuCredits3" xml:space="preserve">
-    <value>Eric Woroshow</value>
-  </data>
-  <data name="MenuCredits4" xml:space="preserve">
     <value>freesound.org: vitriolix,</value>
   </data>
-  <data name="MenuCredits5" xml:space="preserve">
+  <data name="MenuCredits4" xml:space="preserve">
     <value>digifishmusic, acclivity, smcameron</value>
+  </data>
+  <data name="MenuCredits5" xml:space="preserve">
+    <value>dobroide, some others</value>
   </data>
   <data name="MenuHelpOptions" xml:space="preserve">
     <value>Help &amp; Options</value>
