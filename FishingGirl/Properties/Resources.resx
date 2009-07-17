@@ -214,52 +214,52 @@
   <data name="BestDistance" xml:space="preserve">
     <value>Best yet!</value>
   </data>
-  <data name="LureBomb" xml:space="preserve">
+  <data name="StoreLureBomb" xml:space="preserve">
     <value>Bomb Lure</value>
   </data>
-  <data name="LureBombDescription" xml:space="preserve">
+  <data name="StoreLureBombDescription" xml:space="preserve">
     <value>Explodes the first fish it touches.</value>
   </data>
-  <data name="LureLarge" xml:space="preserve">
+  <data name="StoreLureLarge" xml:space="preserve">
     <value>Large Lure</value>
   </data>
-  <data name="LureLargeDescription" xml:space="preserve">
+  <data name="StoreLureLargeDescription" xml:space="preserve">
     <value>Lets you catch Large sized fish.</value>
   </data>
-  <data name="LureMedium" xml:space="preserve">
+  <data name="StoreLureMedium" xml:space="preserve">
     <value>Medium Lure</value>
   </data>
-  <data name="LureMediumDescription" xml:space="preserve">
+  <data name="StoreLureMediumDescription" xml:space="preserve">
     <value>Lets you catch Medium sized fish.</value>
   </data>
-  <data name="LureSmall" xml:space="preserve">
+  <data name="StoreLureSmall" xml:space="preserve">
     <value>Small Lure</value>
   </data>
-  <data name="LureSmallDescription" xml:space="preserve">
+  <data name="StoreLureSmallDescription" xml:space="preserve">
     <value>Lets you catch Small sized fish.</value>
   </data>
-  <data name="RodBronzeDescription" xml:space="preserve">
+  <data name="StoreRodBronzeDescription" xml:space="preserve">
     <value>Lets you cast a short distance.</value>
   </data>
-  <data name="RodBroze" xml:space="preserve">
+  <data name="StoreRodBroze" xml:space="preserve">
     <value>Bronze Rod</value>
   </data>
-  <data name="RodGold" xml:space="preserve">
+  <data name="StoreRodGold" xml:space="preserve">
     <value>Gold Rod</value>
   </data>
-  <data name="RodGoldDescription" xml:space="preserve">
+  <data name="StoreRodGoldDescription" xml:space="preserve">
     <value>Lets you cast your lure farther still.</value>
   </data>
-  <data name="RodLegendary" xml:space="preserve">
+  <data name="StoreRodLegendary" xml:space="preserve">
     <value>Legendary Rod</value>
   </data>
-  <data name="RodLegendaryDescription" xml:space="preserve">
+  <data name="StoreRodLegendaryDescription" xml:space="preserve">
     <value>Lets you cast your lure to the far shore.</value>
   </data>
-  <data name="RodSilver" xml:space="preserve">
+  <data name="StoreRodSilver" xml:space="preserve">
     <value>Silver Rod</value>
   </data>
-  <data name="RodSilverDescription" xml:space="preserve">
+  <data name="StoreRodSilverDescription" xml:space="preserve">
     <value>Lets you cast your lure farther.</value>
   </data>
   <data name="GuideLureSmallFish" xml:space="preserve">
@@ -414,5 +414,11 @@
   </data>
   <data name="EndingWinText" xml:space="preserve">
     <value>And they lived happily ever after!</value>
+  </data>
+  <data name="StoreBuy" xml:space="preserve">
+    <value>Buy</value>
+  </data>
+  <data name="StoreClose" xml:space="preserve">
+    <value>Close</value>
   </data>
 </root>

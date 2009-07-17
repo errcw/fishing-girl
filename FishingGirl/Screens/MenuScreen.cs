@@ -26,14 +26,32 @@ namespace FishingGirl.Screens
         public bool IsRoot { get; set; }
 
         /// <summary>
+        /// The number of entries to display on each screen before scrolling.
+        /// </summary>
+        protected int NumVisibleEntries { get; set; }
+
+        /// <summary>
+        /// If the back button should be displayed if this is a root menu screen.
+        /// </summary>
+        protected bool ShowBackOnRoot { get; set; }
+
+        /// <summary>
+        /// The vertical padding, in pixels, between menu entries.
+        /// </summary>
+        protected float Spacing { get; set; }
+
+        /// <summary>
         /// Creates a new menu screen.
         /// </summary>
         public MenuScreen(FishingGameContext context)
         {
             _context = context;
+
             ShowBeneath = true;
             TransitionOnTime = 0.4f;
             TransitionOffTime = 0.2f;
+            NumVisibleEntries = 5;
+            Spacing = 10f;
         }
 
         /// <summary>
@@ -44,6 +62,7 @@ namespace FishingGirl.Screens
             _screenDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/MenuScreen").Create();
             _screenDescriptor.GetSprite<TextSprite>("TextSelect").Text = Resources.MenuSelect;
             _screenDescriptor.GetSprite<TextSprite>("TextBack").Text = Resources.MenuBack;
+            _entriesSprite = _screenDescriptor.GetSprite<CompositeSprite>("Entries");
             _soundMove = content.Load<SoundEffect>("Sounds/MenuMove");
             _soundSelect = content.Load<SoundEffect>("Sounds/MenuSelect");
         }
@@ -55,7 +74,10 @@ namespace FishingGirl.Screens
         public void AddEntry(MenuEntry entry)
         {
             _entries.Add(entry);
-            _screenDescriptor.GetSprite<CompositeSprite>("Entries").Add(entry.Sprite);
+            if (_visibleEntries.Count < NumVisibleEntries)
+            {
+                ShowEntry(entry, _visibleEntries.Count);
+            }
         }
 
         /// <summary>
@@ -65,21 +87,35 @@ namespace FishingGirl.Screens
         /// <returns>True if the entry is successfully removed; otherwise, false.</returns>
         public bool RemoveEntry(MenuEntry entry)
         {
-            MenuEntry selectedEntry = _entries[_selectedEntry];
+            MenuEntry selectedEntry = _entries[_selectedEntryAbs];
             bool removed = _entries.Remove(entry);
             if (removed)
             {
-                _screenDescriptor.GetSprite<CompositeSprite>("Entries").Remove(entry.Sprite);
+                _entriesSprite.Remove(entry.Sprite);
                 if (entry == selectedEntry)
                 {
                     SetSelected(0); // move the focus off the now-defunct entry
                 }
                 else
                 {
-                    _selectedEntry -= 1; // fix the index
+                    _selectedEntryRel -= 1; // fix the index
+                    _selectedEntryAbs -= 1;
                 }
             }
             return removed;
+        }
+
+        /// <summary>
+        /// Removes all the entries from this menu.
+        /// </summary>
+        public void ClearEntries()
+        {
+            foreach (MenuEntry entry in _visibleEntries)
+            {
+                _entriesSprite.Remove(entry.Sprite);
+            }
+            _visibleEntries.Clear();
+            _entries.Clear();
         }
 
         /// <summary>
@@ -90,14 +126,14 @@ namespace FishingGirl.Screens
             Vector2 menuSize = _screenDescriptor.GetSprite("Frame").Size;
 
             float height = 0f;
-            foreach (MenuEntry entry in _entries)
+            foreach (MenuEntry entry in _visibleEntries)
             {
                 height += entry.Sprite.Size.Y + Spacing;
             }
             height -= Spacing; // remove the extra padding at the bottom
 
             float y = (menuSize.Y - height) / 2f;
-            foreach (MenuEntry entry in _entries)
+            foreach (MenuEntry entry in _visibleEntries)
             {
                 float x = (menuSize.X - entry.Sprite.Size.X) / 2f;
                 entry.Sprite.Position = new Vector2((int)x, (int)y);
@@ -111,7 +147,7 @@ namespace FishingGirl.Screens
         /// <param name="sprite">The sprite to add.</param>
         public void AddDecoration(Sprite sprite)
         {
-            _screenDescriptor.GetSprite<CompositeSprite>("Entries").Add(sprite);
+            _entriesSprite.Add(sprite);
         }
 
         /// <summary>
@@ -131,13 +167,21 @@ namespace FishingGirl.Screens
         protected override void Show(bool pushed)
         {
             base.Show(pushed);
-            _screenDescriptor.GetSprite("Back").Color = IsRoot ? Color.TransparentWhite : Color.White;
+            _screenDescriptor.GetSprite("Back").Color = IsRoot && !ShowBackOnRoot ? Color.TransparentWhite : Color.White;
             _screenDescriptor.GetSprite("Select").Color = Color.White;
             if (pushed)
             {
-                _selectedEntry = 0;
-                _entries[_selectedEntry].OnFocusChanged(true);
-                _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
+                // reset the list
+                _entries[_selectedEntryAbs].OnFocusChanged(false);
+                _visibleEntries.ToArray().ForEach(e => HideEntry(e));
+                _visibleEntries.Clear();
+                for (int i = 0; i < Math.Min(_entries.Count, NumVisibleEntries); i++)
+                {
+                    ShowEntry(_entries[i], _visibleEntries.Count);
+                }
+                LayoutEntries();
+                _selectedEntryRel = _selectedEntryAbs = _listWindowBaseIndex = 0;
+                SetSelected(0);
             }
         }
 
@@ -149,7 +193,7 @@ namespace FishingGirl.Screens
             base.Hide(popped);
             if (popped)
             {
-                _entries[_selectedEntry].OnFocusChanged(false);
+                _entries[_selectedEntryRel].OnFocusChanged(false);
             }
             _screenDescriptor.GetSprite("Select").Color = Color.TransparentWhite;
             _screenDescriptor.GetSprite("Back").Color = Color.TransparentWhite;
@@ -179,17 +223,17 @@ namespace FishingGirl.Screens
                 SetSelected(delta);
             }
 
-            if (_context.Input.Action.Pressed && _entries[_selectedEntry].IsSelectable)
+            if (_context.Input.Action.Pressed && _entries[_selectedEntryRel].IsSelectable)
             {
-                _entries[_selectedEntry].OnSelected();
+                _entries[_selectedEntryRel].OnSelected();
                 _soundSelect.Play();
             }
 
-            _entries[_selectedEntry].Update(time);
+            _entries[_selectedEntryRel].Update(time);
         }
 
         /// <summary>
-        /// Fades the menu in.
+        /// Fades this menu in.
         /// </summary>
         protected override void UpdateTransitionOn(float time, float progress, bool pushed)
         {
@@ -200,7 +244,7 @@ namespace FishingGirl.Screens
             }
             progress = (progress - 0.5f) * 2f;
             // then fade in this one
-            _screenDescriptor.GetSprite("Entries").Color = new Color(Color.White, progress);
+            _entriesSprite.Color = new Color(Color.White, progress);
             if (IsRoot && pushed)
             {
                 _screenDescriptor.GetSprite("Background").Color = new Color(Color.White, progress);
@@ -208,13 +252,14 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
-        /// Fades the menu out.
+        /// Fades this menu out.
         /// </summary>
         protected override void UpdateTransitionOff(float time, float progress, bool popped)
         {
-            _screenDescriptor.GetSprite("Entries").Color = new Color(Color.White, 1 - progress);
+            _entriesSprite.Color = new Color(Color.White, 1 - progress);
             if (IsRoot && popped)
             {
+                // fade out the background when the last menu screen is popped off
                 _screenDescriptor.GetSprite("Background").Color = new Color(Color.White, 1 - progress);
             }
         }
@@ -225,26 +270,76 @@ namespace FishingGirl.Screens
         /// <param name="deltaIdx">The change in selected index.</param>
         protected virtual void SetSelected(int deltaIdx)
         {
-            int selected = _selectedEntry;
-            _entries[_selectedEntry].OnFocusChanged(false);
-            _selectedEntry = MathHelperExtensions.Clamp(_selectedEntry + deltaIdx, 0, _entries.Count - 1);
-            _entries[_selectedEntry].OnFocusChanged(true);
-            _screenDescriptor.GetSprite("Select").Color = _entries[_selectedEntry].IsSelectable ? Color.White : Color.TransparentWhite;
-            if (selected != _selectedEntry)
+            int selected = _selectedEntryAbs;
+
+            _entries[_selectedEntryAbs].OnFocusChanged(false);
+
+            int nextRelEntry = _selectedEntryRel + deltaIdx;
+            int nextAbsEntry = _selectedEntryAbs + deltaIdx;
+
+            if (nextRelEntry >= _visibleEntries.Count && nextAbsEntry < _entries.Count)
+            {
+                HideEntry(_visibleEntries[0]);
+                ShowEntry(_entries[nextAbsEntry], _visibleEntries.Count);
+                LayoutEntries();
+                _listWindowBaseIndex += 1;
+            }
+            else if (nextRelEntry < 0 && nextAbsEntry >= 0)
+            {
+                HideEntry(_visibleEntries[_visibleEntries.Count - 1]);
+                ShowEntry(_entries[nextAbsEntry], 0);
+                LayoutEntries();
+                _listWindowBaseIndex -= 1;
+            }
+
+            _selectedEntryRel = MathHelperExtensions.Clamp(nextRelEntry, 0, _visibleEntries.Count - 1);
+            _selectedEntryAbs = MathHelperExtensions.Clamp(nextAbsEntry, 0, _entries.Count - 1);
+
+            if (_entries.Count > NumVisibleEntries)
+            {
+                _screenDescriptor.GetSprite("ArrowUp").Color =
+                    (_listWindowBaseIndex == 0) ? Color.TransparentWhite : Color.White;
+                _screenDescriptor.GetSprite("ArrowDown").Color =
+                    (_listWindowBaseIndex == _entries.Count - NumVisibleEntries) ? Color.TransparentWhite : Color.White;
+            }
+
+            _entries[_selectedEntryAbs].OnFocusChanged(true);
+
+            if (selected != _selectedEntryAbs)
             {
                 _soundMove.Play();
             }
         }
 
-        protected SpriteDescriptor _screenDescriptor;
-        protected SoundEffect _soundMove, _soundSelect;
+        /// <summary>
+        /// Shows the specified menu entry at a specific position.
+        /// </summary>
+        private void ShowEntry(MenuEntry entry, int position)
+        {
+            _visibleEntries.Insert(position, entry);
+            _entriesSprite.Add(entry.Sprite);
+        }
 
-        protected List<MenuEntry> _entries = new List<MenuEntry>();
-        protected int _selectedEntry;
+        /// <summary>
+        /// Hides the specified menu entry.
+        /// </summary>
+        private void HideEntry(MenuEntry entry)
+        {
+            _visibleEntries.Remove(entry);
+            _entriesSprite.Remove(entry.Sprite);
+        }
+
+        protected SpriteDescriptor _screenDescriptor;
+        private CompositeSprite _entriesSprite;
+        private SoundEffect _soundMove, _soundSelect;
+
+        private List<MenuEntry> _entries = new List<MenuEntry>();
+        private List<MenuEntry> _visibleEntries = new List<MenuEntry>();
+        private int _selectedEntryRel; /// relative index inside visible entries
+        private int _selectedEntryAbs; /// absolute index inside all entries
+        private int _listWindowBaseIndex; /// index of top entry
 
         protected FishingGameContext _context;
-
-        private const float Spacing = 10f;
     }
 
     /// <summary>

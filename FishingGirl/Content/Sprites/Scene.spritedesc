@@ -84,29 +84,38 @@
       
       <!-- Furballs -->
       <Sequential>
-        <!-- Jumping around happily -->
-        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
-        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
-        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
-        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
-        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
-        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
-        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
-        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
-        <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
-        <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
-        <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
-        <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
-
+        <Composite>
+          <!-- Jumping around happily -->
+          <Sequential>
+            <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+            <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+            <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+            <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+            <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+            <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+            <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+            <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+            <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
+            <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
+            <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
+            <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
+          </Sequential>
+          <!-- Warning rumble from island -->
+          <Sequential>
+            <Delay Delay="2"/>
+            <Sound Sound="Sounds/Rumble" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+          </Sequential>
+        </Composite>
+        
         <!-- Island starts to move; confusion -->
         <Composite>
           <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
-          <Sound Sound="Sounds/Confused" Volume="1" Pitch="1" Pan="0" Loop="False"/>
+          <Sound Sound="Sounds/Confused" Volume="1" Pitch="0" Pan="0" Loop="False"/>
         </Composite>
         <Delay Delay="0.5"/>
         <Composite>
           <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
-          <Sound Sound="Sounds/Confused" Volume="1" Pitch="1" Pan="0" Loop="False"/>
+          <Sound Sound="Sounds/Confused" Volume="1" Pitch="0" Pan="0" Loop="False"/>
         </Composite>
         <Delay Delay="4.5"/>
         
@@ -116,7 +125,7 @@
           <Color Sprite="Girl?" Target="1 1 1 0" Duration="0.2" Easing="Uniform"/>
           <Color Sprite="Boy!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
           <Color Sprite="Girl!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
-          <Sound Sound="Sounds/Concerned" Volume="1" Pitch="1" Pan="0" Loop="False"/>
+          <Sound Sound="Sounds/Concerned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
         </Composite>
         <Delay Delay="2"/>
         
@@ -184,7 +193,7 @@
       <!-- Music -->
       <Sequential>
         <Delay Delay="15"/>
-        <Sound Sound="Sounds/Concerned" Volume="1" Pitch="1" Pan="0" Loop="False"/>
+        <Sound Sound="Sounds/Concerned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
       </Sequential>
     </Composite>
     

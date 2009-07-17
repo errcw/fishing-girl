@@ -340,78 +340,6 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bomb Lure.
-        /// </summary>
-        internal static string LureBomb {
-            get {
-                return ResourceManager.GetString("LureBomb", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Explodes the first fish it touches..
-        /// </summary>
-        internal static string LureBombDescription {
-            get {
-                return ResourceManager.GetString("LureBombDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Large Lure.
-        /// </summary>
-        internal static string LureLarge {
-            get {
-                return ResourceManager.GetString("LureLarge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lets you catch Large sized fish..
-        /// </summary>
-        internal static string LureLargeDescription {
-            get {
-                return ResourceManager.GetString("LureLargeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Medium Lure.
-        /// </summary>
-        internal static string LureMedium {
-            get {
-                return ResourceManager.GetString("LureMedium", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lets you catch Medium sized fish..
-        /// </summary>
-        internal static string LureMediumDescription {
-            get {
-                return ResourceManager.GetString("LureMediumDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Small Lure.
-        /// </summary>
-        internal static string LureSmall {
-            get {
-                return ResourceManager.GetString("LureSmall", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lets you catch Small sized fish..
-        /// </summary>
-        internal static string LureSmallDescription {
-            get {
-                return ResourceManager.GetString("LureSmallDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Tablefish.
         /// </summary>
         internal static string MediumCommon {
@@ -727,78 +655,6 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you cast a short distance..
-        /// </summary>
-        internal static string RodBronzeDescription {
-            get {
-                return ResourceManager.GetString("RodBronzeDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Bronze Rod.
-        /// </summary>
-        internal static string RodBroze {
-            get {
-                return ResourceManager.GetString("RodBroze", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Gold Rod.
-        /// </summary>
-        internal static string RodGold {
-            get {
-                return ResourceManager.GetString("RodGold", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lets you cast your lure farther still..
-        /// </summary>
-        internal static string RodGoldDescription {
-            get {
-                return ResourceManager.GetString("RodGoldDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Legendary Rod.
-        /// </summary>
-        internal static string RodLegendary {
-            get {
-                return ResourceManager.GetString("RodLegendary", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lets you cast your lure to the far shore..
-        /// </summary>
-        internal static string RodLegendaryDescription {
-            get {
-                return ResourceManager.GetString("RodLegendaryDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Silver Rod.
-        /// </summary>
-        internal static string RodSilver {
-            get {
-                return ResourceManager.GetString("RodSilver", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Lets you cast your lure farther..
-        /// </summary>
-        internal static string RodSilverDescription {
-            get {
-                return ResourceManager.GetString("RodSilverDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Shoefish.
         /// </summary>
         internal static string SmallCommon {
@@ -831,6 +687,168 @@ namespace FishingGirl.Properties {
         internal static string SmallVeryRare {
             get {
                 return ResourceManager.GetString("SmallVeryRare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy.
+        /// </summary>
+        internal static string StoreBuy {
+            get {
+                return ResourceManager.GetString("StoreBuy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        internal static string StoreClose {
+            get {
+                return ResourceManager.GetString("StoreClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bomb Lure.
+        /// </summary>
+        internal static string StoreLureBomb {
+            get {
+                return ResourceManager.GetString("StoreLureBomb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Explodes the first fish it touches..
+        /// </summary>
+        internal static string StoreLureBombDescription {
+            get {
+                return ResourceManager.GetString("StoreLureBombDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Large Lure.
+        /// </summary>
+        internal static string StoreLureLarge {
+            get {
+                return ResourceManager.GetString("StoreLureLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets you catch Large sized fish..
+        /// </summary>
+        internal static string StoreLureLargeDescription {
+            get {
+                return ResourceManager.GetString("StoreLureLargeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medium Lure.
+        /// </summary>
+        internal static string StoreLureMedium {
+            get {
+                return ResourceManager.GetString("StoreLureMedium", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets you catch Medium sized fish..
+        /// </summary>
+        internal static string StoreLureMediumDescription {
+            get {
+                return ResourceManager.GetString("StoreLureMediumDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Small Lure.
+        /// </summary>
+        internal static string StoreLureSmall {
+            get {
+                return ResourceManager.GetString("StoreLureSmall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets you catch Small sized fish..
+        /// </summary>
+        internal static string StoreLureSmallDescription {
+            get {
+                return ResourceManager.GetString("StoreLureSmallDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets you cast a short distance..
+        /// </summary>
+        internal static string StoreRodBronzeDescription {
+            get {
+                return ResourceManager.GetString("StoreRodBronzeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bronze Rod.
+        /// </summary>
+        internal static string StoreRodBroze {
+            get {
+                return ResourceManager.GetString("StoreRodBroze", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gold Rod.
+        /// </summary>
+        internal static string StoreRodGold {
+            get {
+                return ResourceManager.GetString("StoreRodGold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets you cast your lure farther still..
+        /// </summary>
+        internal static string StoreRodGoldDescription {
+            get {
+                return ResourceManager.GetString("StoreRodGoldDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legendary Rod.
+        /// </summary>
+        internal static string StoreRodLegendary {
+            get {
+                return ResourceManager.GetString("StoreRodLegendary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets you cast your lure to the far shore..
+        /// </summary>
+        internal static string StoreRodLegendaryDescription {
+            get {
+                return ResourceManager.GetString("StoreRodLegendaryDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Silver Rod.
+        /// </summary>
+        internal static string StoreRodSilver {
+            get {
+                return ResourceManager.GetString("StoreRodSilver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lets you cast your lure farther..
+        /// </summary>
+        internal static string StoreRodSilverDescription {
+            get {
+                return ResourceManager.GetString("StoreRodSilverDescription", resourceCulture);
             }
         }
         

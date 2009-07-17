@@ -14,7 +14,7 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The amount of money available to the player.
         /// </summary>
-        public int Amount { get; private set; }
+        public int Amount { get; set; }
 
         /// <summary>
         /// Creates a new set of money.

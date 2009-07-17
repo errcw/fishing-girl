@@ -270,6 +270,7 @@ namespace FishingGirl.Screens
             _timer = new Timer(_fishing);
 
             _store = new Store(_money, _fishing);
+            _store.LoadContent(content);
             _store.Hit += OnStoreHit;
 
             // create the views

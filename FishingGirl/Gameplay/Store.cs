@@ -1,8 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 
 using Library.Sprite;
+using Library.Sprite.Pipeline;
+
+using FishingGirl.Properties;
 
 namespace FishingGirl.Gameplay
 {
@@ -24,7 +29,7 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The set of items available for purchase in the store.
         /// </summary>
-        public StoreItem Items { get; private set; }
+        public List<StoreItem> Items { get; private set; }
 
         /// <summary>
         /// Creates a new store.
@@ -36,7 +41,58 @@ namespace FishingGirl.Gameplay
             _money = money;
             _fishing = fishing;
             _fishing.ActionChanged += OnActionChanged;
+            Items = new List<StoreItem>();
             MoveStore();
+        }
+
+        /// <summary>
+        /// Creates the items in this store.
+        /// </summary>
+        public void LoadContent(ContentManager content)
+        {
+            // creates a centered sprite
+            Func<string, Sprite> getStoreSprite = delegate(string spriteName)
+            {
+                Sprite sprite = content.Load<ImageSpriteTemplate>(spriteName).Create();
+                return sprite;
+            };
+
+            _silverRod = new StoreItem(
+                (() => _fishing.Rod = RodType.Silver),
+                100,
+                Resources.StoreRodSilver,
+                Resources.StoreRodSilverDescription,
+                getStoreSprite("StoreRodSilver"));
+            _goldRod = new StoreItem(
+                (() => _fishing.Rod = RodType.Gold),
+                300,
+                Resources.StoreRodGold,
+                Resources.StoreRodGoldDescription,
+                getStoreSprite("RodGold"));
+            _legendaryRod = new StoreItem(
+                (() => _fishing.Rod = RodType.Legendary),
+                500,
+                Resources.StoreRodLegendary,
+                Resources.StoreRodLegendaryDescription,
+                getStoreSprite("RodLegendary"));
+            _mediumLure = new StoreItem(
+                (() => Items.Remove(_mediumLure)),
+                50,
+                Resources.StoreLureMedium,
+                Resources.StoreLureMediumDescription,
+                getStoreSprite("StoreLureMedium"));
+            _largeLure = new StoreItem(
+                (() => Items.Remove(_largeLure)),
+                150,
+                Resources.StoreLureLarge,
+                Resources.StoreLureLargeDescription,
+                getStoreSprite("StoreLureLarge"));
+            _bombLure = new StoreItem(
+                (() => Items.Remove(_bombLure)),
+                125,
+                Resources.StoreLureBomb,
+                Resources.StoreLureBombDescription,
+                getStoreSprite("StoreLureBomb"));
         }
 
         /// <summary>
@@ -45,6 +101,23 @@ namespace FishingGirl.Gameplay
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
         public void Update(float time)
         {
+        }
+
+        /// <summary>
+        /// Returns whether the specified item can be purchased.
+        /// </summary>
+        public bool CanPurchase(StoreItem item)
+        {
+            return item.Cost <= _money.Amount;
+        }
+
+        /// <summary>
+        /// Purchases the specified item from the store.
+        /// </summary>
+        public void Purchase(StoreItem item)
+        {
+            item.Purchase();
+            _money.Amount -= item.Cost;
         }
 
         /// <summary>
@@ -73,10 +146,35 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
+        /// Adds the available items to the store.
+        /// </summary>
+        private void FillStore()
+        {
+            Items.Clear();
+            // add the next type of rod
+            if (_fishing.Rod == RodType.Bronze)
+            {
+                Items.Add(_silverRod);
+            }
+            else if (_fishing.Rod == RodType.Silver)
+            {
+                Items.Add(_goldRod);
+            }
+            else if (_fishing.Rod == RodType.Gold)
+            {
+                Items.Add(_legendaryRod);
+            }
+            Items.Add(_mediumLure);
+            Items.Add(_largeLure);
+            Items.Add(_bombLure);
+        }
+
+        /// <summary>
         /// Invokes the hit event.
         /// </summary>
         private void OnHit()
         {
+            FillStore();
             if (Hit != null)
             {
                 Hit(this, EventArgs.Empty);
@@ -85,6 +183,9 @@ namespace FishingGirl.Gameplay
 
         private Money _money;
         private FishingState _fishing;
+
+        private StoreItem _silverRod, _goldRod, _legendaryRod;
+        private StoreItem _mediumLure, _largeLure, _bombLure;
 
         private Random _random = new Random();
 

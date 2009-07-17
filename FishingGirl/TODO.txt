@@ -2,11 +2,15 @@
 ====
 
 - Add store, lure types, rod types
+  * Purchase lures
+  * Purchase rods
+  * Limited/no items in trial mode + message
+  * Handle case with not enough money
 - Add badges
   * Catch every type of fish
   * Finish the game
-  * Earn 500 points
-  * Cast X m with the Bronze Rod, Y m with the Silver Rod, etc.
+  * Earn 500 coins
+  * Cast X metres with the Bronze Rod, Y metres with the Silver Rod, etc.
   * Buy every type of lure and every type of rod
   * Win with X:XX time left
 - Fish trying to escape the lure?

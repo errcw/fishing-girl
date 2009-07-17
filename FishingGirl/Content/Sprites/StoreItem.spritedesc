@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites>
+    <Image Name="Background" Texture="StoreSelected" Color="1 1 1 0" Layer="0.95"/>
+    <Composite Name="Image" Position="10 5">
+    </Composite>
+    <Text Name="Name" Font="Fonts/Text" Position="75 2"/>
+    <Text Name="Description" Font="Fonts/TextSmall" Position="75 30"/>
+    <Composite Position="350 4">
+      <Image Texture="Coin" Position="0 16" Origin="8 8"/>
+      <Text Name="Money" Font="Fonts/Text" Position="12 0"/>
+    </Composite>
+  </Sprites>
+</SpriteDescriptor>

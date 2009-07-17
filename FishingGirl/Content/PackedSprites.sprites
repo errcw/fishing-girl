@@ -71,6 +71,12 @@
     <Sprite Texture="Textures/Heart1.png"/>
     <Sprite Texture="Textures/Controls.png"/>
     <Sprite Texture="Textures/OverlayEnd.png"/>
+    <Sprite Texture="Textures/StoreSelected.png"/>
+    <Sprite Texture="Textures/StoreLureSmall.png"/>
+    <Sprite Texture="Textures/StoreLureMedium.png"/>
+    <Sprite Texture="Textures/StoreLureLarge.png"/>
+    <Sprite Texture="Textures/StoreLureBomb.png"/>
+    <Sprite Texture="Textures/StoreRodSilver.png"/>
   </Group>
   
   <Group Name="Landscape">

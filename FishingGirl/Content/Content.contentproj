@@ -138,8 +138,8 @@
       <Name>StoreContainer</Name>
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
-    <Compile Include="Sprites\StoreView.spritedesc">
-      <Name>StoreView</Name>
+    <Compile Include="Sprites\StoreItem.spritedesc">
+      <Name>StoreItem</Name>
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
     <Compile Include="Sprites\TimerView.spritedesc">
@@ -277,6 +277,20 @@
     <Compile Include="Sprites\StoreScreen.spritedesc">
       <Name>StoreScreen</Name>
       <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\Rumble.wav">
+      <Name>Rumble</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\ShopNoMoney.wav">
+      <Name>ShopNoMoney</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
