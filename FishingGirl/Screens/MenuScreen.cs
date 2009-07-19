@@ -169,6 +169,8 @@ namespace FishingGirl.Screens
             base.Show(pushed);
             _screenDescriptor.GetSprite("Back").Color = IsRoot && !ShowBackOnRoot ? Color.TransparentWhite : Color.White;
             _screenDescriptor.GetSprite("Select").Color = Color.White;
+            _screenDescriptor.GetSprite("ArrowUp").Color = Color.TransparentWhite;
+            _screenDescriptor.GetSprite("ArrowDown").Color = Color.TransparentWhite;
             if (pushed)
             {
                 // reset the list
@@ -223,13 +225,13 @@ namespace FishingGirl.Screens
                 SetSelected(delta);
             }
 
-            if (_context.Input.Action.Pressed && _entries[_selectedEntryRel].IsSelectable)
+            if (_context.Input.Action.Pressed && _entries[_selectedEntryAbs].IsSelectable)
             {
-                _entries[_selectedEntryRel].OnSelected();
+                _entries[_selectedEntryAbs].OnSelected();
                 _soundSelect.Play();
             }
 
-            _entries[_selectedEntryRel].Update(time);
+            _entries[_selectedEntryAbs].Update(time);
         }
 
         /// <summary>

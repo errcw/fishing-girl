@@ -421,4 +421,7 @@
   <data name="StoreClose" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="NagBubbleStore" xml:space="preserve">
+    <value>Buy Fishing Girl to purchase items from the store!</value>
+  </data>
 </root>

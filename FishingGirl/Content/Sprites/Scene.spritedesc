@@ -101,10 +101,10 @@
             <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
           </Sequential>
           <!-- Warning rumble from island -->
-          <Sequential>
+          <!--<Sequential>
             <Delay Delay="2"/>
             <Sound Sound="Sounds/Rumble" Volume="1" Pitch="0" Pan="0" Loop="False"/>
-          </Sequential>
+          </Sequential>-->
         </Composite>
         
         <!-- Island starts to move; confusion -->

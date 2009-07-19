@@ -77,6 +77,8 @@
     <Sprite Texture="Textures/StoreLureLarge.png"/>
     <Sprite Texture="Textures/StoreLureBomb.png"/>
     <Sprite Texture="Textures/StoreRodSilver.png"/>
+    <Sprite Texture="Textures/StoreRodGold.png"/>
+    <Sprite Texture="Textures/StoreRodLegendary.png"/>
   </Group>
   
   <Group Name="Landscape">

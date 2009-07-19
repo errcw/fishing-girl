@@ -68,27 +68,27 @@ namespace FishingGirl.Gameplay
                 300,
                 Resources.StoreRodGold,
                 Resources.StoreRodGoldDescription,
-                getStoreSprite("RodGold"));
+                getStoreSprite("StoreRodGold"));
             _legendaryRod = new StoreItem(
                 (() => _fishing.Rod = RodType.Legendary),
                 500,
                 Resources.StoreRodLegendary,
                 Resources.StoreRodLegendaryDescription,
-                getStoreSprite("RodLegendary"));
+                getStoreSprite("StoreRodLegendary"));
             _mediumLure = new StoreItem(
-                (() => Items.Remove(_mediumLure)),
+                (() => _fishing.AddLure(LureType.Medium)),
                 50,
                 Resources.StoreLureMedium,
                 Resources.StoreLureMediumDescription,
                 getStoreSprite("StoreLureMedium"));
             _largeLure = new StoreItem(
-                (() => Items.Remove(_largeLure)),
+                (() => _fishing.AddLure(LureType.Large)),
                 150,
                 Resources.StoreLureLarge,
                 Resources.StoreLureLargeDescription,
                 getStoreSprite("StoreLureLarge"));
             _bombLure = new StoreItem(
-                (() => Items.Remove(_bombLure)),
+                (() => _fishing.AddLure(LureType.Bomb)),
                 125,
                 Resources.StoreLureBomb,
                 Resources.StoreLureBombDescription,
@@ -164,9 +164,19 @@ namespace FishingGirl.Gameplay
             {
                 Items.Add(_legendaryRod);
             }
-            Items.Add(_mediumLure);
-            Items.Add(_largeLure);
-            Items.Add(_bombLure);
+            // add lures
+            if (!_fishing.HasLure(LureType.Medium))
+            {
+                Items.Add(_mediumLure);
+            }
+            if (!_fishing.HasLure(LureType.Large))
+            {
+                Items.Add(_largeLure);
+            }
+            if (!_fishing.HasLure(LureType.Bomb))
+            {
+                Items.Add(_bombLure);
+            }
         }
 
         /// <summary>

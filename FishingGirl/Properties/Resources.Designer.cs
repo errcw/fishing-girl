@@ -592,6 +592,15 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Buy Fishing Girl to purchase items from the store!.
+        /// </summary>
+        internal static string NagBubbleStore {
+            get {
+                return ResourceManager.GetString("NagBubbleStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Catch larger fish!.
         /// </summary>
         internal static string NagFish {

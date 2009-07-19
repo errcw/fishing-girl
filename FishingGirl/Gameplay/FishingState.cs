@@ -213,6 +213,25 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
+        /// Adds the specified lure to the set of available lures.
+        /// </summary>
+        public void AddLure(LureType lure)
+        {
+            Lure = lure;
+            OnFishingEvent(FishingEvent.LureChanged);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="lure"></param>
+        /// <returns></returns>
+        public bool HasLure(LureType lure)
+        {
+            return (Lure == lure);
+        }
+
+        /// <summary>
         /// Enters the idle state.
         /// </summary>
         private void EnterIdleState()
@@ -320,12 +339,14 @@ namespace FishingGirl.Gameplay
 
             _lureFriction = WaterFriction;
             _lureAcceleration = WaterGravity;
+            _reelSpeed = ReelSpeed;
 
             _stateTick = delegate(float elapsed, Input input)
             {
                 if (input.Action.Down)
                 {
-                    _lineLength -= GetReelSpeed() * elapsed;
+                    _reelSpeed += GetReelAcceleration() * elapsed;
+                    _lineLength -= _reelSpeed * elapsed;
                     if (_lineLength <= IdleLineLength)
                     {
                         if (_hookedFish != null)
@@ -337,6 +358,10 @@ namespace FishingGirl.Gameplay
                         _lineLength = IdleLineLength;
                         EnterIdleState();
                     }
+                }
+                else
+                {
+                    _reelSpeed = ReelSpeed;
                 }
             };
         }
@@ -414,11 +439,15 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
-        /// Returns the reeling speed.
+        /// Returns the acceleration of the line being reeled in.
         /// </summary>
-        private float GetReelSpeed()
+        private float GetReelAcceleration()
         {
-            return _lureBroken ? 2 * ReelSpeed : ReelSpeed;
+            return
+                (_hookedFish != null) ? 0f // no acceleration with hooked
+                : (_lureBroken)
+                    ? ReelAccelerationBroken
+                    : ReelAccelerationLure;
         }
 
         /// <summary>
@@ -464,6 +493,7 @@ namespace FishingGirl.Gameplay
         private float _lureFriction;
         private Vector2 _lureAcceleration;
         private bool _lureBroken;
+        private float _reelSpeed;
 
         private Fish _hookedFish;
 
@@ -480,6 +510,8 @@ namespace FishingGirl.Gameplay
         private const float CastingMaxSweep = MathHelper.Pi / 1.25f;
         private readonly Vector2 CastingMaxVelocity = new Vector2(1100, -600);
         private const float ReelSpeed = 150f;
+        private const float ReelAccelerationLure = 100f;
+        private const float ReelAccelerationBroken = 250f;
 
         private const float AirFriction = 1f;
         private readonly Vector2 AirGravity = new Vector2(0, 500);

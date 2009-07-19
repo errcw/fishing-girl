@@ -47,7 +47,16 @@ namespace FishingGirl.Screens
             _screenDescriptor.GetSprite<TextSprite>("TextBack").Text = Resources.StoreClose;
 
             _entryTemplate = content.Load<SpriteDescriptorTemplate>("Sprites/StoreItem");
+
             _soundNoMoney = content.Load<SoundEffect>("Sounds/ShopNoMoney");
+            _soundPurchase = content.Load<SoundEffect>("Sounds/ShopPurchase");
+
+            _nagDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/NagScreen").Create();
+            _nagDescriptor.GetSprite<TextSprite>("Bubble").Text = Resources.NagBubbleStore;
+            _nagDescriptor.GetSprite<TextSprite>("Time").Text = Resources.NagTime;
+            _nagDescriptor.GetSprite<TextSprite>("Badges").Text = Resources.NagBadges;
+            _nagDescriptor.GetSprite<TextSprite>("Lures").Text = Resources.NagLures;
+            _nagDescriptor.GetSprite<TextSprite>("Fish").Text = Resources.NagFish;
         }
 
         /// <summary>
@@ -68,11 +77,15 @@ namespace FishingGirl.Screens
             for (int i = 0; i < Store.Items.Count; i++)
             {
                 StoreItem item = Store.Items[i];
-                StoreItemEntry entry = new StoreItemEntry(item, _entryTemplate.Create());
+
+                bool canPurchase = Store.CanPurchase(item) && !Guide.IsTrialMode;
+
+                StoreItemEntry entry = new StoreItemEntry(item, _entryTemplate.Create(), canPurchase);
                 entry.Selected += delegate(object entryObj, EventArgs args)
                 {
-                    if (Store.CanPurchase(item))
+                    if (canPurchase)
                     {
+                        _soundPurchase.Play();
                         Store.Purchase(item);
                         Stack.Pop();
                     }
@@ -81,11 +94,12 @@ namespace FishingGirl.Screens
                         _soundNoMoney.Play();
                     }
                 };
+
                 AddEntry(entry);
             }
             if (Guide.IsTrialMode)
             {
-                //TODO do something reasonable here
+                AddDecoration(_nagDescriptor.Sprite);
             }
         }
 
@@ -94,7 +108,7 @@ namespace FishingGirl.Screens
         /// </summary>
         private class StoreItemEntry : MenuEntry
         {
-            public StoreItemEntry(StoreItem item, SpriteDescriptor sprite) : base(sprite.Sprite)
+            public StoreItemEntry(StoreItem item, SpriteDescriptor sprite, bool purchaseEnabled) : base(sprite.Sprite)
             {
                 _item = item;
                 _descriptor = sprite;
@@ -102,6 +116,10 @@ namespace FishingGirl.Screens
                 _descriptor.GetSprite<TextSprite>("Name").Text = item.Name;
                 _descriptor.GetSprite<TextSprite>("Description").Text = item.Description;
                 _descriptor.GetSprite<TextSprite>("Money").Text = item.Cost.ToString(CultureInfo.InvariantCulture);
+                if (!purchaseEnabled)
+                {
+                    _descriptor.Sprite.Color = new Color(_descriptor.Sprite.Color, 0.6f);
+                }
             }
 
             public override void OnFocusChanged(bool focused)
@@ -114,6 +132,7 @@ namespace FishingGirl.Screens
         }
 
         private SpriteDescriptorTemplate _entryTemplate;
+        private SpriteDescriptor _nagDescriptor;
         private SoundEffect _soundPurchase, _soundNoMoney;
     }
 }
