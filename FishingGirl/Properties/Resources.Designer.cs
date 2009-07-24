@@ -592,7 +592,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Buy Fishing Girl to purchase items from the store!.
+        ///   Looks up a localized string similar to Buy Fishing Girl and get full access to the store!.
         /// </summary>
         internal static string NagBubbleStore {
             get {
@@ -718,24 +718,6 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bomb Lure.
-        /// </summary>
-        internal static string StoreLureBomb {
-            get {
-                return ResourceManager.GetString("StoreLureBomb", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Explodes the first fish it touches..
-        /// </summary>
-        internal static string StoreLureBombDescription {
-            get {
-                return ResourceManager.GetString("StoreLureBombDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Large Lure.
         /// </summary>
         internal static string StoreLureLarge {
@@ -745,11 +727,29 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you catch Large sized fish..
+        ///   Looks up a localized string similar to Catch large fish but damage them.
         /// </summary>
         internal static string StoreLureLargeDescription {
             get {
                 return ResourceManager.GetString("StoreLureLargeDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Better Large Lure.
+        /// </summary>
+        internal static string StoreLureLargeUpgraded {
+            get {
+                return ResourceManager.GetString("StoreLureLargeUpgraded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catches large fish.
+        /// </summary>
+        internal static string StoreLureLargeUpgradedDescription {
+            get {
+                return ResourceManager.GetString("StoreLureLargeUpgradedDescription", resourceCulture);
             }
         }
         
@@ -763,7 +763,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you catch Medium sized fish..
+        ///   Looks up a localized string similar to Catch medium fish.
         /// </summary>
         internal static string StoreLureMediumDescription {
             get {
@@ -781,7 +781,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you catch Small sized fish..
+        ///   Looks up a localized string similar to Catch small fish and chain up.
         /// </summary>
         internal static string StoreLureSmallDescription {
             get {
@@ -790,7 +790,25 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you cast a short distance..
+        ///   Looks up a localized string similar to Better Small Lure.
+        /// </summary>
+        internal static string StoreLureSmallUpgraded {
+            get {
+                return ResourceManager.GetString("StoreLureSmallUpgraded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catch and upgrade small fish.
+        /// </summary>
+        internal static string StoreLureSmallUpgradedDescription {
+            get {
+                return ResourceManager.GetString("StoreLureSmallUpgradedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cast a short distance.
         /// </summary>
         internal static string StoreRodBronzeDescription {
             get {
@@ -817,7 +835,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you cast your lure farther still..
+        ///   Looks up a localized string similar to Cast your lure farther still.
         /// </summary>
         internal static string StoreRodGoldDescription {
             get {
@@ -835,7 +853,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you cast your lure to the far shore..
+        ///   Looks up a localized string similar to Cast your lure to the far shore.
         /// </summary>
         internal static string StoreRodLegendaryDescription {
             get {
@@ -853,7 +871,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lets you cast your lure farther..
+        ///   Looks up a localized string similar to Cast your lure farther.
         /// </summary>
         internal static string StoreRodSilverDescription {
             get {

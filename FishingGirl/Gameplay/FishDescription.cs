@@ -48,32 +48,32 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The size of the fish.
         /// </summary>
-        public readonly FishSize Size;
+        public FishSize Size { get; set; }
 
         /// <summary>
         /// The rarity of the fish.
         /// </summary>
-        public readonly FishRarity Rarity;
+        public FishRarity Rarity { get; set; }
 
         /// <summary>
         /// The description modifier applied to the fish.
         /// </summary>
-        public readonly FishModifier Modifier;
+        public FishModifier Modifier { get; set; }
 
         /// <summary>
         /// The localized name of the fish.
         /// </summary>
-        public readonly string Name;
+        public string Name { get; set; }
 
         /// <summary>
         /// The monetary value of the fish.
         /// </summary>
-        public readonly int Value;
+        public int Value { get; set; }
 
         /// <summary>
         /// The name of the sprite descriptor for the fish.
         /// </summary>
-        public readonly string DescriptorName;
+        public string DescriptorName { get; set; }
 
         /// <summary>
         /// Creates a new fish description.

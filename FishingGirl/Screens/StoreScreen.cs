@@ -73,12 +73,19 @@ namespace FishingGirl.Screens
         /// </summary>
         private void BuildScreen()
         {
+            if (Store == null)
+            {
+                // if we are triggered to update before we have a store, bail
+                return;
+            }
             ClearEntries();
             for (int i = 0; i < Store.Items.Count; i++)
             {
                 StoreItem item = Store.Items[i];
 
-                bool canPurchase = Store.CanPurchase(item) && !Guide.IsTrialMode;
+                bool canPurchase =
+                    Store.CanPurchase(item) &&
+                    (!Guide.IsTrialMode || (Guide.IsTrialMode && item.Cost < 50));
 
                 StoreItemEntry entry = new StoreItemEntry(item, _entryTemplate.Create(), canPurchase);
                 entry.Selected += delegate(object entryObj, EventArgs args)

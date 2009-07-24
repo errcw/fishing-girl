@@ -200,10 +200,6 @@
       <Name>LureMedium</Name>
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
-    <Compile Include="Sprites\Fishing\LureBomb.spritedesc">
-      <Name>LureBomb</Name>
-      <Importer>SpriteDescriptorImporter</Importer>
-    </Compile>
     <Compile Include="Sprites\Fishing\LureLarge.spritedesc">
       <Name>LureLarge</Name>
       <Importer>SpriteDescriptorImporter</Importer>
@@ -298,6 +294,24 @@
       <Name>ShopPurchase</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Fishing\LureBasic.spritedesc">
+      <Name>LureBasic</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Fishing\LureSmallUpgraded.spritedesc">
+      <Name>LureSmallUpgraded</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\Fishing\LureLargeUpgraded.spritedesc">
+      <Name>LureLargeUpgraded</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

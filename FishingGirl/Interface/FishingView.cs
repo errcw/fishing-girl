@@ -1,11 +1,13 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 using Library.Animation;
 using Library.Sprite;
+using Library.Sprite.Pipeline;
 using Library.Input;
 
 using FishingGirl.Gameplay;
@@ -28,15 +30,21 @@ namespace FishingGirl.Interface
             _state.ActionChanged += OnActionChanged;
             _state.Event += OnFishingEvent;
 
-            _lure = _state.LureSprites[(int)_state.Lure].Sprite;
-            _rod = _state.RodSprites[(int)_state.Rod].Sprite;
-            _line = _state.LineSprite.Sprite;
-
-            _releaseEffect = context.Game.Content.Load<SoundEffect>("Sounds/Whoosh");
-            _splashEffect = context.Game.Content.Load<SoundEffect>("Sounds/Splash");
-            _caughtEffect = context.Game.Content.Load<SoundEffect>("Sounds/Caught");
+            _rod = _state.RodSprites[_state.Rod];
+            _lure = _state.LureSprites[_state.Lure];
+            _line = _state.LineSprite;
 
             _context = context;
+        }
+
+        /// <summary>
+        /// Loads the fishing sprites.
+        /// </summary>
+        public void LoadContent(ContentManager content)
+        {
+            _releaseEffect = content.Load<SoundEffect>("Sounds/Whoosh");
+            _splashEffect = content.Load<SoundEffect>("Sounds/Splash");
+            _caughtEffect = content.Load<SoundEffect>("Sounds/Caught");
         }
 
         /// <summary>
@@ -45,8 +53,6 @@ namespace FishingGirl.Interface
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
         public void Update(float time)
         {
-            _rod = _state.RodSprites[(int)_state.Rod].Sprite; //TODO remove
-
             UpdateRod(time);
             UpdateLure(time);
             UpdateLine(time);
@@ -101,7 +107,7 @@ namespace FishingGirl.Interface
                     break;
 
                 case FishingEvent.LureChanged:
-                    _lure = _state.LureSprites[(int)_state.Lure].Sprite;
+                    _lure = _state.LureSprites[_state.Lure];
                     break;
 
                 case FishingEvent.FishCaught:
@@ -115,7 +121,7 @@ namespace FishingGirl.Interface
             switch (e.Action)
             {
                 case FishingAction.Idle:
-                    _rod = _state.RodSprites[(int)_state.Rod].Sprite;
+                    _rod = _state.RodSprites[_state.Rod];
                     _lureAnimation = new ColorAnimation(_lure, Color.White, 0.5f, InterpolateColor);
                     break;
 
@@ -178,7 +184,6 @@ namespace FishingGirl.Interface
             tip = tip + _rod.Position;
             return tip;
         }
-
 
         /// <summary>
         /// Returns the strength of the feedback for a fish biting the lure.

@@ -48,6 +48,7 @@ namespace FishingGirl.Interface
         /// </summary>
         private void OnActionChanged(object stateObj, FishingActionEventArgs e)
         {
+            FishingState state = (FishingState)stateObj;
             if (_showCastingGuide)
             {
                 switch (e.Action)
@@ -69,6 +70,10 @@ namespace FishingGirl.Interface
                         break;
                 }
             }
+            else if (_showChangeGuide && e.Action == FishingAction.Idle && state.Lures.Count > 1 && _textTimeout == null)
+            {
+                _text.Show(Resources.GuideChangeLures);
+            }
         }
 
         /// <summary>
@@ -76,10 +81,11 @@ namespace FishingGirl.Interface
         /// </summary>
         private void OnFishingEvent(object stateObj, FishingEventArgs e)
         {
+            FishingState state = (FishingState)stateObj;
             switch (e.Event)
             {
                 case FishingEvent.FishHooked:
-                    if (_showLureGuide && e.Fish.Description.Size == FishSize.Small)
+                    if (_showLureGuide && e.Fish.Description.Size == FishSize.Small && state.Lure != Lures.Basic)
                     {
                         _text.Show(Resources.GuideLureSmallFish);
                         _textTimeout = new DelayAnimation(GuideTime);
@@ -101,6 +107,10 @@ namespace FishingGirl.Interface
                         _textTimeout = new DelayAnimation(GuideTime);
                     }
                     break;
+                case FishingEvent.LureChanged:
+                    _text.Hide();
+                    _showChangeGuide = false;
+                    break;
                 case FishingEvent.FishCaught:
                     _text.Show(String.Format(Resources.Caught, e.Fish.Description.Name), e.Fish.Description.Value);
                     _textTimeout = new DelayAnimation(CaughtTime);
@@ -108,9 +118,14 @@ namespace FishingGirl.Interface
             }
         }
 
+        private void OnGuideHidden()
+        {
+        }
+
         private bool _showCastingGuide = true;
         private bool _showBrokenGuide = true;
         private bool _showLureGuide = false;
+        private bool _showChangeGuide = true;
 
         private GuideView _text;
         private DelayAnimation _textTimeout;

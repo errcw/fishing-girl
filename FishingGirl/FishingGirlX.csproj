@@ -63,8 +63,10 @@
     <Compile Include="Gameplay\FishDescription.cs" />
     <Compile Include="Gameplay\FishingState.cs" />
     <Compile Include="Gameplay\FishMovement.cs" />
+    <Compile Include="Gameplay\Lure.cs" />
     <Compile Include="Gameplay\Money.cs" />
     <Compile Include="Gameplay\Ocean.cs" />
+    <Compile Include="Gameplay\Rod.cs" />
     <Compile Include="Gameplay\Scene.cs" />
     <Compile Include="Gameplay\Store.cs" />
     <Compile Include="Gameplay\Timer.cs" />

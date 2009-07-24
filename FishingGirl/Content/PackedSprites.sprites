@@ -73,9 +73,10 @@
     <Sprite Texture="Textures/OverlayEnd.png"/>
     <Sprite Texture="Textures/StoreSelected.png"/>
     <Sprite Texture="Textures/StoreLureSmall.png"/>
+    <Sprite Texture="Textures/StoreLureSmallUpgraded.png"/>
     <Sprite Texture="Textures/StoreLureMedium.png"/>
     <Sprite Texture="Textures/StoreLureLarge.png"/>
-    <Sprite Texture="Textures/StoreLureBomb.png"/>
+    <Sprite Texture="Textures/StoreLureLargeUpgraded.png"/>
     <Sprite Texture="Textures/StoreRodSilver.png"/>
     <Sprite Texture="Textures/StoreRodGold.png"/>
     <Sprite Texture="Textures/StoreRodLegendary.png"/>
@@ -94,10 +95,12 @@
     <Sprite Texture="Textures/RodGold.png"/>
     <Sprite Texture="Textures/RodLegendary.png"/>
 
+    <Sprite Texture="Textures/LureBasic.png"/>
     <Sprite Texture="Textures/LureSmall.png"/>
+    <Sprite Texture="Textures/LureSmallUpgraded.png"/>
     <Sprite Texture="Textures/LureMedium.png"/>
     <Sprite Texture="Textures/LureLarge.png"/>
-    <Sprite Texture="Textures/LureBomb.png"/>
+    <Sprite Texture="Textures/LureLargeUpgraded.png"/>
 
     <Sprite Texture="Textures/StoreContainer.png"/>
 

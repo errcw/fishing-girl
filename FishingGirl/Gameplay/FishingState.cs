@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -38,28 +39,6 @@ namespace FishingGirl.Gameplay
     }
 
     /// <summary>
-    /// The type of lure.
-    /// </summary>
-    public enum LureType
-    {
-        Small,
-        Medium,
-        Large,
-        Bomb
-    }
-
-    /// <summary>
-    /// The type of rod.
-    /// </summary>
-    public enum RodType
-    {
-        Bronze,
-        Silver,
-        Gold,
-        Legendary
-    }
-
-    /// <summary>
     /// Describes the fishing mechanics.
     /// </summary>
     public class FishingState
@@ -77,12 +56,17 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The type of lure used to fish.
         /// </summary>
-        public LureType Lure { get; private set; }
+        public Lure Lure { get { return Lures[_lureIndex]; } }
 
         /// <summary>
         /// The position of the lure.
         /// </summary>
         public Vector2 LurePosition { get { return _lurePosition; } }
+
+        /// <summary>
+        /// The lures available to to fish with.
+        /// </summary>
+        public List<Lure> Lures { get; private set; }
 
         /// <summary>
         /// The type of rod used to fish.
@@ -95,6 +79,13 @@ namespace FishingGirl.Gameplay
         public float RodRotation { get; private set; }
 
         /// <summary>
+        /// The sprites to draw this state.
+        /// </summary>
+        public Dictionary<RodType, Sprite> RodSprites { get; private set; }
+        public Dictionary<Lure, Sprite> LureSprites { get; private set; }
+        public Sprite LineSprite { get; private set; }
+
+        /// <summary>
         /// The length of the fishing line.
         /// </summary>
         public float MaxCastDistance
@@ -103,47 +94,51 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
-        /// Sprites describing how to draw this state.
-        /// </summary>
-        public SpriteDescriptor[] RodSprites { get; private set; }
-        public SpriteDescriptor[] LureSprites { get; private set; }
-        public SpriteDescriptor LineSprite { get; private set; }
-
-        /// <summary>
         /// Creates a new fishing state.
         /// </summary>
         /// <param name="game">The game context.</param>
-        /// <param name="scene">The context of the state.</param>
+        /// <param name="scene">The scene context of the state.</param>
         public FishingState(GameplayScreen game, Scene scene)
         {
             _game = game;
             _scene = scene;
+
+            Rod = RodType.Bronze;
+            RodRotation = SwingInitialRotation;
+
+            Lures = new List<Lure>();
+            Lures.Add(FishingGirl.Gameplay.Lures.Basic);
+            _lureIndex = 0;
+
+            _lineLength = IdleLineLength;
+
             EnterIdleState();
         }
 
         /// <summary>
-        /// Loads the content for the fishing rod.
+        /// Loads the sprites necessary to display this state.
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            RodSprites = new SpriteDescriptor[4];
+            RodSprites = new Dictionary<RodType, Sprite>();
             for (RodType rod = RodType.Bronze; rod <= RodType.Legendary; rod++)
             {
-                RodSprites[(int)rod] = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Rod" + rod.ToString()).Create();
-                RodSprites[(int)rod].Sprite.Position += _scene.PlayerPosition;
+                Sprite rodSprite = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Rod" + rod.ToString()).Create().Sprite;
+                rodSprite.Position += _scene.PlayerPosition;
+                RodSprites.Add(rod, rodSprite);
             }
-            Rod = RodType.Bronze;
-            RodRotation = SwingInitialRotation;
 
-            LureSprites = new SpriteDescriptor[4];
-            for (LureType lure = LureType.Small; lure <= LureType.Bomb; lure++)
+            LureSprites = new Dictionary<Lure, Sprite>();
+            for (int i = 0; i < FishingGirl.Gameplay.Lures.AllLures.Length; i++)
             {
-                LureSprites[(int)lure] = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Lure" + lure.ToString()).Create();
+                Lure lure = FishingGirl.Gameplay.Lures.AllLures[i];
+                Sprite lureSprite = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/" + lure.SpriteName).Create().Sprite;
+                LureSprites.Add(lure, lureSprite);
             }
-            Lure = LureType.Small;
 
-            LineSprite = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Line").Create();
+            LineSprite = content.Load<SpriteDescriptorTemplate>("Sprites/Fishing/Line").Create().Sprite;
 
+            // set up the lure now that we know what the rod looks like
             _lurePosition = GetRodTipPosition() + new Vector2(5f, 15f);
         }
 
@@ -167,7 +162,7 @@ namespace FishingGirl.Gameplay
             {
                 return false;
             }
-            return (_hookedFish == null) || (fish.Description.Size > _hookedFish.Description.Size);
+            return Lure.IsAttractedTo(fish, _hookedFish);
         }
 
         /// <summary>
@@ -177,58 +172,33 @@ namespace FishingGirl.Gameplay
         /// <returns>True if the bite hooked the fish; otherwise, false.</returns>
         public bool BiteLure(Fish fish)
         {
-            if (_hookedFish == null)
+            bool hooked = Lure.BiteLure(fish, _hookedFish);
+            if (hooked)
             {
-                if ((int)fish.Description.Size <= (int)Lure)
+                if (_hookedFish == null)
                 {
                     _hookedFish = fish;
                     OnFishingEvent(FishingEvent.FishHooked);
-                    return true;
                 }
                 else
                 {
-                    _lureBroken = true;
-                    OnFishingEvent(FishingEvent.LureBroke);
+                    _hookedFish.OnEaten();
+                    OnFishingEvent(FishingEvent.FishEaten);
+                    _hookedFish = fish;
                 }
             }
             else
             {
-                _hookedFish.OnEaten();
-                OnFishingEvent(FishingEvent.FishEaten);
-
-                if (fish.Description.Size == _hookedFish.Description.Size + 1 &&
-                    fish.Description.Size < FishSize.VeryLarge)
+                if (_hookedFish != null)
                 {
-                    _hookedFish = fish;
-                    return true;
-                }
-                else
-                {
+                    _hookedFish.OnEaten();
+                    OnFishingEvent(FishingEvent.FishEaten);
                     _hookedFish = null;
-                    _lureBroken = true;
-                    OnFishingEvent(FishingEvent.LureBroke);
                 }
+                _lureBroken = true;
+                OnFishingEvent(FishingEvent.LureBroke);
             }
-            return false;
-        }
-
-        /// <summary>
-        /// Adds the specified lure to the set of available lures.
-        /// </summary>
-        public void AddLure(LureType lure)
-        {
-            Lure = lure;
-            OnFishingEvent(FishingEvent.LureChanged);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="lure"></param>
-        /// <returns></returns>
-        public bool HasLure(LureType lure)
-        {
-            return (Lure == lure);
+            return hooked;
         }
 
         /// <summary>
@@ -257,10 +227,10 @@ namespace FishingGirl.Gameplay
                     EnterSwingingState();
                 }
 
-                //TODO remove
-                if (input.Cancel.PressedRepeat)
+                if (input.AltAction.PressedRepeat)
                 {
-                    Rod = (RodType)(((int)Rod + 1) % 4);
+                    _lureIndex = (_lureIndex + 1) % Lures.Count;
+                    OnFishingEvent(FishingEvent.LureChanged);
                 }
             };
         }
@@ -416,7 +386,7 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private Vector2 GetRodTipPosition()
         {
-            Sprite rod = RodSprites[(int)Rod].Sprite;
+            Sprite rod = RodSprites[Rod];
             Vector2 tip = new Vector2(199, 10) - new Vector2(16, 11);
             tip = Vector2.Transform(tip, Quaternion.CreateFromAxisAngle(Vector3.UnitZ, -RodRotation));
             tip = tip + rod.Position;
@@ -443,11 +413,10 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private float GetReelAcceleration()
         {
-            return
-                (_hookedFish != null) ? 0f // no acceleration with hooked
-                : (_lureBroken)
-                    ? ReelAccelerationBroken
-                    : ReelAccelerationLure;
+            return (_hookedFish != null) ? 0f // no acceleration when hooked
+                    : (_lureBroken)
+                        ? ReelAccelerationBroken
+                        : ReelAccelerationLure;
         }
 
         /// <summary>
@@ -486,8 +455,9 @@ namespace FishingGirl.Gameplay
         private StateTick _stateTick;
         private FishingAction _action;
 
-        private float _lineLength = IdleLineLength;
+        private float _lineLength;
 
+        private int _lureIndex;
         private Vector2 _lurePosition;
         private Vector2 _lureVelocity;
         private float _lureFriction;

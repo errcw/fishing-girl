@@ -1,11 +1,6 @@
 ﻿TODO
 ====
 
-- Add store
-  * Purchase lures
-    ** More lure types, with effects (interface: IsAttractedTo, Bite)
-    ** Switch between lures
-  * Limited/no items in trial mode + message
 - Add badges
   * Catch every type of fish
   * Finish the game

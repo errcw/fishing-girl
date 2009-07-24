@@ -214,32 +214,26 @@
   <data name="BestDistance" xml:space="preserve">
     <value>Best yet!</value>
   </data>
-  <data name="StoreLureBomb" xml:space="preserve">
-    <value>Bomb Lure</value>
-  </data>
-  <data name="StoreLureBombDescription" xml:space="preserve">
-    <value>Explodes the first fish it touches.</value>
-  </data>
   <data name="StoreLureLarge" xml:space="preserve">
     <value>Large Lure</value>
   </data>
   <data name="StoreLureLargeDescription" xml:space="preserve">
-    <value>Lets you catch Large sized fish.</value>
+    <value>Catch large fish but damage them</value>
   </data>
   <data name="StoreLureMedium" xml:space="preserve">
     <value>Medium Lure</value>
   </data>
   <data name="StoreLureMediumDescription" xml:space="preserve">
-    <value>Lets you catch Medium sized fish.</value>
+    <value>Catch medium fish</value>
   </data>
   <data name="StoreLureSmall" xml:space="preserve">
     <value>Small Lure</value>
   </data>
   <data name="StoreLureSmallDescription" xml:space="preserve">
-    <value>Lets you catch Small sized fish.</value>
+    <value>Catch small fish and chain up</value>
   </data>
   <data name="StoreRodBronzeDescription" xml:space="preserve">
-    <value>Lets you cast a short distance.</value>
+    <value>Cast a short distance</value>
   </data>
   <data name="StoreRodBroze" xml:space="preserve">
     <value>Bronze Rod</value>
@@ -248,19 +242,19 @@
     <value>Gold Rod</value>
   </data>
   <data name="StoreRodGoldDescription" xml:space="preserve">
-    <value>Lets you cast your lure farther still.</value>
+    <value>Cast your lure farther still</value>
   </data>
   <data name="StoreRodLegendary" xml:space="preserve">
     <value>Legendary Rod</value>
   </data>
   <data name="StoreRodLegendaryDescription" xml:space="preserve">
-    <value>Lets you cast your lure to the far shore.</value>
+    <value>Cast your lure to the far shore</value>
   </data>
   <data name="StoreRodSilver" xml:space="preserve">
     <value>Silver Rod</value>
   </data>
   <data name="StoreRodSilverDescription" xml:space="preserve">
-    <value>Lets you cast your lure farther.</value>
+    <value>Cast your lure farther</value>
   </data>
   <data name="GuideLureSmallFish" xml:space="preserve">
     <value>Use Small fish to hook Medium ones</value>
@@ -422,6 +416,18 @@
     <value>Close</value>
   </data>
   <data name="NagBubbleStore" xml:space="preserve">
-    <value>Buy Fishing Girl to purchase items from the store!</value>
+    <value>Buy Fishing Girl and get full access to the store!</value>
+  </data>
+  <data name="StoreLureLargeUpgraded" xml:space="preserve">
+    <value>Better Large Lure</value>
+  </data>
+  <data name="StoreLureLargeUpgradedDescription" xml:space="preserve">
+    <value>Catches large fish</value>
+  </data>
+  <data name="StoreLureSmallUpgraded" xml:space="preserve">
+    <value>Better Small Lure</value>
+  </data>
+  <data name="StoreLureSmallUpgradedDescription" xml:space="preserve">
+    <value>Catch and upgrade small fish</value>
   </data>
 </root>

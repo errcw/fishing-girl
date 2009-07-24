@@ -12,6 +12,7 @@ namespace FishingGirl
     public class Input : Library.Input.Input
     {
         public readonly ControlState Action = new ControlState();
+        public readonly ControlState AltAction = new ControlState();
         public readonly ControlState Cancel = new ControlState();
         public readonly ControlState Up = new ControlState();
         public readonly ControlState Down = new ControlState();
@@ -23,6 +24,7 @@ namespace FishingGirl
         public Input(FishingGame game) : base(game)
         {
             Register(Action, Polling.Any(Polling.One(Buttons.A), Polling.One(Buttons.Start)));
+            Register(AltAction, Polling.One(Buttons.B));
             Register(Cancel, Polling.Any(Polling.One(Buttons.B), Polling.One(Buttons.Back)));
             Register(Up, Polling.Any(Polling.One(Buttons.DPadUp), Polling.One(Buttons.LeftThumbstickUp)));
             Register(Down, Polling.Any(Polling.One(Buttons.DPadDown), Polling.One(Buttons.LeftThumbstickDown)));

@@ -267,6 +267,7 @@ namespace FishingGirl.Screens
             _ocean.LoadContent(content);
 
             _money = new Money(_fishing);
+
             _timer = new Timer(_fishing);
 
             _store = new Store(_money, _fishing);
@@ -276,9 +277,10 @@ namespace FishingGirl.Screens
             // create the views
             _sceneView = new SceneView(_scene, _camera);
             _oceanView = new OceanView(_ocean);
-            _fishingView = new FishingView(_fishing, _context);
             _fishCaughtView = new FishCaughtView(_fishing);
             _fishEatenView = new FishEatenView(_fishing);
+            _fishingView = new FishingView(_fishing, _context);
+            _fishingView.LoadContent(content);
 
             _distanceView = new DistanceView(_scene, _fishing);
             _distanceView.LoadContent(content);

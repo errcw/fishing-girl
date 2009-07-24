@@ -41,8 +41,9 @@ namespace FishingGirl.Gameplay
             _money = money;
             _fishing = fishing;
             _fishing.ActionChanged += OnActionChanged;
+
             Items = new List<StoreItem>();
-            MoveStore();
+            Position = InitialPosition;
         }
 
         /// <summary>
@@ -50,11 +51,9 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            // creates a centered sprite
             Func<string, Sprite> getStoreSprite = delegate(string spriteName)
             {
-                Sprite sprite = content.Load<ImageSpriteTemplate>(spriteName).Create();
-                return sprite;
+                return content.Load<ImageSpriteTemplate>(spriteName).Create();
             };
 
             _silverRod = new StoreItem(
@@ -75,24 +74,36 @@ namespace FishingGirl.Gameplay
                 Resources.StoreRodLegendary,
                 Resources.StoreRodLegendaryDescription,
                 getStoreSprite("StoreRodLegendary"));
+            _smallLure = new StoreItem(
+                (() => _fishing.Lures.Add(Lures.Small)),
+                5,
+                Resources.StoreLureSmall,
+                Resources.StoreLureSmallDescription,
+                getStoreSprite("Store" + Lures.Small.SpriteName));
+            _smallUpgradedLure = new StoreItem(
+                (() => _fishing.Lures.Add(Lures.SmallUpgraded)),
+                75,
+                Resources.StoreLureSmallUpgraded,
+                Resources.StoreLureSmallUpgradedDescription,
+                getStoreSprite("Store" + Lures.SmallUpgraded.SpriteName));
             _mediumLure = new StoreItem(
-                (() => _fishing.AddLure(LureType.Medium)),
-                50,
+                (() => _fishing.Lures.Add(Lures.Medium)),
+                75,
                 Resources.StoreLureMedium,
                 Resources.StoreLureMediumDescription,
-                getStoreSprite("StoreLureMedium"));
+                getStoreSprite("Store" + Lures.Medium.SpriteName));
             _largeLure = new StoreItem(
-                (() => _fishing.AddLure(LureType.Large)),
-                150,
+                (() => _fishing.Lures.Add(Lures.Large)),
+                100,
                 Resources.StoreLureLarge,
                 Resources.StoreLureLargeDescription,
-                getStoreSprite("StoreLureLarge"));
-            _bombLure = new StoreItem(
-                (() => _fishing.AddLure(LureType.Bomb)),
-                125,
-                Resources.StoreLureBomb,
-                Resources.StoreLureBombDescription,
-                getStoreSprite("StoreLureBomb"));
+                getStoreSprite("Store" + Lures.Large.SpriteName));
+            _largeUpgradedLure = new StoreItem(
+                (() => _fishing.Lures.Add(Lures.LargeUpgraded)),
+                150,
+                Resources.StoreLureLargeUpgraded,
+                Resources.StoreLureLargeUpgradedDescription,
+                getStoreSprite("Store" + Lures.LargeUpgraded.SpriteName));
         }
 
         /// <summary>
@@ -165,17 +176,25 @@ namespace FishingGirl.Gameplay
                 Items.Add(_legendaryRod);
             }
             // add lures
-            if (!_fishing.HasLure(LureType.Medium))
+            if (!_fishing.Lures.Contains(Lures.Small) && !_fishing.Lures.Contains(Lures.SmallUpgraded))
+            {
+                Items.Add(_smallLure);
+            }
+            if (!_fishing.Lures.Contains(Lures.SmallUpgraded))
+            {
+                Items.Add(_smallUpgradedLure);
+            }
+            if (!_fishing.Lures.Contains(Lures.Medium))
             {
                 Items.Add(_mediumLure);
             }
-            if (!_fishing.HasLure(LureType.Large))
+            if (!_fishing.Lures.Contains(Lures.Large) && !_fishing.Lures.Contains(Lures.LargeUpgraded))
             {
                 Items.Add(_largeLure);
             }
-            if (!_fishing.HasLure(LureType.Bomb))
+            if (!_fishing.Lures.Contains(Lures.LargeUpgraded))
             {
-                Items.Add(_bombLure);
+                Items.Add(_largeUpgradedLure);
             }
         }
 
@@ -195,12 +214,13 @@ namespace FishingGirl.Gameplay
         private FishingState _fishing;
 
         private StoreItem _silverRod, _goldRod, _legendaryRod;
-        private StoreItem _mediumLure, _largeLure, _bombLure;
+        private StoreItem _smallLure, _mediumLure, _largeLure, _smallUpgradedLure, _largeUpgradedLure;
 
         private Random _random = new Random();
 
         private const float HitThreshold = 45f;
         private const float StoreMinX = 1100f;
+        private const float InitialPosition = 1400f;
     }
 
     /// <summary>
