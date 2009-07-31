@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites>
+    <Image Name="Background" Texture="StoreSelected" Color="1 1 1 0" Layer="0.95"/>
+  </Sprites>
+  <Animations>
+    <Composite Name="Show">
+      <Color Target="1 1 1 1" Duration="1" Easing="Uniform"/>
+      <Sound Sound="Sounds/Concerned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+    </Composite>
+    <Color Name="Hide" Target="1 1 1 0" Duration="1" Easing="Uniform"/>
+  </Animations>
+</SpriteDescriptor>

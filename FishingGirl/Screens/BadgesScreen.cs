@@ -32,6 +32,11 @@ namespace FishingGirl.Screens
             AddEntry(new BadgeMenuEntry(new TextSprite(font, "H")));
             LayoutEntries();
         }
+
+        protected override void Show(bool pushed)
+        {
+            base.Show(pushed);
+        }
     }
 
     public class BadgeMenuEntry : MenuEntry

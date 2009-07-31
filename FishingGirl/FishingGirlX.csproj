@@ -57,6 +57,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="FishingGameContext.cs" />
+    <Compile Include="Gameplay\Badges.cs" />
     <Compile Include="Gameplay\EventArgs.cs" />
     <Compile Include="Gameplay\Fish.cs" />
     <Compile Include="Gameplay\FishBehavior.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Gameplay\Store.cs" />
     <Compile Include="Gameplay\Timer.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="Interface\BadgeView.cs" />
     <Compile Include="Interface\CameraController.cs" />
     <Compile Include="Interface\DistanceView.cs" />
     <Compile Include="Interface\FishCaughtView.cs" />

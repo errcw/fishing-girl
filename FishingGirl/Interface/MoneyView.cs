@@ -35,7 +35,7 @@ namespace FishingGirl.Interface
         }
 
         /// <summary>
-        /// Updates the money animation
+        /// Updates the money animation.
         /// </summary>
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
         public void Update(float time)

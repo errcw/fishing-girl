@@ -40,6 +40,9 @@ namespace FishingGirl.Screens
         {
             StartGame(content);
 
+            _badges = new Badges();
+            _badgeView = new BadgeView(_badges);
+
             _storeScreen = new StoreScreen(_context);
             _storeScreen.LoadContent(content);
 
@@ -107,6 +110,7 @@ namespace FishingGirl.Screens
             _guideView.Draw(spriteBatch);
             _moneyView.Draw(spriteBatch);
             _timerView.Draw(spriteBatch);
+            _badgeView.Draw(spriteBatch);
             spriteBatch.End();
         }
 
@@ -326,6 +330,11 @@ namespace FishingGirl.Screens
         /// </summary>
         private void ExitGame()
         {
+            // save the state if possible
+            if (_context.Storage.IsValid)
+            {
+                _badges.Save(_context.Storage);
+            }
         }
 
         /// <summary>
@@ -388,6 +397,9 @@ namespace FishingGirl.Screens
 
         private Guide _guide;
         private GuideView _guideView;
+
+        private Badges _badges;
+        private BadgeView _badgeView;
 
         private StoreScreen _storeScreen;
         private TransitionScreen _transitionScreen;

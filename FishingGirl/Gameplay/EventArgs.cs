@@ -8,7 +8,7 @@ namespace FishingGirl.Gameplay
     /// <summary>
     /// Event data for the ocean fish added and removed event.
     /// </summary>
-    public class FishEventArgs : EventArgs
+    public sealed class FishEventArgs : EventArgs
     {
         /// <summary>
         /// The fish added or removed.
@@ -24,7 +24,7 @@ namespace FishingGirl.Gameplay
     /// <summary>
     /// Event data for the action changed event.
     /// </summary>
-    public class FishingActionEventArgs : EventArgs
+    public sealed class FishingActionEventArgs : EventArgs
     {
         /// <summary>
         /// The new action.
@@ -43,7 +43,7 @@ namespace FishingGirl.Gameplay
     /// <summary>
     /// Event data for the fishing event.
     /// </summary>
-    public class FishingEventArgs : EventArgs
+    public sealed class FishingEventArgs : EventArgs
     {
         /// <summary>
         /// The event.

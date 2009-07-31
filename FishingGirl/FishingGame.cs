@@ -31,7 +31,6 @@ namespace FishingGirl
             Window.Title = Resources.FishingGirl;
 
             Components.Add(new GamerServicesComponent(this));
-            Components.Add(_storage = new StorageDeviceManager(this));
             Components.Add(_trial = new TrialModeObserverComponent(this));
             Components.Add(_input = new Input(this));
             Components.Add(_screens = new ScreenStack(this));
@@ -86,7 +85,7 @@ namespace FishingGirl
 
         private ScreenStack _screens;
         private Input _input;
-        private StorageDeviceManager _storage;
+        private Storage _storage;
         private TrialModeObserverComponent _trial;
     }
 }
