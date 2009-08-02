@@ -1,5 +1,6 @@
 using System;
-using Library.Components;
+
+using Library.Extensions;
 
 namespace FishingGirl
 {
@@ -10,20 +11,7 @@ namespace FishingGirl
         /// </summary>
         static void Main(string[] args)
         {
-            try
-            {
-                using (FishingGame game = new FishingGame())
-                {
-                    game.Run();
-                }
-            }
-            catch (Exception e)
-            {
-                using (ExceptionDebugGame game = new ExceptionDebugGame(e))
-                {
-                    game.Run();
-                }
-            }
+            GameExtensions.Run<FishingGame>();
         }
     }
 }

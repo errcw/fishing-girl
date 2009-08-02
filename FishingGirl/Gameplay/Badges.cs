@@ -69,6 +69,14 @@ namespace FishingGirl.Gameplay
         public event EventHandler<BadgeEventArgs> BadgeEarned;
 
         /// <summary>
+        /// Creates a new set of badges.
+        /// </summary>
+        public Badges()
+        {
+            _badges = new List<Badge>();
+        }
+
+        /// <summary>
         /// Loads the badges from the specified storage.
         /// </summary>
         public void Load(Storage storage)

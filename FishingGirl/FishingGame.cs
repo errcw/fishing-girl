@@ -49,7 +49,10 @@ namespace FishingGirl
         {
             base.LoadContent();
 
-            FishingGameContext context = new FishingGameContext(this, _input, _storage, _trial);
+            FishingGameContext context = new FishingGameContext();
+            context.Game = this;
+            context.Input = _input;
+            context.Trial = _trial;
 
             GameplayScreen gameplayScreen = new GameplayScreen(context);
             gameplayScreen.LoadContent(Content);
@@ -85,7 +88,6 @@ namespace FishingGirl
 
         private ScreenStack _screens;
         private Input _input;
-        private Storage _storage;
         private TrialModeObserverComponent _trial;
     }
 }

@@ -59,6 +59,7 @@ namespace FishingGirl.Screens
             {
                 _context.Storage = new PlayerStorage(_context.Game, "FishingGirl", _context.Input.Controller.Value);
                 _context.Game.Components.Add(_context.Storage);
+                _context.Storage.PromptForDevice();
 
                 Stack.Pop();
             }

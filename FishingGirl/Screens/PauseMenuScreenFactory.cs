@@ -197,7 +197,7 @@ namespace FishingGirl.Screens
                         0,
                         MessageBoxIcon.Warning,
                         r => Guide.EndShowMessageBox(r),
-                        new object());
+                        null);
                 }
             }
             catch (Exception e)

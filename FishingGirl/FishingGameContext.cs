@@ -29,16 +29,5 @@ namespace FishingGirl
         /// The trial mode observer.
         /// </summary>
         public TrialModeObserverComponent Trial { get; set; }
-
-        /// <summary>
-        /// Creates a new context.
-        /// </summary>
-        public FishingGameContext(FishingGame game, Input input, Storage storage, TrialModeObserverComponent trial)
-        {
-            Game = game;
-            Input = input;
-            Storage = storage;
-            Trial = trial;
-        }
     }
 }

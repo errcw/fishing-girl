@@ -42,6 +42,7 @@ namespace FishingGirl.Screens
 
             _badges = new Badges();
             _badgeView = new BadgeView(_badges);
+            _badgeView.LoadContent(content);
 
             _storeScreen = new StoreScreen(_context);
             _storeScreen.LoadContent(content);
@@ -157,6 +158,7 @@ namespace FishingGirl.Screens
                     break;
 
                 case GameState.Game:
+                    throw new Exception();
                     UpdateGame(time);
                     break;
 
