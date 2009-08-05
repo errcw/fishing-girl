@@ -430,4 +430,7 @@
   <data name="StoreLureSmallUpgradedDescription" xml:space="preserve">
     <value>Catch and upgrade small fish</value>
   </data>
+  <data name="SaveExists" xml:space="preserve">
+    <value>A savefile already exists on the storage device. It will be overwritten if you continue. Is this okay?</value>
+  </data>
 </root>

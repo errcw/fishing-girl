@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Media;
 using Library.Screen;
 using Library.Sprite;
 using Library.Sprite.Pipeline;
+using Library.Storage;
 
 using FishingGirl.Gameplay;
 using FishingGirl.Interface;
@@ -155,10 +156,10 @@ namespace FishingGirl.Screens
                 case GameState.Transition:
                     _scene.EndStory();
                     _state = GameState.Game;
+                    OnGameStarted();
                     break;
 
                 case GameState.Game:
-                    throw new Exception();
                     UpdateGame(time);
                     break;
 
@@ -333,9 +334,24 @@ namespace FishingGirl.Screens
         private void ExitGame()
         {
             // save the state if possible
-            if (_context.Storage.IsValid)
+            if (_context.Storage != null && _context.Storage.IsValid)
             {
                 _badges.Save(_context.Storage);
+            }
+        }
+
+        /// <summary>
+        /// Watches for the game starting.
+        /// </summary>
+        private void OnGameStarted()
+        {
+            if (_context.Storage == null)
+            {
+                _context.Storage = new PlayerStorage(_context.Game, "FishingGirl", _context.Input.Controller.Value);
+                _context.Storage.DeviceSelected += (o, a) => _badges.Load(_context.Storage); //TODO check for overwrite?
+                _context.Storage.PromptForDevice();
+
+                _context.Game.Components.Add(_context.Storage);
             }
         }
 

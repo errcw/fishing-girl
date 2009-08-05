@@ -12,9 +12,18 @@ namespace FishingGirl.Gameplay
     public class Money
     {
         /// <summary>
+        /// Occurs when money is gained or lost.
+        /// </summary>
+        public event EventHandler<MoneyEventArgs> AmountChanged;
+
+        /// <summary>
         /// The amount of money available to the player.
         /// </summary>
-        public int Amount { get; set; }
+        public int Amount
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Creates a new set of money.
@@ -36,5 +45,21 @@ namespace FishingGirl.Gameplay
                 Amount += e.Fish.Description.Value;
             }
         }
+
+        /// <summary>
+        /// Occurs when the amount of money changed.
+        /// </summary>
+        private void OnAmountChanged()
+        {
+            if (AmountChanged != null)
+            {
+                AmountChanged(this, null);
+            }
+        }
+    }
+
+    public sealed class MoneyEventArgs : EventArgs
+    {
+        public readonly int ChangeInAmount;
     }
 }

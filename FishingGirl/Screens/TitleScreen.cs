@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Library.Screen;
 using Library.Sprite;
 using Library.Sprite.Pipeline;
-using Library.Storage;
 
 using FishingGirl;
 using FishingGirl.Properties;
@@ -57,10 +56,6 @@ namespace FishingGirl.Screens
         {
             if (_context.Input.FindActiveController())
             {
-                _context.Storage = new PlayerStorage(_context.Game, "FishingGirl", _context.Input.Controller.Value);
-                _context.Game.Components.Add(_context.Storage);
-                _context.Storage.PromptForDevice();
-
                 Stack.Pop();
             }
             _screenDescriptor.GetAnimation("HighlightText").Update(time);

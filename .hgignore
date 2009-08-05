@@ -3,9 +3,10 @@
 \.suo$
 \.cachefile$
 
-# Ignore the object and bin directories
+# Ignore the object, bin, and publish directories
 obj/.*
 bin/.*
+publish/.*
 
 # Ignore the old project
 ^_FishingGirl.*

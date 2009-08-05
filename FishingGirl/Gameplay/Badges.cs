@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 using Library.Storage;
 
@@ -34,28 +35,15 @@ namespace FishingGirl.Gameplay
         public bool IsEarned { get; protected set; }
 
         /// <summary>
+        /// The game context providing the badge data.
+        /// </summary>
+        public BadgeContext Context { get; set; }
+
+        /// <summary>
         /// Updates this badge to check if it is earned.
         /// </summary>
         /// <returns>True if this badge was earned this update; otherwise, false.</returns>
-        public abstract bool Update();
-    }
-
-    public class AccumulatedMoneyBadge : Badge
-    {
-        public int Accumulated { get; set; }
-
-        public AccumulatedMoneyBadge()
-        {
-            Name = "";
-            Description = "";
-            IsEarned = false;
-            Accumulated = 0;
-        }
-
-        public override bool Update()
-        {
-            return false;
-        }
+        public virtual bool Update() { return false; }
     }
 
     /// <summary>
@@ -67,6 +55,14 @@ namespace FishingGirl.Gameplay
         /// Occurs when a new badge is earned.
         /// </summary>
         public event EventHandler<BadgeEventArgs> BadgeEarned;
+
+        /// <summary>
+        /// The game context providing the badge data.
+        /// </summary>
+        public BadgeContext Context
+        {
+            set { _badges.ForEach(badge => badge.Context = value); }
+        }
 
         /// <summary>
         /// Creates a new set of badges.
@@ -81,8 +77,15 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public void Load(Storage storage)
         {
-            storage.Load(_storedBadges);
-            _badges = new List<Badge>(_storedBadges.Data);
+            try
+            {
+                storage.Load(_storedBadges);
+                _badges = new List<Badge>(_storedBadges.Data);
+            }
+            catch (FileNotFoundException)
+            {
+                // create a new set of badges
+            }
         }
 
         /// <summary>
@@ -128,5 +131,98 @@ namespace FishingGirl.Gameplay
 
         private List<Badge> _badges;
         private readonly XmlStoreable<Badge[]> _storedBadges = new XmlStoreable<Badge[]>("Badges");
+    }
+
+    /// <summary>
+    /// All the game systems.
+    /// </summary>
+    public class BadgeContext
+    {
+        public FishingState Fishing { get; set; }
+        public Timer Timer { get; set; }
+        public Money Money { get; set; }
+        public Store Store { get; set; }
+    }
+
+    /// <summary>
+    /// A badge earned when the player accumulates some number of coins.
+    /// </summary>
+    public class AccumulatedMoneyBadge : Badge
+    {
+        public int Accumulated { get; set; }
+
+        public BadgeContext Context {
+            set {
+                value.Money.AmountChanged += (o, a) =>
+                {
+                    if (a.ChangeInAmount > 0)
+                    {
+                        Accumulated += a.ChangeInAmount;
+                        if (Accumulated > Threshold) {
+                            IsEarned = true;
+                        }
+                    }
+                };
+            }
+        }
+
+        public AccumulatedMoneyBadge(int threshold)
+        {
+            Name = "";
+            Description = "";
+            IsEarned = false;
+            Accumulated = 0;
+            Threshold = threshold;
+        }
+
+        public override bool Update()
+        {
+            return IsEarned;
+        }
+
+        private readonly int Threshold;
+    }
+
+    /// <summary>
+    /// A badge earned when the player has accumulated over 5,000 coins.
+    /// </summary>
+    public class SmallAccumulatedMoneyBadge : AccumulatedMoneyBadge
+    {
+        public SmallAccumulatedMoneyBadge() : base(5000)
+        {
+            Name = "";
+            Description = "";
+        }
+    }
+
+    /// <summary>
+    /// A badge earned when the player has accumulated over 100,000 coins.
+    /// </summary>
+    public class LargeAccumulatedMoneyBadge : AccumulatedMoneyBadge
+    {
+        public LargeAccumulatedMoneyBadge() : base(10000)
+        {
+            Name = "";
+            Description = "";
+        }
+    }
+
+    /// <summary>
+    /// A badge earned when the player has over 1,000 coins at any point.
+    /// </summary>
+    public class TotalMoneyBadge : Badge
+    {
+        public TotalMoneyBadge()
+        {
+            Name = "";
+            Description = "";
+            IsEarned = false;
+        }
+
+        public override bool Update()
+        {
+            IsEarned = Context.Money.Amount >= 1000;
+            return IsEarned;
+        }
     }
 }

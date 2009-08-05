@@ -664,6 +664,15 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A savefile already exists on the storage device. It will be overwritten if you continue. Is this okay?.
+        /// </summary>
+        internal static string SaveExists {
+            get {
+                return ResourceManager.GetString("SaveExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shoefish.
         /// </summary>
         internal static string SmallCommon {
