@@ -4,14 +4,20 @@
     <!-- Background parallax layers -->
     <Composite Name="Background" Layer="0.9">
       <Composite Name="Sky" Layer="1">
-        <Image Texture="LayerSky" Position="0 0" Layer="1"/>
+        <Image Texture="LayerSky" Position="0 0" Scale="2048 1" Layer="1"/>
         <Image Texture="Sun" Position="400 5" Layer="0"/>
         <Image Texture="Cloud1" Position="30 20" Layer="0"/>
         <Image Texture="Cloud2" Position="700 5" Layer="0"/>
         <Image Texture="Cloud3" Position="750 80" Layer="0"/>
       </Composite>
-      <Image Name="FarHills" Texture="LayerFarHills" Origin="0 -70" Layer="0.5"/>
-      <Image Name="NearHills" Texture="LayerNearHills" Origin="0 -300" Layer="0"/>
+      <Composite Name="FarHills" Layer="0.5">
+        <Image Texture="LayerFarHills1" Position="0 0" Origin="0 -70"/>
+        <Image Texture="LayerFarHills2" Position="1024 0" Origin="0 -70"/>
+      </Composite>
+      <Composite Name="NearHills" Layer="0">
+        <Image Texture="LayerNearHills1" Position="0 0" Origin="0 -300" />
+        <Image Texture="LayerNearHills2" Position="1024 0" Origin="0 -300"/>
+      </Composite>
     </Composite>
 
     <!-- Water -->

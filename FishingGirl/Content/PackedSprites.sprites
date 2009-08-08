@@ -71,6 +71,8 @@
     <Sprite Texture="Textures/Heart1.png"/>
     <Sprite Texture="Textures/Controls.png"/>
     <Sprite Texture="Textures/OverlayEnd.png"/>
+    <Sprite Texture="Textures/BadgeEarned.png"/>
+    <Sprite Texture="Textures/BadgeNotEarned.png"/>
     <Sprite Texture="Textures/StoreSelected.png"/>
     <Sprite Texture="Textures/StoreLureSmall.png"/>
     <Sprite Texture="Textures/StoreLureSmallUpgraded.png"/>
@@ -104,8 +106,10 @@
 
     <Sprite Texture="Textures/StoreContainer.png"/>
 
-    <Sprite Texture="Textures/LayerFarHills.png"/>
-    <Sprite Texture="Textures/LayerNearHills.png"/>
+    <Sprite Texture="Textures/LayerFarHills1.png"/>
+    <Sprite Texture="Textures/LayerFarHills2.png"/>
+    <Sprite Texture="Textures/LayerNearHills1.png"/>
+    <Sprite Texture="Textures/LayerNearHills2.png"/>
     <Sprite Texture="Textures/LayerSky.png"/>
     <Sprite Texture="Textures/Cloud1.png"/>
     <Sprite Texture="Textures/Cloud2.png"/>

@@ -433,4 +433,10 @@
   <data name="SaveExists" xml:space="preserve">
     <value>A savefile already exists on the storage device. It will be overwritten if you continue. Is this okay?</value>
   </data>
+  <data name="BadgeTotalMoney" xml:space="preserve">
+    <value>Money Hoarder</value>
+  </data>
+  <data name="BadgeTotalMoneyDescription" xml:space="preserve">
+    <value>Have at least {0} coins in the bank.</value>
+  </data>
 </root>

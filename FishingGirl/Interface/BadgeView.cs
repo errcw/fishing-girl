@@ -51,6 +51,7 @@ namespace FishingGirl.Interface
                     {
                         // the badge is visible, now hide it
                         _animation = _sprite.GetAnimation("Hide");
+                        _animation.Start();
                     }
                     else
                     {
@@ -78,6 +79,7 @@ namespace FishingGirl.Interface
             _sprite.GetSprite<TextSprite>("Name").Text = args.Badge.Name;
             _sprite.GetSprite<TextSprite>("Description").Text = args.Badge.Description;
             _animation = _sprite.GetAnimation("Show");
+            _animation.Start();
         }
 
         private Badges _badges;

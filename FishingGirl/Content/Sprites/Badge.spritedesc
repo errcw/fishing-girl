@@ -1,13 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
-  <Sprites Name="Root">
-    <Image Name="Background" Texture="StoreSelected" Color="1 1 1 0" Layer="0.95"/>
+  <Sprites Name="Root" Color="1 1 1 0" Position="328 550">
+    <Image Name="Background" Texture="BackgroundLarge" Layer="1"/>
+    <Image Texture="BadgeEarned" Position="15 25" Layer="0"/>
+    <Text Name="Name" Font="Fonts/Text" Text="Money Hoarder" Position="50 6" Layer="0"/>
+    <Text Name="Description" Font="Fonts/TextSmall" Text="This is a badge description. Slightly longer." Position="50 35" Layer="0"/>
   </Sprites>
   <Animations>
-    <Composite Name="Show">
-      <Color Sprite="Root" Target="1 1 1 1" Duration="1" Easing="Uniform"/>
-      <Sound Sound="Sounds/Concerned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+    <Sequential Name="Show">
+      <Composite>
+        <Position Sprite="Root" Target="328 550" Duration="0" Easing="Uniform"/>
+        <Color Sprite="Root" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+        <Sound Sound="Sounds/Concerned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+      </Composite>
+      <Delay Delay="2"/>
+    </Sequential>
+    <Composite Name="Hide">
+      <Position Sprite="Root" Target="328 600" Duration="0.5" Easing="QuadraticOut"/>
+      <Color Sprite="Root" Target="1 1 1 0" Duration="0.5" Easing="Uniform"/>
     </Composite>
-    <Color Sprite="Root" Name="Hide" Target="1 1 1 0" Duration="1" Easing="Uniform"/>
   </Animations>
 </SpriteDescriptor>

@@ -70,6 +70,24 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Money Hoarder.
+        /// </summary>
+        internal static string BadgeTotalMoney {
+            get {
+                return ResourceManager.GetString("BadgeTotalMoney", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Have at least {0} coins in the bank..
+        /// </summary>
+        internal static string BadgeTotalMoneyDescription {
+            get {
+                return ResourceManager.GetString("BadgeTotalMoneyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to a beautiful.
         /// </summary>
         internal static string Beautiful {

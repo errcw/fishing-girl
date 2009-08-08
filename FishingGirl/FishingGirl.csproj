@@ -32,7 +32,7 @@
     <InstallUrl>http://ericw.ca/files/FishingGirl/</InstallUrl>
     <WebPage>FishingGirl.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>0.8.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -89,7 +89,6 @@
   <ItemGroup>
     <Compile Include="FishingGameContext.cs" />
     <Compile Include="Gameplay\Badges.cs" />
-    <Compile Include="Gameplay\EventArgs.cs" />
     <Compile Include="Gameplay\Fish.cs" />
     <Compile Include="Gameplay\FishBehavior.cs" />
     <Compile Include="Gameplay\FishDescription.cs" />

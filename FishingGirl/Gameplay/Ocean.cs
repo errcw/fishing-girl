@@ -337,5 +337,21 @@ namespace FishingGirl.Gameplay
 
         private Random _random = new Random();
     }
+
+    /// <summary>
+    /// Event data for the ocean fish added and removed event.
+    /// </summary>
+    public sealed class FishEventArgs : EventArgs
+    {
+        /// <summary>
+        /// The fish added or removed.
+        /// </summary>
+        public readonly Fish Fish;
+
+        public FishEventArgs(Fish fish)
+        {
+            Fish = fish;
+        }
+    }
 }
 

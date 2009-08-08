@@ -39,8 +39,6 @@ namespace FishingGirl.Screens
         /// </summary>
         public void LoadContent(ContentManager content)
         {
-            StartGame(content);
-
             _badges = new Badges();
             _badgeView = new BadgeView(_badges);
             _badgeView.LoadContent(content);
@@ -59,6 +57,8 @@ namespace FishingGirl.Screens
             _oceanSong = content.Load<Song>("Sounds/Ocean");
             MediaPlayer.Volume = 0.1f;
             MediaPlayer.IsRepeating = true;
+
+            StartGame(content);
         }
 
         /// <summary>
@@ -217,6 +217,9 @@ namespace FishingGirl.Screens
             _timer.Update(time);
             _timerView.Update(time);
 
+            _badges.Update(time);
+            _badgeView.Update(time);
+
             if (_timer.Time <= 0f)
             {
                 EndGame(false);
@@ -281,6 +284,13 @@ namespace FishingGirl.Screens
             _store.LoadContent(content);
             _store.Hit += OnStoreHit;
 
+            BadgeContext badgeContext = new BadgeContext();
+            badgeContext.Fishing = _fishing;
+            badgeContext.Money = _money;
+            badgeContext.Store = _store;
+            badgeContext.Timer = _timer;
+            _badges.Context = badgeContext;
+
             // create the views
             _sceneView = new SceneView(_scene, _camera);
             _oceanView = new OceanView(_ocean);
@@ -336,7 +346,7 @@ namespace FishingGirl.Screens
             // save the state if possible
             if (_context.Storage != null && _context.Storage.IsValid)
             {
-                _badges.Save(_context.Storage);
+                //TODO _badges.Save(_context.Storage);
             }
         }
 

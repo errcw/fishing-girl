@@ -21,8 +21,18 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public int Amount
         {
-            get;
-            set;
+            get
+            {
+                return _amount;
+            }
+            set
+            {
+                if (AmountChanged != null)
+                {
+                    AmountChanged(this, new MoneyEventArgs(value - _amount));
+                }
+                _amount = value;
+            }
         }
 
         /// <summary>
@@ -31,7 +41,7 @@ namespace FishingGirl.Gameplay
         /// <param name="state">The fishing state to track.</param>
         public Money(FishingState state)
         {
-            Amount = 0;
+            _amount = 0;
             state.Event += OnFishingEvent;
         }
 
@@ -46,20 +56,19 @@ namespace FishingGirl.Gameplay
             }
         }
 
-        /// <summary>
-        /// Occurs when the amount of money changed.
-        /// </summary>
-        private void OnAmountChanged()
-        {
-            if (AmountChanged != null)
-            {
-                AmountChanged(this, null);
-            }
-        }
+        private int _amount;
     }
 
+    /// <summary>
+    /// Event arguments for when the money changes.
+    /// </summary>
     public sealed class MoneyEventArgs : EventArgs
     {
         public readonly int ChangeInAmount;
+
+        public MoneyEventArgs(int change)
+        {
+            ChangeInAmount = change;
+        }
     }
 }

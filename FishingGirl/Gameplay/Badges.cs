@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml.Serialization;
 
 using Library.Storage;
+
+using FishingGirl.Properties;
 
 namespace FishingGirl.Gameplay
 {
@@ -37,7 +40,8 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The game context providing the badge data.
         /// </summary>
-        public BadgeContext Context { get; set; }
+        [XmlIgnore]
+        public virtual BadgeContext Context { get; set; }
 
         /// <summary>
         /// Updates this badge to check if it is earned.
@@ -70,6 +74,9 @@ namespace FishingGirl.Gameplay
         public Badges()
         {
             _badges = new List<Badge>();
+            _badges.Add(new SmallAccumulatedMoneyBadge());
+            _badges.Add(new LargeAccumulatedMoneyBadge());
+            _badges.Add(new TotalMoneyBadge());
         }
 
         /// <summary>
@@ -79,13 +86,15 @@ namespace FishingGirl.Gameplay
         {
             try
             {
-                storage.Load(_storedBadges);
-                _badges = new List<Badge>(_storedBadges.Data);
+                if (storage.Exists(_storedBadges))
+                {
+                    storage.Load(_storedBadges);
+                    _badges = new List<Badge>(_storedBadges.Data);
+                }
             }
-            catch (FileNotFoundException)
-            {
-                // create a new set of badges
-            }
+            // nothing to do on failure except use the existing badges
+            catch (IOException) { }
+            catch (InvalidOperationException) { }
         }
 
         /// <summary>
@@ -151,14 +160,16 @@ namespace FishingGirl.Gameplay
     {
         public int Accumulated { get; set; }
 
-        public BadgeContext Context {
-            set {
+        public override BadgeContext Context {
+            set
+            {
                 value.Money.AmountChanged += (o, a) =>
                 {
                     if (a.ChangeInAmount > 0)
                     {
                         Accumulated += a.ChangeInAmount;
-                        if (Accumulated > Threshold) {
+                        if (Accumulated > Threshold)
+                        {
                             IsEarned = true;
                         }
                     }
@@ -214,15 +225,16 @@ namespace FishingGirl.Gameplay
     {
         public TotalMoneyBadge()
         {
-            Name = "";
-            Description = "";
-            IsEarned = false;
+            Name = Resources.BadgeTotalMoney;
+            Description = string.Format(Resources.BadgeTotalMoneyDescription, Total);
         }
 
         public override bool Update()
         {
-            IsEarned = Context.Money.Amount >= 1000;
+            IsEarned = Context.Money.Amount >= Total;
             return IsEarned;
         }
+
+        private const int Total = 5;
     }
 }

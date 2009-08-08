@@ -83,7 +83,7 @@ namespace FishingGirl.Gameplay
                 bool hooked = (hookedFish == null && fish.Description.Size == FishSize.Large);
                 if (hooked)
                 {
-                    hookedFish.Description.Modifier = FishModifier.Ugly;
+                    fish.Description.Modifier = FishModifier.Ugly;
                 }
                 return hooked;
             }
@@ -101,7 +101,7 @@ namespace FishingGirl.Gameplay
                 bool hooked = Small.BiteLure(fish, hookedFish);
                 if (hooked)
                 {
-                    hookedFish.Description.Modifier = FishModifier.Beautiful;
+                    fish.Description.Modifier = FishModifier.Beautiful;
                 }
                 return hooked;
             }

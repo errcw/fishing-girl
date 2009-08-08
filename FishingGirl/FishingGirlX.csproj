@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="FishingGameContext.cs" />
     <Compile Include="Gameplay\Badges.cs" />
-    <Compile Include="Gameplay\EventArgs.cs" />
     <Compile Include="Gameplay\Fish.cs" />
     <Compile Include="Gameplay\FishBehavior.cs" />
     <Compile Include="Gameplay\FishDescription.cs" />

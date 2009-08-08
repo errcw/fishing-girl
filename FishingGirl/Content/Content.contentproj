@@ -28,6 +28,7 @@
       <Name>PackedSprites</Name>
       <Importer>PackedImageSpritesImporter</Importer>
       <Processor>PackedImageSpritesProcessor</Processor>
+      <ProcessorParameters_ContainerSize>S2048</ProcessorParameters_ContainerSize>
     </Compile>
   </ItemGroup>
   <ItemGroup>
