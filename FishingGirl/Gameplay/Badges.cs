@@ -14,28 +14,45 @@ namespace FishingGirl.Gameplay
     /// </summary>
     public sealed class BadgeEventArgs : EventArgs
     {
-        public Badge Badge { get; set; }
+        public readonly Badge Badge;
+
+        public BadgeEventArgs(Badge badge)
+        {
+            Badge = badge;
+        }
     }
 
     /// <summary>
     /// An acheivement.
     /// </summary>
+    [XmlInclude(typeof(SmallAccumulatedMoneyBadge))]
+    [XmlInclude(typeof(LargeAccumulatedMoneyBadge))]
+    [XmlInclude(typeof(TotalMoneyBadge))]
+    [XmlInclude(typeof(WonGameBadge))]
+    [XmlInclude(typeof(FastWonGameBadge))]
+    [XmlInclude(typeof(CatchEveryFishBadge))]
+    [XmlInclude(typeof(BuyEveryItemBadge))]
+    [XmlInclude(typeof(BronzeCastBadge))]
+    [XmlInclude(typeof(SilverCastBadge))]
+    [XmlInclude(typeof(GoldCastBadge))]
     public abstract class Badge
     {
         /// <summary>
         /// The name of this badge.
         /// </summary>
+        [XmlIgnore]
         public string Name { get; protected set; }
 
         /// <summary>
         /// A description of how to acheive this badge.
         /// </summary>
+        [XmlIgnore]
         public string Description { get; protected set; }
 
         /// <summary>
         /// If this badge has been earned.
         /// </summary>
-        public bool IsEarned { get; protected set; }
+        public bool IsEarned { get; set; }
 
         /// <summary>
         /// The game context providing the badge data.
@@ -47,7 +64,13 @@ namespace FishingGirl.Gameplay
         /// Updates this badge to check if it is earned.
         /// </summary>
         /// <returns>True if this badge was earned this update; otherwise, false.</returns>
-        public virtual bool Update() { return false; }
+        public bool Update()
+        {
+            IsEarned = _earned;
+            return _earned;
+        }
+
+        protected bool _earned = false;
     }
 
     /// <summary>
@@ -61,11 +84,20 @@ namespace FishingGirl.Gameplay
         public event EventHandler<BadgeEventArgs> BadgeEarned;
 
         /// <summary>
+        /// The set of badges.
+        /// </summary>
+        public IEnumerable<Badge> BadgeSet
+        {
+            get { return _badges; }
+        }
+
+        /// <summary>
         /// The game context providing the badge data.
         /// </summary>
         public BadgeContext Context
         {
-            set { _badges.ForEach(badge => badge.Context = value); }
+            get { return _context; }
+            set { SetContext(value);  }
         }
 
         /// <summary>
@@ -77,6 +109,13 @@ namespace FishingGirl.Gameplay
             _badges.Add(new SmallAccumulatedMoneyBadge());
             _badges.Add(new LargeAccumulatedMoneyBadge());
             _badges.Add(new TotalMoneyBadge());
+            _badges.Add(new WonGameBadge());
+            _badges.Add(new FastWonGameBadge());
+            _badges.Add(new CatchEveryFishBadge());
+            _badges.Add(new BuyEveryItemBadge());
+            _badges.Add(new BronzeCastBadge());
+            _badges.Add(new SilverCastBadge());
+            _badges.Add(new GoldCastBadge());
         }
 
         /// <summary>
@@ -89,12 +128,17 @@ namespace FishingGirl.Gameplay
                 if (storage.Exists(_storedBadges))
                 {
                     storage.Load(_storedBadges);
-                    _badges = new List<Badge>(_storedBadges.Data);
+                    if (_storedBadges.Data.Length > 0)
+                    {
+                        _badges = new List<Badge>(_storedBadges.Data);
+                        SetContext(_context); // set the context on the badges
+                    }
                 }
             }
-            // nothing to do on failure except use the existing badges
-            catch (IOException) { }
-            catch (InvalidOperationException) { }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -102,8 +146,15 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public void Save(Storage storage)
         {
-            _storedBadges.Data = _badges.ToArray();
-            storage.Save(_storedBadges);
+            try
+            {
+                _storedBadges.Data = _badges.ToArray();
+                storage.Save(_storedBadges);
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e);
+            }
         }
 
         /// <summary>
@@ -125,21 +176,30 @@ namespace FishingGirl.Gameplay
         }
 
         /// <summary>
+        /// Sets the current context.
+        /// </summary>
+        private void SetContext(BadgeContext newContext)
+        {
+            _context = newContext;
+            _badges.ForEach(badge => badge.Context = _context);
+        }
+
+        /// <summary>
         /// Notifies listeners that the specified badge has been earned.
         /// </summary>
         private void OnBadgeEarned(Badge badge)
         {
             if (BadgeEarned != null)
             {
-                BadgeEventArgs args = new BadgeEventArgs();
-                args.Badge = badge;
-
+                BadgeEventArgs args = new BadgeEventArgs(badge);
                 BadgeEarned(this, args);
             }
         }
 
         private List<Badge> _badges;
         private readonly XmlStoreable<Badge[]> _storedBadges = new XmlStoreable<Badge[]>("Badges");
+
+        private BadgeContext _context;
     }
 
     /// <summary>
@@ -153,10 +213,7 @@ namespace FishingGirl.Gameplay
         public Store Store { get; set; }
     }
 
-    /// <summary>
-    /// A badge earned when the player accumulates some number of coins.
-    /// </summary>
-    public class AccumulatedMoneyBadge : Badge
+    public abstract class AccumulatedMoneyBadge : Badge
     {
         public int Accumulated { get; set; }
 
@@ -168,9 +225,9 @@ namespace FishingGirl.Gameplay
                     if (a.ChangeInAmount > 0)
                     {
                         Accumulated += a.ChangeInAmount;
-                        if (Accumulated > Threshold)
+                        if (Accumulated > AccumulationTarget)
                         {
-                            IsEarned = true;
+                            _earned = true;
                         }
                     }
                 };
@@ -181,60 +238,138 @@ namespace FishingGirl.Gameplay
         {
             Name = "";
             Description = "";
-            IsEarned = false;
             Accumulated = 0;
-            Threshold = threshold;
+            AccumulationTarget = threshold;
         }
 
-        public override bool Update()
-        {
-            return IsEarned;
-        }
-
-        private readonly int Threshold;
+        private readonly int AccumulationTarget;
     }
 
-    /// <summary>
-    /// A badge earned when the player has accumulated over 5,000 coins.
-    /// </summary>
     public class SmallAccumulatedMoneyBadge : AccumulatedMoneyBadge
     {
-        public SmallAccumulatedMoneyBadge() : base(5000)
+        public SmallAccumulatedMoneyBadge() : base(TargetAmount)
         {
-            Name = "";
-            Description = "";
+            Name = Resources.BadgeSmallAccumulatedMoney;
+            Description = string.Format(Resources.BadgeSmallAccumulatedMoneyDescription, TargetAmount);
         }
+        private const int TargetAmount = 5000;
     }
 
-    /// <summary>
-    /// A badge earned when the player has accumulated over 100,000 coins.
-    /// </summary>
     public class LargeAccumulatedMoneyBadge : AccumulatedMoneyBadge
     {
-        public LargeAccumulatedMoneyBadge() : base(10000)
+        public LargeAccumulatedMoneyBadge() : base(TargetAmount)
         {
-            Name = "";
-            Description = "";
+            Name = Resources.BadgeLargeAccumulatedMoney;
+            Description = string.Format(Resources.BadgeLargeAccumulatedMoneyDescription, TargetAmount);
         }
+        private const int TargetAmount = 20000;
     }
 
-    /// <summary>
-    /// A badge earned when the player has over 1,000 coins at any point.
-    /// </summary>
     public class TotalMoneyBadge : Badge
     {
+        public override BadgeContext Context
+        {
+            set
+            {
+                value.Money.AmountChanged += (o, a) =>
+                    _earned = value.Money.Amount >= Total;
+            }
+        }
+
         public TotalMoneyBadge()
         {
             Name = Resources.BadgeTotalMoney;
             Description = string.Format(Resources.BadgeTotalMoneyDescription, Total);
         }
 
-        public override bool Update()
+        private const int Total = 5;
+    }
+
+    public class WonGameBadge : Badge
+    {
+        public override BadgeContext Context
         {
-            IsEarned = Context.Money.Amount >= Total;
-            return IsEarned;
+            set
+            {
+                value.Fishing.Event += (s, a) =>
+                    _earned = (a.Event == FishingEvent.LureIsland);
+            }
         }
 
-        private const int Total = 5;
+        public WonGameBadge()
+        {
+            Name = Resources.BadgeWonGame;
+            Description = Resources.BadgeWonGameDescription;
+        }
+    }
+
+    public class FastWonGameBadge : Badge
+    {
+        public override BadgeContext Context
+        {
+            set
+            {
+                value.Fishing.Event += (s, a) =>
+                    _earned = 
+                        (a.Event == FishingEvent.LureIsland) &&
+                        (value.Timer.Time > TimeInMinutes*60*60);
+            }
+        }
+
+        public FastWonGameBadge()
+        {
+            Name = Resources.BadgeFastWonGame;
+            Description = string.Format(Resources.BadgeFastWonGameDescription, TimeInMinutes);
+        }
+
+        private const float TimeInMinutes = 5;
+    }
+
+    public class CatchEveryFishBadge : Badge
+    {
+        public CatchEveryFishBadge()
+        {
+            Name = Resources.BadgeCatchEveryFish;
+            Description = Resources.BadgeCatchEveryFishDescription;
+        }
+    }
+
+    public class BuyEveryItemBadge : Badge
+    {
+        public BuyEveryItemBadge()
+        {
+            Name = Resources.BadgeBuyEveryItem;
+            Description = Resources.BadgeBuyEveryItemDescription;
+        }
+    }
+
+    public class BronzeCastBadge : Badge
+    {
+        public BronzeCastBadge()
+        {
+            Name = Resources.BadgeBronzeCast;
+            Description = string.Format(Resources.BadgeBronzeCastDescription, Distance);
+        }
+        private const int Distance = 10;
+    }
+
+    public class SilverCastBadge : Badge
+    {
+        public SilverCastBadge()
+        {
+            Name = Resources.BadgeSilverCast;
+            Description = string.Format(Resources.BadgeSilverCastDescription, Distance);
+        }
+        private const int Distance = 10;
+    }
+
+    public class GoldCastBadge : Badge
+    {
+        public GoldCastBadge()
+        {
+            Name = Resources.BadgeGoldCast;
+            Description = string.Format(Resources.BadgeGoldCastDescription, Distance);
+        }
+        private const int Distance = 10;
     }
 }

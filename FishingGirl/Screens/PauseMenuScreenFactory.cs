@@ -13,6 +13,8 @@ using Library.Sprite;
 using Library.Sprite.Pipeline;
 using Library.Extensions;
 
+using FishingGirl.Gameplay;
+using FishingGirl.Interface;
 using FishingGirl.Properties;
 
 namespace FishingGirl.Screens
@@ -22,7 +24,7 @@ namespace FishingGirl.Screens
     /// </summary>
     public class PauseMenuScreenFactory
     {
-        public MenuScreen Create(FishingGameContext context, ContentManager content)
+        public MenuScreen Create(Badges badges, FishingGameContext context, ContentManager content)
         {
             _menuFont = content.Load<SpriteFont>("Fonts/Text"); // use a common font
 
@@ -30,10 +32,10 @@ namespace FishingGirl.Screens
             screen.IsRoot = true;
             screen.LoadContent(content);
 
-            MenuScreen badgesScreen = BuildBadges(context, content);
+            MenuScreen badgesScreen = BuildBadges(badges, context, content);
             MenuScreen optionsScreen = BuildOptions(context, content);
             MenuScreen confirmScreen = BuildExitConfirm(context, content);
-            MenuScreen nagScreen = BuildNag(context, content);
+            MenuScreen upsellScreen = BuildExitUpsell(context, content);
 
             screen.AddEntry(BuildTextEntry(Resources.MenuResume, (s, a) => screen.Stack.Pop()));
             if (Guide.IsTrialMode)
@@ -44,7 +46,7 @@ namespace FishingGirl.Screens
             }
             screen.AddEntry(BuildTextEntry(Resources.MenuBadges, (s, a) => screen.Stack.Push(badgesScreen)));
             screen.AddEntry(BuildTextEntry(Resources.MenuHelpOptions, (s, a) => screen.Stack.Push(optionsScreen)));
-            screen.AddEntry(BuildTextEntry(Resources.MenuExit, (s, a) => screen.Stack.Push(Guide.IsTrialMode ? nagScreen : confirmScreen)));
+            screen.AddEntry(BuildTextEntry(Resources.MenuExit, (s, a) => screen.Stack.Push(Guide.IsTrialMode ? upsellScreen : confirmScreen)));
             screen.LayoutEntries();
 
             return screen;
@@ -60,7 +62,7 @@ namespace FishingGirl.Screens
             return screen;
         }
 
-        private MenuScreen BuildNag(FishingGameContext context, ContentManager content)
+        private MenuScreen BuildExitUpsell(FishingGameContext context, ContentManager content)
         {
             MenuScreen screen = new MenuScreen(context);
             screen.LoadContent(content);
@@ -73,20 +75,15 @@ namespace FishingGirl.Screens
 
             context.Trial.TrialModeEnded += delegate(object s, EventArgs a) { if (screen.State == ScreenState.Active) { screen.Stack.Pop(); } };
 
-            SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>("Sprites/NagScreen").Create();
-            nagDesc.GetSprite<TextSprite>("Bubble").Text = Resources.NagBubble;
-            nagDesc.GetSprite<TextSprite>("Time").Text = Resources.NagTime;
-            nagDesc.GetSprite<TextSprite>("Badges").Text = Resources.NagBadges;
-            nagDesc.GetSprite<TextSprite>("Lures").Text = Resources.NagLures;
-            nagDesc.GetSprite<TextSprite>("Fish").Text = Resources.NagFish;
-            screen.AddDecoration(nagDesc.Sprite);
+            UpsellOverlay upsell = new UpsellOverlay(Resources.UpsellMessageExit, content);
+            screen.AddDecoration(upsell.Sprite);
 
             return screen;
         }
 
-        private MenuScreen BuildBadges(FishingGameContext context, ContentManager content)
+        private MenuScreen BuildBadges(Badges badges, FishingGameContext context, ContentManager content)
         {
-            BadgesScreen badgesScreen = new BadgesScreen(context);
+            BadgesScreen badgesScreen = new BadgesScreen(badges, context);
             badgesScreen.LoadContent(content);
             return badgesScreen;
         }

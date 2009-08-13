@@ -2,6 +2,7 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
@@ -29,6 +30,7 @@ namespace FishingGirl.Screens
             _context = context;
             _context.Input.ControllerDisconnected += (s, a) => PauseGame();
             _context.Game.Exiting += (s, a) => ExitGame();
+            _context.Trial.TrialModeEnded += (s, a) => ConfigureStorage();
 
             _camera = new CameraSprite(_context.Game.GraphicsDevice);
             _state = GameState.Story;
@@ -52,7 +54,7 @@ namespace FishingGirl.Screens
             _endScreen = new GameOverScreen(_context);
             _endScreen.LoadContent(content);
 
-            _pauseScreen = new PauseMenuScreenFactory().Create(_context, content);
+            _pauseScreen = new PauseMenuScreenFactory().Create(_badges, _context, content);
 
             _oceanSong = content.Load<Song>("Sounds/Ocean");
             MediaPlayer.Volume = 0.1f;
@@ -156,7 +158,7 @@ namespace FishingGirl.Screens
                 case GameState.Transition:
                     _scene.EndStory();
                     _state = GameState.Game;
-                    OnGameStarted();
+                    ConfigureStorage();
                     break;
 
                 case GameState.Game:
@@ -247,6 +249,9 @@ namespace FishingGirl.Screens
             _ocean.Update(time);
             _oceanView.Update(time);
 
+            _badges.Update(time);
+            _badgeView.Update(time);
+
             _fishing.Update(time, _context.Input);
             if (_scene.FarShore.X - _scene.ShoreX > EndingStoryCloseThreshold)
             {
@@ -311,9 +316,9 @@ namespace FishingGirl.Screens
             _storeView = new StoreView(_store);
             _storeView.LoadContent(content);
 
-            _guideView = new GuideView();
+            _guideView = new GameGuideView();
             _guideView.LoadContent(content);
-            _guide = new Guide(_guideView, this, _fishing);
+            _guide = new GameGuide(_guideView, this, _fishing);
 
             _cameraController = new CameraController(_camera, _scene, _fishing);
         }
@@ -344,22 +349,22 @@ namespace FishingGirl.Screens
         private void ExitGame()
         {
             // save the state if possible
-            if (_context.Storage != null && _context.Storage.IsValid)
+            if (_context.Storage != null && _context.Storage.IsValid && !Guide.IsTrialMode)
             {
-                //TODO _badges.Save(_context.Storage);
+                _badges.Save(_context.Storage);
             }
         }
 
         /// <summary>
-        /// Watches for the game starting.
+        /// Sets up the storage.
         /// </summary>
-        private void OnGameStarted()
+        private void ConfigureStorage()
         {
-            if (_context.Storage == null)
+            if (_context.Storage == null && _context.Input.Controller.HasValue)
             {
                 _context.Storage = new PlayerStorage(_context.Game, "FishingGirl", _context.Input.Controller.Value);
                 _context.Storage.DeviceSelected += (o, a) => _badges.Load(_context.Storage); //TODO check for overwrite?
-                _context.Storage.PromptForDevice();
+                _context.Storage.PromptForDevice(); //TODO no storage on trial
 
                 _context.Game.Components.Add(_context.Storage);
             }
@@ -423,8 +428,8 @@ namespace FishingGirl.Screens
         private Timer _timer;
         private TimerView _timerView;
 
-        private Guide _guide;
-        private GuideView _guideView;
+        private GameGuide _guide;
+        private GameGuideView _guideView;
 
         private Badges _badges;
         private BadgeView _badgeView;

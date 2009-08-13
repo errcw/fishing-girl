@@ -3,8 +3,22 @@
 
 - Add badges
   * Catch every type of fish
-  * Finish the game
-  * Earn 500 coins
   * Cast X metres with the Bronze Rod, Y metres with the Silver Rod, etc.
   * Buy every type of lure and every type of rod
-  * Win with X:XX time left
+- Add sound effects
+  * Earn badge
+  * Quake confused
+  * Quake concerned
+  * Game won
+  * Game lost
+- Changes
+  * Add colour to timer; darken screen?
+  * Mute the menu highlight colour
+  ** Fix the 'Change Storage Device' option
+  *	Fix casting: slow down at the apex?
+  * Add a lure selection UI
+  * Automatically retract fishing line when eaten?
+  * Add to fish lunge when lure speed ~= fish speed
+  * Bigger rumble for big fish
+  * Tap A to bring in big fish?
+  * Casting deadzone

@@ -39,7 +39,9 @@ namespace FishingGirl
 
             Content.RootDirectory = "Content";
 
+#if WINDOWS
             Guide.SimulateTrialMode = true;
+#endif
         }
 
         /// <summary>

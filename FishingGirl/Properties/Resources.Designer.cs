@@ -70,7 +70,151 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Money Hoarder.
+        ///   Looks up a localized string similar to Strong Arm.
+        /// </summary>
+        internal static string BadgeBronzeCast {
+            get {
+                return ResourceManager.GetString("BadgeBronzeCast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cast {0} metres with the bronze rod..
+        /// </summary>
+        internal static string BadgeBronzeCastDescription {
+            get {
+                return ResourceManager.GetString("BadgeBronzeCastDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Big Spender.
+        /// </summary>
+        internal static string BadgeBuyEveryItem {
+            get {
+                return ResourceManager.GetString("BadgeBuyEveryItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy every item in the store..
+        /// </summary>
+        internal static string BadgeBuyEveryItemDescription {
+            get {
+                return ResourceManager.GetString("BadgeBuyEveryItemDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collector.
+        /// </summary>
+        internal static string BadgeCatchEveryFish {
+            get {
+                return ResourceManager.GetString("BadgeCatchEveryFish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catch every type of fish..
+        /// </summary>
+        internal static string BadgeCatchEveryFishDescription {
+            get {
+                return ResourceManager.GetString("BadgeCatchEveryFishDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Swift Rescuer.
+        /// </summary>
+        internal static string BadgeFastWonGame {
+            get {
+                return ResourceManager.GetString("BadgeFastWonGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rescue the boy with {0} minutes left..
+        /// </summary>
+        internal static string BadgeFastWonGameDescription {
+            get {
+                return ResourceManager.GetString("BadgeFastWonGameDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Strongest Arm.
+        /// </summary>
+        internal static string BadgeGoldCast {
+            get {
+                return ResourceManager.GetString("BadgeGoldCast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cast {0} metres with the gold rod..
+        /// </summary>
+        internal static string BadgeGoldCastDescription {
+            get {
+                return ResourceManager.GetString("BadgeGoldCastDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lots and Lots of Money.
+        /// </summary>
+        internal static string BadgeLargeAccumulatedMoney {
+            get {
+                return ResourceManager.GetString("BadgeLargeAccumulatedMoney", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Earn over {0} coins..
+        /// </summary>
+        internal static string BadgeLargeAccumulatedMoneyDescription {
+            get {
+                return ResourceManager.GetString("BadgeLargeAccumulatedMoneyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stronger Arm.
+        /// </summary>
+        internal static string BadgeSilverCast {
+            get {
+                return ResourceManager.GetString("BadgeSilverCast", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cast {0} metres with the silver rod..
+        /// </summary>
+        internal static string BadgeSilverCastDescription {
+            get {
+                return ResourceManager.GetString("BadgeSilverCastDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lots of Money.
+        /// </summary>
+        internal static string BadgeSmallAccumulatedMoney {
+            get {
+                return ResourceManager.GetString("BadgeSmallAccumulatedMoney", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Earn over {0} coins..
+        /// </summary>
+        internal static string BadgeSmallAccumulatedMoneyDescription {
+            get {
+                return ResourceManager.GetString("BadgeSmallAccumulatedMoneyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Super Saver.
         /// </summary>
         internal static string BadgeTotalMoney {
             get {
@@ -79,11 +223,29 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Have at least {0} coins in the bank..
+        ///   Looks up a localized string similar to Have at least {0} coins at one time..
         /// </summary>
         internal static string BadgeTotalMoneyDescription {
             get {
                 return ResourceManager.GetString("BadgeTotalMoneyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rescuer.
+        /// </summary>
+        internal static string BadgeWonGame {
+            get {
+                return ResourceManager.GetString("BadgeWonGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successfully rescue the boy..
+        /// </summary>
+        internal static string BadgeWonGameDescription {
+            get {
+                return ResourceManager.GetString("BadgeWonGameDescription", resourceCulture);
             }
         }
         
@@ -592,60 +754,6 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Collect badges!.
-        /// </summary>
-        internal static string NagBadges {
-            get {
-                return ResourceManager.GetString("NagBadges", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buy Fishing Girl now and enjoy hours of fishing fun!.
-        /// </summary>
-        internal static string NagBubble {
-            get {
-                return ResourceManager.GetString("NagBubble", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buy Fishing Girl and get full access to the store!.
-        /// </summary>
-        internal static string NagBubbleStore {
-            get {
-                return ResourceManager.GetString("NagBubbleStore", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Catch larger fish!.
-        /// </summary>
-        internal static string NagFish {
-            get {
-                return ResourceManager.GetString("NagFish", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Buy bigger lures!.
-        /// </summary>
-        internal static string NagLures {
-            get {
-                return ResourceManager.GetString("NagLures", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No time limits!.
-        /// </summary>
-        internal static string NagTime {
-            get {
-                return ResourceManager.GetString("NagTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to OK.
         /// </summary>
         internal static string PurchaseFailedButton {
@@ -880,7 +988,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cast your lure to the far shore.
+        ///   Looks up a localized string similar to Cast your lure far out to sea.
         /// </summary>
         internal static string StoreRodLegendaryDescription {
             get {
@@ -966,6 +1074,69 @@ namespace FishingGirl.Properties {
         internal static string UnknownTitle {
             get {
                 return ResourceManager.GetString("UnknownTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collect badges!.
+        /// </summary>
+        internal static string UpsellBadges {
+            get {
+                return ResourceManager.GetString("UpsellBadges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catch larger fish!.
+        /// </summary>
+        internal static string UpsellFish {
+            get {
+                return ResourceManager.GetString("UpsellFish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy bigger lures!.
+        /// </summary>
+        internal static string UpsellLures {
+            get {
+                return ResourceManager.GetString("UpsellLures", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy Fishing Girl and earn badges for your fishing feats!.
+        /// </summary>
+        internal static string UpsellMessageBadges {
+            get {
+                return ResourceManager.GetString("UpsellMessageBadges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy Fishing Girl now and enjoy hours of fishing fun!.
+        /// </summary>
+        internal static string UpsellMessageExit {
+            get {
+                return ResourceManager.GetString("UpsellMessageExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy Fishing Girl and get full access to the store!.
+        /// </summary>
+        internal static string UpsellMessageStore {
+            get {
+                return ResourceManager.GetString("UpsellMessageStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No time limits!.
+        /// </summary>
+        internal static string UpsellTime {
+            get {
+                return ResourceManager.GetString("UpsellTime", resourceCulture);
             }
         }
         

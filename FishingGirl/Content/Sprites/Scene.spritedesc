@@ -5,10 +5,10 @@
     <Composite Name="Background" Layer="0.9">
       <Composite Name="Sky" Layer="1">
         <Image Texture="LayerSky" Position="0 0" Scale="2048 1" Layer="1"/>
-        <Image Texture="Sun" Position="400 5" Layer="0"/>
-        <Image Texture="Cloud1" Position="30 20" Layer="0"/>
+        <Image Texture="Sun" Position="400 5" Layer="0.5"/>
+        <Image Name="Cloud1" Texture="Cloud1" Position="30 20" Layer="0"/>
         <Image Texture="Cloud2" Position="700 5" Layer="0"/>
-        <Image Texture="Cloud3" Position="750 80" Layer="0"/>
+        <Image Name="Cloud3" Texture="Cloud3" Position="750 80" Layer="0"/>
       </Composite>
       <Composite Name="FarHills" Layer="0.5">
         <Image Texture="LayerFarHills1" Position="0 0" Origin="0 -70"/>
@@ -42,7 +42,10 @@
         <Image Texture="Landscape5" Position="770 -10" Layer="1"/>
         <Image Name="Cliff" Texture="Cliff" Position="0 0" Layer="0.5"/>
 
+        <Image Name="Bird" Texture="Bird" Position="634 -88" Origin="19 25" Layer="0.1"/>
+
         <Image Name="Girl" Texture="BearPurple" Position="720 -25" Layer="0"/>
+        <Image Name="GirlBlink" Texture="BearPurpleBlink" Position="720 -25" Color="1 1 1 0" Layer="0"/>
         <Image Name="Girl?" Texture="QuestionMark" Position="733 -52" Layer="0" Color="1 1 1 0"/>
         <Image Name="Girl!" Texture="ExclamationMark" Position="736 -52" Layer="0" Color="1 1 1 0"/>
         <Image Name="GirlHeart" Texture="Heart1" Position="730 -45" Layer="0" Color="1 1 1 0"/>
@@ -77,6 +80,50 @@
       <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
       <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
       <Delay Delay="0.5"/>
+    </Sequential>
+    <Composite Name="Clouds" Loop="true">
+      <Sequential Loop="true">
+        <Position Sprite="Cloud1" Target="1280 20" Duration="60" Easing="Uniform"/>
+        <Position Sprite="Cloud1" Target="-120 20" Duration="0" Easing="Uniform"/>
+      </Sequential>
+      <Sequential Loop="true">
+        <Position Sprite="Cloud3" Target="-200 80" Duration="80" Easing="Uniform"/>
+        <Position Sprite="Cloud3" Target="1280 20" Duration="0" Easing="Uniform"/>
+      </Sequential>
+    </Composite>
+    <Sequential Name="Blink" Loop="true">
+      <Composite>
+        <Color Sprite="Girl" Target="1 1 1 1" Duration="0" Easing="Uniform"/>
+        <Color Sprite="GirlBlink" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      </Composite>
+      <Delay Delay="3"/>
+      <Composite>
+        <Color Sprite="Girl" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+        <Color Sprite="GirlBlink" Target="1 1 1 1" Duration="0" Easing="Uniform"/>
+      </Composite>
+      <Delay Delay="0.15"/>
+    </Sequential>
+    <Sequential Name="Bird" Loop="true">
+      <Delay Delay="5"/>
+      <Composite>
+        <Position Sprite="Bird" Target="381 -194" Duration="1.5" Easing="QuadraticOut"/>
+        <Scale Sprite="Bird" Target="-1 1" Duration="0.5" Easing="Uniform"/>
+      </Composite>
+      <Delay Delay="3"/>
+      <Composite>
+        <Position Sprite="Bird" Target="545 -258" Duration="2" Easing="QuadraticOut"/>
+        <Scale Sprite="Bird" Target="1 1" Duration="0.5" Easing="Uniform"/>
+      </Composite>
+      <Delay Delay="6"/>
+      <Composite>
+        <Position Sprite="Bird" Target="273 -132" Duration="2" Easing="QuadraticOut"/>
+        <Scale Sprite="Bird" Target="-1 1" Duration="0.5" Easing="Uniform"/>
+      </Composite>
+      <Delay Delay="4"/>
+      <Composite>
+        <Position Sprite="Bird" Target="634 -88" Duration="3" Easing="QuadraticOut"/>
+        <Scale Sprite="Bird" Target="1 1" Duration="0.5" Easing="Uniform"/>
+      </Composite>
     </Sequential>
     
     <!-- Initial story -->

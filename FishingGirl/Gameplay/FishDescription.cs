@@ -12,7 +12,7 @@ namespace FishingGirl.Gameplay
         Small,
         Medium,
         Large,
-        VeryLarge
+        VeryLarge = 10 // not a sequential size
     }
 
     /// <summary>
@@ -63,17 +63,17 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The localized name of the fish.
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get { return GetName(Size, Rarity, Modifier); } }
 
         /// <summary>
         /// The monetary value of the fish.
         /// </summary>
-        public int Value { get; set; }
+        public int Value { get { return GetValue(Size, Rarity, Modifier); } }
 
         /// <summary>
         /// The name of the sprite descriptor for the fish.
         /// </summary>
-        public string DescriptorName { get; set; }
+        public string DescriptorName { get { return GetDescriptorName(Size, Rarity); }  }
 
         /// <summary>
         /// Creates a new fish description.
@@ -83,9 +83,6 @@ namespace FishingGirl.Gameplay
             Size = size;
             Rarity = rarity;
             Modifier = modifier;
-            Value = GetValue(size, rarity, modifier);
-            Name = GetName(size, rarity, modifier);
-            DescriptorName = GetDescriptorName(size, rarity);
         }
 
         /// <summary>

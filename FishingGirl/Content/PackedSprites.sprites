@@ -86,6 +86,7 @@
   
   <Group Name="Landscape">
     <Sprite Texture="Textures/BearPurple.png"/>
+    <Sprite Texture="Textures/BearPurpleBlink.png"/>
     <Sprite Texture="Textures/BearYellow.png"/>
     <Sprite Texture="Textures/Bird.png"/>
 

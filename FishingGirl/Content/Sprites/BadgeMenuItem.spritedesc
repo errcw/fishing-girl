@@ -2,9 +2,9 @@
 <SpriteDescriptor>
   <Sprites>
     <Image Name="Background" Texture="StoreSelected" Color="1 1 1 0" Layer="0.95"/>
-    <Composite Name="Image" Position="10 5">
-    </Composite>
-    <Text Name="Name" Font="Fonts/Text" Position="75 2"/>
-    <Text Name="Description" Font="Fonts/TextSmall" Position="75 30"/>
+    <Image Name="Earned" Texture="BadgeEarned" Color="1 1 1 0" Position="12 20"/>
+    <Image Name="NotEarned" Texture="BadgeNotEarned" Color="1 1 1 0" Position="12 20"/>
+    <Text Name="Name" Font="Fonts/Text" Position="50 2"/>
+    <Text Name="Description" Font="Fonts/TextSmall" Position="50 30"/>
   </Sprites>
 </SpriteDescriptor>

@@ -27,11 +27,11 @@ namespace FishingGirl.Gameplay
             }
             set
             {
+                _amount = value;
                 if (AmountChanged != null)
                 {
                     AmountChanged(this, new MoneyEventArgs(value - _amount));
                 }
-                _amount = value;
             }
         }
 
@@ -41,7 +41,7 @@ namespace FishingGirl.Gameplay
         /// <param name="state">The fishing state to track.</param>
         public Money(FishingState state)
         {
-            _amount = 0;
+            _amount = 5000;
             state.Event += OnFishingEvent;
         }
 

@@ -13,7 +13,7 @@ namespace FishingGirl.Interface
     /// <summary>
     /// Displays a text label to guide the player's actions.
     /// </summary>
-    public class GuideView
+    public class GameGuideView
     {
         /// <summary>
         /// Creates the text sprites.

@@ -109,13 +109,14 @@
     <Compile Include="Interface\FishEatenView.cs" />
     <Compile Include="Interface\FishingView.cs" />
     <Compile Include="Interface\FishView.cs" />
-    <Compile Include="Interface\Guide.cs" />
-    <Compile Include="Interface\GuideView.cs" />
+    <Compile Include="Interface\GameGuide.cs" />
+    <Compile Include="Interface\GameGuideView.cs" />
     <Compile Include="Interface\MoneyView.cs" />
     <Compile Include="Interface\OceanView.cs" />
     <Compile Include="Interface\SceneView.cs" />
     <Compile Include="Interface\StoreView.cs" />
     <Compile Include="Interface\TimerView.cs" />
+    <Compile Include="Interface\UpsellOverlay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="FishingGame.cs" />

@@ -91,31 +91,38 @@ namespace FishingGirl.Screens
             bool removed = _entries.Remove(entry);
             if (removed)
             {
-                _entriesSprite.Remove(entry.Sprite);
+                bool visRemoved = _visibleEntries.Remove(entry);
+                if (visRemoved)
+                {
+                    _entriesSprite.Remove(entry.Sprite);
+                }
                 if (entry == selectedEntry)
                 {
                     SetSelected(0); // move the focus off the now-defunct entry
                 }
                 else
                 {
-                    _selectedEntryRel -= 1; // fix the index
-                    _selectedEntryAbs -= 1;
+                    _selectedEntryAbs = MathHelperExtensions.Clamp(_selectedEntryAbs - 1, 0, _entries.Count); // fix the index
+                    if (visRemoved)
+                    {
+                        _selectedEntryRel = MathHelperExtensions.Clamp(_selectedEntryRel - 1, 0, _visibleEntries.Count);
+                    }
                 }
             }
             return removed;
         }
 
         /// <summary>
-        /// Removes all the entries from this menu.
+        /// Removes all the entries (including decoration) from this menu.
         /// </summary>
         public void ClearEntries()
         {
-            foreach (MenuEntry entry in _visibleEntries)
-            {
-                _entriesSprite.Remove(entry.Sprite);
-            }
+            _entries.ForEach(entry => _entriesSprite.Remove(entry.Sprite));
             _visibleEntries.Clear();
             _entries.Clear();
+            _selectedEntryAbs = 0;
+            _selectedEntryRel = 0;
+            _listWindowBaseIndex = 0;
         }
 
         /// <summary>
@@ -304,6 +311,8 @@ namespace FishingGirl.Screens
                 _screenDescriptor.GetSprite("ArrowDown").Color =
                     (_listWindowBaseIndex == _entries.Count - NumVisibleEntries) ? Color.TransparentWhite : Color.White;
             }
+            _screenDescriptor.GetSprite("Select").Color =
+                _entries[_selectedEntryAbs].IsSelectable ? Color.White : Color.TransparentWhite;
 
             _entries[_selectedEntryAbs].OnFocusChanged(true);
 
@@ -335,7 +344,7 @@ namespace FishingGirl.Screens
         private CompositeSprite _entriesSprite;
         private SoundEffect _soundMove, _soundSelect;
 
-        private List<MenuEntry> _entries = new List<MenuEntry>();
+        protected List<MenuEntry> _entries = new List<MenuEntry>();
         private List<MenuEntry> _visibleEntries = new List<MenuEntry>();
         private int _selectedEntryRel; /// relative index inside visible entries
         private int _selectedEntryAbs; /// absolute index inside all entries

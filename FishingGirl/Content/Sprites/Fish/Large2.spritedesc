@@ -22,6 +22,6 @@
       </Composite>
     </Composite>
     <Rotation Name="MouthOpen" Sprite="Mouth" Target="0.3" Duration="0.6" Easing="Uniform"/>
-    <Rotation Name="MouthClose" Sprite="Mouth" Target="0" Duration="0" Easing="Uniform"/>
+    <Rotation Name="MouthClose" Sprite="Mouth" Target="0" Duration="0.2" Easing="Uniform"/>
   </Animations>
 </SpriteDescriptor>

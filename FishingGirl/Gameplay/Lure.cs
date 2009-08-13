@@ -77,7 +77,7 @@ namespace FishingGirl.Gameplay
             "LureLarge",
             (fish, hooked) =>
                 (hooked == null && fish.Description.Size >= FishSize.Large) ||
-                (hooked.Description.Size < fish.Description.Size),
+                (hooked != null && hooked.Description.Size < fish.Description.Size),
             delegate(Fish fish, Fish hookedFish)
             {
                 bool hooked = (hookedFish == null && fish.Description.Size == FishSize.Large);

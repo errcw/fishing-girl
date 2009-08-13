@@ -2,8 +2,10 @@
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 
+using Library.Extensions;
 using Library.Screen;
 using Library.Sprite;
 using Library.Sprite.Pipeline;
@@ -54,10 +56,28 @@ namespace FishingGirl.Screens
         /// </summary>
         protected override void UpdateActive(float time)
         {
+#if WINDOWS && DEBUG
             if (_context.Input.FindActiveController())
             {
                 Stack.Pop();
+                return;
             }
+#endif
+            if (_context.Input.FindActiveController())
+            {
+                if (!_context.Input.Controller.Value.IsSignedIn())
+                {
+                    // request a signed in profile
+                    Guide.ShowSignIn(1, false);
+                }
+            }
+
+            if (_context.Input.Controller.HasValue && _context.Input.Controller.Value.IsSignedIn())
+            {
+                // we have a signed in controller so we're ready to go
+                Stack.Pop();
+            }
+
             _screenDescriptor.GetAnimation("HighlightText").Update(time);
         }
 

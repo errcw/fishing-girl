@@ -98,11 +98,15 @@ namespace FishingGirl.Interface
                 case FishingEvent.FishHooked: goto case FishingEvent.FishEaten;
                 case FishingEvent.FishEaten:
                     Vector2 vibration = GetLureFeedback(e.Fish);
-                    _context.Input.AddVibration(Vibrations.FadeOut(vibration.X, vibration.Y, 1f, Easing.Uniform));
+                    _context.Input.AddVibration(Vibrations.Constant(vibration.X, vibration.Y, 0.5f));
+                    break;
+
+                case FishingEvent.FishCaught:
+                    _caughtEffect.Play(0.4f, 0f, 0f);
                     break;
 
                 case FishingEvent.LureBroke:
-                    _context.Input.AddVibration(Vibrations.FadeOut(0.15f, 0.2f, 1f, Easing.Uniform));
+                    _context.Input.AddVibration(Vibrations.FadeOut(0.2f, 0.3f, 1f, Easing.Uniform));
                     _lureAnimation = new ColorAnimation(_lure, Color.TransparentWhite, 0.5f, InterpolateColor);
                     break;
 
@@ -110,8 +114,8 @@ namespace FishingGirl.Interface
                     _lure = _state.LureSprites[_state.Lure];
                     break;
 
-                case FishingEvent.FishCaught:
-                    _caughtEffect.Play(0.4f, 0f, 0f);
+                case FishingEvent.RodChanged:
+                    _rod = _state.RodSprites[_state.Rod];
                     break;
             }
         }
@@ -121,7 +125,6 @@ namespace FishingGirl.Interface
             switch (e.Action)
             {
                 case FishingAction.Idle:
-                    _rod = _state.RodSprites[_state.Rod];
                     _lureAnimation = new ColorAnimation(_lure, Color.White, 0.5f, InterpolateColor);
                     break;
 
@@ -194,8 +197,8 @@ namespace FishingGirl.Interface
             switch (fish.Description.Size)
             {
                 case FishSize.Small: return new Vector2(0f, 0.2f);
-                case FishSize.Medium: return new Vector2(0.15f, 0.2f);
-                case FishSize.Large: return new Vector2(0.5f, 0.2f);
+                case FishSize.Medium: return new Vector2(0.2f, 0.3f);
+                case FishSize.Large: return new Vector2(0.6f, 0.4f);
                 case FishSize.VeryLarge: return new Vector2(0.75f, 0.5f);
             }
             return Vector2.Zero;

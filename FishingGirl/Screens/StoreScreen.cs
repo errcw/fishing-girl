@@ -12,6 +12,7 @@ using Library.Sprite;
 using Library.Sprite.Pipeline;
 
 using FishingGirl.Gameplay;
+using FishingGirl.Interface;
 using FishingGirl.Properties;
 
 namespace FishingGirl.Screens
@@ -51,12 +52,7 @@ namespace FishingGirl.Screens
             _soundNoMoney = content.Load<SoundEffect>("Sounds/ShopNoMoney");
             _soundPurchase = content.Load<SoundEffect>("Sounds/ShopPurchase");
 
-            _nagDescriptor = content.Load<SpriteDescriptorTemplate>("Sprites/NagScreen").Create();
-            _nagDescriptor.GetSprite<TextSprite>("Bubble").Text = Resources.NagBubbleStore;
-            _nagDescriptor.GetSprite<TextSprite>("Time").Text = Resources.NagTime;
-            _nagDescriptor.GetSprite<TextSprite>("Badges").Text = Resources.NagBadges;
-            _nagDescriptor.GetSprite<TextSprite>("Lures").Text = Resources.NagLures;
-            _nagDescriptor.GetSprite<TextSprite>("Fish").Text = Resources.NagFish;
+            _upsellSprite = new UpsellOverlay(Resources.UpsellMessageStore, content).Sprite;
         }
 
         /// <summary>
@@ -78,6 +74,7 @@ namespace FishingGirl.Screens
                 // if we are triggered to update before we have a store, bail
                 return;
             }
+
             ClearEntries();
             for (int i = 0; i < Store.Items.Count; i++)
             {
@@ -85,7 +82,7 @@ namespace FishingGirl.Screens
 
                 bool canPurchase =
                     Store.CanPurchase(item) &&
-                    (!Guide.IsTrialMode || (Guide.IsTrialMode && item.Cost < 50));
+                    (!Guide.IsTrialMode || (Guide.IsTrialMode && item.Cost < TrialCostThreshold));
 
                 StoreItemEntry entry = new StoreItemEntry(item, _entryTemplate.Create(), canPurchase);
                 entry.Selected += delegate(object entryObj, EventArgs args)
@@ -104,9 +101,10 @@ namespace FishingGirl.Screens
 
                 AddEntry(entry);
             }
+
             if (Guide.IsTrialMode)
             {
-                AddDecoration(_nagDescriptor.Sprite);
+                AddDecoration(_upsellSprite);
             }
         }
 
@@ -117,7 +115,6 @@ namespace FishingGirl.Screens
         {
             public StoreItemEntry(StoreItem item, SpriteDescriptor sprite, bool purchaseEnabled) : base(sprite.Sprite)
             {
-                _item = item;
                 _descriptor = sprite;
                 _descriptor.GetSprite<CompositeSprite>("Image").Add(item.Image);
                 _descriptor.GetSprite<TextSprite>("Name").Text = item.Name;
@@ -134,12 +131,13 @@ namespace FishingGirl.Screens
                 _descriptor.GetSprite("Background").Color = focused ? Color.White : Color.TransparentWhite;
             }
 
-            private StoreItem _item;
             private SpriteDescriptor _descriptor;
         }
 
         private SpriteDescriptorTemplate _entryTemplate;
-        private SpriteDescriptor _nagDescriptor;
         private SoundEffect _soundPurchase, _soundNoMoney;
+        private Sprite _upsellSprite;
+
+        private const int TrialCostThreshold = 10;
     }
 }

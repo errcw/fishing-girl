@@ -35,7 +35,8 @@ namespace FishingGirl.Gameplay
         FishCaught,
         LureBroke,
         LureChanged,
-        LureIsland
+        LureIsland,
+        RodChanged
     }
 
     /// <summary>
@@ -71,7 +72,11 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The type of rod used to fish.
         /// </summary>
-        public RodType Rod { get; set; }
+        public RodType Rod
+        {
+            get { return _rod; }
+            set { _rod = value; OnFishingEvent(FishingEvent.RodChanged); }
+        }
 
         /// <summary>
         /// The rotation of the rod.
@@ -386,10 +391,10 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private Vector2 GetRodTipPosition()
         {
-            Sprite rod = RodSprites[Rod];
+            Sprite rodSprite = RodSprites[Rod];
             Vector2 tip = new Vector2(199, 10) - new Vector2(16, 11);
             tip = Vector2.Transform(tip, Quaternion.CreateFromAxisAngle(Vector3.UnitZ, -RodRotation));
-            tip = tip + rod.Position;
+            tip = tip + rodSprite.Position;
             return tip;
         }
 
@@ -464,6 +469,8 @@ namespace FishingGirl.Gameplay
         private Vector2 _lureAcceleration;
         private bool _lureBroken;
         private float _reelSpeed;
+
+        private RodType _rod;
 
         private Fish _hookedFish;
 

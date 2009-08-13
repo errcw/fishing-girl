@@ -74,6 +74,9 @@ namespace FishingGirl.Gameplay
         public void Update(float time)
         {
             Sprite.GetAnimation("Waves").Update(time);
+            Sprite.GetAnimation("Clouds").Update(time);
+            Sprite.GetAnimation("Blink").Update(time);
+            Sprite.GetAnimation("Bird").Update(time);
             Sprite.GetAnimation("BoyJumping").Update(time);
         }
 

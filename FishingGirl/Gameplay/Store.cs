@@ -104,6 +104,8 @@ namespace FishingGirl.Gameplay
                 Resources.StoreLureLargeUpgraded,
                 Resources.StoreLureLargeUpgradedDescription,
                 getStoreSprite("Store" + Lures.LargeUpgraded.SpriteName));
+
+            FillStore();
         }
 
         /// <summary>
@@ -129,6 +131,12 @@ namespace FishingGirl.Gameplay
         {
             item.Purchase();
             _money.Amount -= item.Cost;
+
+            FillStore();
+            if (Items.Count == 0)
+            {
+                HideStore();
+            }
         }
 
         /// <summary>
@@ -152,8 +160,16 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private void MoveStore()
         {
-            float max = _fishing.MaxCastDistance * 0.9f; // avoid putting the store too far
-            Position = (float)(_random.NextDouble() * max + StoreMinX);
+            float range = (MaxPosition - MinPosition);
+            Position = (float)(_random.NextDouble() * range + MinPosition);
+        }
+
+        /// <summary>
+        /// Permanently hides the store.
+        /// </summary>
+        private void HideStore()
+        {
+            Position = -1000;
         }
 
         /// <summary>
@@ -203,7 +219,6 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private void OnHit()
         {
-            FillStore();
             if (Hit != null)
             {
                 Hit(this, EventArgs.Empty);
@@ -218,9 +233,11 @@ namespace FishingGirl.Gameplay
 
         private Random _random = new Random();
 
-        private const float HitThreshold = 45f;
-        private const float StoreMinX = 1100f;
-        private const float InitialPosition = 1400f;
+        private const float HitThreshold = 50f;
+
+        private const float InitialPosition = 1300f;
+        private const float MinPosition = 1100f;
+        private const float MaxPosition = 1570f;
     }
 
     /// <summary>

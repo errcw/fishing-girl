@@ -13,14 +13,14 @@ namespace FishingGirl.Interface
     /// <summary>
     /// Guides the player's actions by displaying context-sensitive help text.
     /// </summary>
-    public class Guide
+    public class GameGuide
     {
         /// <summary>
         /// Creates a new guide.
         /// </summary>
         /// <param name="text">The text used to display the guide.</param>
         /// <param name="fishing">The game state to monitor.</param>
-        public Guide(GuideView text, GameplayScreen game, FishingState fishing)
+        public GameGuide(GameGuideView text, GameplayScreen game, FishingState fishing)
         {
             _text = text;
             _text.Show(Resources.GuideCastingStart); // initial state
@@ -100,12 +100,8 @@ namespace FishingGirl.Interface
                     }
                     break;
                 case FishingEvent.LureBroke:
-                    if (_showBrokenGuide)
-                    {
-                        _showBrokenGuide = false;
-                        _text.Show(Resources.GuideLureBroke);
-                        _textTimeout = new DelayAnimation(GuideTime);
-                    }
+                    _text.Show(Resources.GuideLureBroke);
+                    _textTimeout = new DelayAnimation(GuideTime);
                     break;
                 case FishingEvent.LureChanged:
                     _text.Hide();
@@ -118,16 +114,11 @@ namespace FishingGirl.Interface
             }
         }
 
-        private void OnGuideHidden()
-        {
-        }
-
         private bool _showCastingGuide = true;
-        private bool _showBrokenGuide = true;
         private bool _showLureGuide = false;
         private bool _showChangeGuide = true;
 
-        private GuideView _text;
+        private GameGuideView _text;
         private DelayAnimation _textTimeout;
 
         private const float ReelInGuideTime = 3f;

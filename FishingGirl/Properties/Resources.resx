@@ -248,7 +248,7 @@
     <value>Legendary Rod</value>
   </data>
   <data name="StoreRodLegendaryDescription" xml:space="preserve">
-    <value>Cast your lure to the far shore</value>
+    <value>Cast your lure far out to sea</value>
   </data>
   <data name="StoreRodSilver" xml:space="preserve">
     <value>Silver Rod</value>
@@ -340,19 +340,19 @@
   <data name="VolumeOff" xml:space="preserve">
     <value>Off</value>
   </data>
-  <data name="NagBadges" xml:space="preserve">
+  <data name="UpsellBadges" xml:space="preserve">
     <value>Collect badges!</value>
   </data>
-  <data name="NagBubble" xml:space="preserve">
+  <data name="UpsellMessageExit" xml:space="preserve">
     <value>Buy Fishing Girl now and enjoy hours of fishing fun!</value>
   </data>
-  <data name="NagFish" xml:space="preserve">
+  <data name="UpsellFish" xml:space="preserve">
     <value>Catch larger fish!</value>
   </data>
-  <data name="NagLures" xml:space="preserve">
+  <data name="UpsellLures" xml:space="preserve">
     <value>Buy bigger lures!</value>
   </data>
-  <data name="NagTime" xml:space="preserve">
+  <data name="UpsellTime" xml:space="preserve">
     <value>No time limits!</value>
   </data>
   <data name="MenuChangeStorageDevice" xml:space="preserve">
@@ -415,7 +415,7 @@
   <data name="StoreClose" xml:space="preserve">
     <value>Close</value>
   </data>
-  <data name="NagBubbleStore" xml:space="preserve">
+  <data name="UpsellMessageStore" xml:space="preserve">
     <value>Buy Fishing Girl and get full access to the store!</value>
   </data>
   <data name="StoreLureLargeUpgraded" xml:space="preserve">
@@ -434,9 +434,66 @@
     <value>A savefile already exists on the storage device. It will be overwritten if you continue. Is this okay?</value>
   </data>
   <data name="BadgeTotalMoney" xml:space="preserve">
-    <value>Money Hoarder</value>
+    <value>Super Saver</value>
   </data>
   <data name="BadgeTotalMoneyDescription" xml:space="preserve">
-    <value>Have at least {0} coins in the bank.</value>
+    <value>Have at least {0} coins at one time.</value>
+  </data>
+  <data name="BadgeLargeAccumulatedMoney" xml:space="preserve">
+    <value>Lots and Lots of Money</value>
+  </data>
+  <data name="BadgeLargeAccumulatedMoneyDescription" xml:space="preserve">
+    <value>Earn over {0} coins.</value>
+  </data>
+  <data name="BadgeSmallAccumulatedMoney" xml:space="preserve">
+    <value>Lots of Money</value>
+  </data>
+  <data name="BadgeSmallAccumulatedMoneyDescription" xml:space="preserve">
+    <value>Earn over {0} coins.</value>
+  </data>
+  <data name="UpsellMessageBadges" xml:space="preserve">
+    <value>Buy Fishing Girl and earn badges for your fishing feats!</value>
+  </data>
+  <data name="BadgeWonGame" xml:space="preserve">
+    <value>Rescuer</value>
+  </data>
+  <data name="BadgeWonGameDescription" xml:space="preserve">
+    <value>Successfully rescue the boy.</value>
+  </data>
+  <data name="BadgeBronzeCast" xml:space="preserve">
+    <value>Strong Arm</value>
+  </data>
+  <data name="BadgeBronzeCastDescription" xml:space="preserve">
+    <value>Cast {0} metres with the bronze rod.</value>
+  </data>
+  <data name="BadgeBuyEveryItem" xml:space="preserve">
+    <value>Big Spender</value>
+  </data>
+  <data name="BadgeBuyEveryItemDescription" xml:space="preserve">
+    <value>Buy every item in the store.</value>
+  </data>
+  <data name="BadgeCatchEveryFish" xml:space="preserve">
+    <value>Collector</value>
+  </data>
+  <data name="BadgeCatchEveryFishDescription" xml:space="preserve">
+    <value>Catch every type of fish.</value>
+  </data>
+  <data name="BadgeFastWonGame" xml:space="preserve">
+    <value>Swift Rescuer</value>
+  </data>
+  <data name="BadgeFastWonGameDescription" xml:space="preserve">
+    <value>Rescue the boy with {0} minutes left.</value>
+  </data>
+  <data name="BadgeGoldCast" xml:space="preserve">
+    <value>Strongest Arm</value>
+  </data>
+  <data name="BadgeGoldCastDescription" xml:space="preserve">
+    <value>Cast {0} metres with the gold rod.</value>
+  </data>
+  <data name="BadgeSilverCast" xml:space="preserve">
+    <value>Stronger Arm</value>
+  </data>
+  <data name="BadgeSilverCastDescription" xml:space="preserve">
+    <value>Cast {0} metres with the silver rod.</value>
   </data>
 </root>
