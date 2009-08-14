@@ -12,13 +12,26 @@
   * Game won
   * Game lost
 - Changes
-  * Add colour to timer; darken screen?
-  * Mute the menu highlight colour
   ** Fix the 'Change Storage Device' option
-  *	Fix casting: slow down at the apex?
+  * Add colour to timer; darken screen?
   * Add a lure selection UI
-  * Automatically retract fishing line when eaten?
   * Add to fish lunge when lure speed ~= fish speed
-  * Bigger rumble for big fish
+  * Bigger rumble for big fish?
   * Tap A to bring in big fish?
+  
+ 
+DONE
+====
+  * Mute the menu highlight colour
+  * Change rod colour immediately after purchase
   * Casting deadzone
+  * Animate the scene: blink, clouds, bird
+  * Always show the 'fish too big' message
+  * Prevent the shop from appearing too far out to sea
+  * Slow down a cast at the peak of the swing
+  * Automatically retract fishing line when lure is eaten
+  * Fix large upgraded lure sprite
+  * Fix arrows on scrollable menus
+  * Fix badges awarded after game end
+  * Fix fish rotation
+  * Fix crashes (storage, store)

@@ -137,6 +137,8 @@ namespace FishingGirl.Screens
         {
             MenuScreen screen = new MenuScreen(context);
             screen.LoadContent(content);
+            screen.AddEntry(BuildTextEntry("Sound Effects ON", (s, a) => content = null));
+            screen.AddEntry(BuildTextEntry("Music ON", (s, a) => content = null));
             screen.AddEntry(BuildTextEntry(Resources.MenuChangeStorageDevice, (s, a) => context.Storage.PromptForDevice()));
             screen.LayoutEntries();
             return screen;
@@ -264,7 +266,8 @@ namespace FishingGirl.Screens
             private bool _fadeIn;
             private float _fadeElapsed;
 
-            private readonly Color OutlineColor = new Color(207, 79, 79);
+            //private readonly Color OutlineColor = new Color(207, 79, 79);
+            private readonly Color OutlineColor = new Color(207, 115, 115);
             private const float FadeDuration = 0.6f;
         }
 

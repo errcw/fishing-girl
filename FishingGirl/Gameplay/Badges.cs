@@ -343,33 +343,58 @@ namespace FishingGirl.Gameplay
         }
     }
 
-    public class BronzeCastBadge : Badge
+    public class CastDistanceBadge : Badge
     {
-        public BronzeCastBadge()
+        public override BadgeContext Context
+        {
+            set
+            {
+                value.Fishing.ActionChanged += (s, a) =>
+                {
+                    if (a.Action == FishingAction.Reel)
+                    {
+                        //TODO calculate distance
+                        _earned = Distance > 0;
+                    }
+                };
+            }
+        }
+
+        public CastDistanceBadge(float distance)
+        {
+            Distance = distance;
+        }
+
+        private readonly float Distance;
+    }
+
+    public class BronzeCastBadge : CastDistanceBadge
+    {
+        public BronzeCastBadge() : base(Distance)
         {
             Name = Resources.BadgeBronzeCast;
             Description = string.Format(Resources.BadgeBronzeCastDescription, Distance);
         }
-        private const int Distance = 10;
+        private const float Distance = 13.5f;
     }
 
-    public class SilverCastBadge : Badge
+    public class SilverCastBadge : CastDistanceBadge
     {
-        public SilverCastBadge()
+        public SilverCastBadge() : base(Distance)
         {
             Name = Resources.BadgeSilverCast;
             Description = string.Format(Resources.BadgeSilverCastDescription, Distance);
         }
-        private const int Distance = 10;
+        private const float Distance = 20.0f;
     }
 
-    public class GoldCastBadge : Badge
+    public class GoldCastBadge : CastDistanceBadge
     {
-        public GoldCastBadge()
+        public GoldCastBadge() : base(Distance)
         {
             Name = Resources.BadgeGoldCast;
             Description = string.Format(Resources.BadgeGoldCastDescription, Distance);
         }
-        private const int Distance = 10;
+        private const float Distance = 30.0f;
     }
 }

@@ -254,7 +254,16 @@ namespace FishingGirl.Gameplay
             {
                 if (input.Action.Down)
                 {
-                    swingPosition += SwingSpeed * elapsed;
+                    float swingSpeed = SwingSpeed;
+
+                    float distanceToPeak = Math.Abs(swingPosition - swingSweep);
+                    if (distanceToPeak < SwingSlowInterval)
+                    {
+                        float progressToPeak = 1f - (distanceToPeak / SwingSlowInterval);
+                        swingSpeed = SwingSpeed - (1.35f * progressToPeak);
+                    }
+
+                    swingPosition += swingSpeed * elapsed;
 
                     float rotation = swingPosition;
                     if (swingPosition > swingSweep)
@@ -269,9 +278,13 @@ namespace FishingGirl.Gameplay
                         EnterIdleState();
                     }
                 }
-                else
+                else if (RodRotation > CastingDeadzone)
                 {
                     EnterCastingState();
+                }
+                else
+                {
+                    EnterIdleState();
                 }
             };
         }
@@ -295,7 +308,7 @@ namespace FishingGirl.Gameplay
                 }
                 else if (_lurePosition.Y > _scene.WaterLevel)
                 {
-                    _lineLength = Vector2.Distance(_lurePosition, GetRodTipPosition()); // set the length
+                    _lineLength = Vector2.Distance(_lurePosition, GetRodTipPosition());
                     EnterReelingState();
                 }
                 if (RodRotation > SwingInitialRotation)
@@ -318,7 +331,7 @@ namespace FishingGirl.Gameplay
 
             _stateTick = delegate(float elapsed, Input input)
             {
-                if (input.Action.Down)
+                if (input.Action.Down || _lureBroken)
                 {
                     _reelSpeed += GetReelAcceleration() * elapsed;
                     _lineLength -= _reelSpeed * elapsed;
@@ -481,10 +494,12 @@ namespace FishingGirl.Gameplay
         private const float IdleLineLength = 30f;
         private const float SwingSpeed = 2f;
         private const float SwingInitialRotation = (float)(Math.PI / 8);
+        private const float SwingSlowInterval = 0.3f;
         private const float CastingSpeed = 2f;
         private const float CastingMinDistance = 200f;
         private const float CastingMaxDistance = 2000f;
         private const float CastingMaxSweep = MathHelper.Pi / 1.25f;
+        private const float CastingDeadzone = SwingInitialRotation + 0.25f;
         private readonly Vector2 CastingMaxVelocity = new Vector2(1100, -600);
         private const float ReelSpeed = 150f;
         private const float ReelAccelerationLure = 100f;

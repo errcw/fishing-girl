@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 
 using Library.Animation;
 using Library.Sprite;
-using Library.Extensions;
 
 using FishingGirl.Gameplay;
 
@@ -89,13 +88,22 @@ namespace FishingGirl.Interface
         /// <param name="time">The elapsed time, in seconds, since the last update.</param>
         private void UpdateHooked(float time)
         {
-            if (!MathHelperExtensions.EpsilonEquals(_sprite.Origin.X, 0f, 2f))
+            if (_sprite.Origin.X != 0f)
             {
+                float prevOriginX = _sprite.Origin.X;
+
                 float rot = HookedFallSpeed * time;
                 _sprite.Rotation -= rot;
                 _sprite.Origin = Vector2.Transform(_sprite.Origin,
                     Quaternion.CreateFromAxisAngle(Vector3.UnitZ, (_sprite.Scale.X > 0) ? rot : -rot));
+
+                if (_sprite.Origin.X > 0f && prevOriginX < 0f ||
+                    _sprite.Origin.X < 0f && prevOriginX > 0f)
+                {
+                    _sprite.Origin = new Vector2(0f, _sprite.Origin.Y);
+                }
             }
+
         }
 
         /// <summary>
