@@ -45,6 +45,8 @@ namespace FishingGirl.Screens
             _badgeView = new BadgeView(_badges);
             _badgeView.LoadContent(content);
 
+            _options = new Options();
+
             _storeScreen = new StoreScreen(_context);
             _storeScreen.LoadContent(content);
 
@@ -54,10 +56,9 @@ namespace FishingGirl.Screens
             _endScreen = new GameOverScreen(_context);
             _endScreen.LoadContent(content);
 
-            _pauseScreen = new PauseMenuScreenFactory().Create(_badges, _context, content);
+            _pauseScreen = new PauseMenuScreenFactory().Create(_options, _badges, _context, content);
 
             _oceanSong = content.Load<Song>("Sounds/Ocean");
-            MediaPlayer.Volume = 0.1f;
             MediaPlayer.IsRepeating = true;
 
             StartGame(content);
@@ -253,7 +254,7 @@ namespace FishingGirl.Screens
             _badgeView.Update(time);
 
             _fishing.Update(time, _context.Input);
-            if (_scene.FarShore.X - _scene.ShoreX > EndingStoryCloseThreshold)
+            if (_scene.FarShore.X - _scene.NearShore.X > EndingStoryCloseThreshold)
             {
                 // only draw when the shore is far
                 _fishingView.Update(time);
@@ -298,7 +299,10 @@ namespace FishingGirl.Screens
 
             // create the views
             _sceneView = new SceneView(_scene, _camera);
+            _sceneView.LoadContent(content);
+
             _oceanView = new OceanView(_ocean);
+
             _fishCaughtView = new FishCaughtView(_fishing);
             _fishEatenView = new FishEatenView(_fishing);
             _fishingView = new FishingView(_fishing, _context);
@@ -349,9 +353,13 @@ namespace FishingGirl.Screens
         private void ExitGame()
         {
             // save the state if possible
-            if (_context.Storage != null && _context.Storage.IsValid && !Guide.IsTrialMode)
+            if (_context.Storage != null && _context.Storage.IsValid)
             {
-                _badges.Save(_context.Storage);
+                _options.Save(_context.Storage);
+                if (!Guide.IsTrialMode)
+                {
+                    _badges.Save(_context.Storage);
+                }
             }
         }
 
@@ -363,8 +371,12 @@ namespace FishingGirl.Screens
             if (_context.Storage == null && _context.Input.Controller.HasValue)
             {
                 _context.Storage = new PlayerStorage(_context.Game, "FishingGirl", _context.Input.Controller.Value);
-                _context.Storage.DeviceSelected += (o, a) => _badges.Load(_context.Storage); //TODO check for overwrite?
-                _context.Storage.PromptForDevice(); //TODO no storage on trial
+                _context.Storage.DeviceSelected += (o, a) =>
+                {
+                    _options.Load(_context.Storage);
+                    _badges.Load(_context.Storage);
+                };
+                _context.Storage.PromptForDevice();
 
                 _context.Game.Components.Add(_context.Storage);
             }
@@ -441,6 +453,7 @@ namespace FishingGirl.Screens
 
         private Song _oceanSong;
 
+        private Options _options;
         private FishingGameContext _context;
 
         private const float EndingStoryCloseThreshold = 150f;

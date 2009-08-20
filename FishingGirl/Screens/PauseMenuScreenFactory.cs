@@ -24,7 +24,7 @@ namespace FishingGirl.Screens
     /// </summary>
     public class PauseMenuScreenFactory
     {
-        public MenuScreen Create(Badges badges, FishingGameContext context, ContentManager content)
+        public MenuScreen Create(Options options, Badges badges, FishingGameContext context, ContentManager content)
         {
             _menuFont = content.Load<SpriteFont>("Fonts/Text"); // use a common font
 
@@ -33,7 +33,7 @@ namespace FishingGirl.Screens
             screen.LoadContent(content);
 
             MenuScreen badgesScreen = BuildBadges(badges, context, content);
-            MenuScreen optionsScreen = BuildOptions(context, content);
+            MenuScreen optionsScreen = BuildOptions(options, context, content);
             MenuScreen confirmScreen = BuildExitConfirm(context, content);
             MenuScreen upsellScreen = BuildExitUpsell(context, content);
 
@@ -88,14 +88,14 @@ namespace FishingGirl.Screens
             return badgesScreen;
         }
 
-        private MenuScreen BuildOptions(FishingGameContext context, ContentManager content)
+        private MenuScreen BuildOptions(Options options, FishingGameContext context, ContentManager content)
         {
             MenuScreen screen = new MenuScreen(context);
             screen.LoadContent(content);
 
             MenuScreen controlsScreen = BuildControls(context, content);
             MenuScreen creditsScreen = BuildCredits(context, content);
-            MenuScreen settingsScreen = BuildSettings(context, content);
+            MenuScreen settingsScreen = BuildSettings(options, context, content);
 
             screen.AddEntry(BuildTextEntry(Resources.MenuControls, (s, a) => screen.Stack.Push(controlsScreen)));
             screen.AddEntry(BuildTextEntry(Resources.MenuCredits, (s, a) => screen.Stack.Push(creditsScreen)));
@@ -133,23 +133,70 @@ namespace FishingGirl.Screens
             return screen;
         }
 
-        private MenuScreen BuildSettings(FishingGameContext context, ContentManager content)
+        private MenuScreen BuildSettings(Options options, FishingGameContext context, ContentManager content)
         {
+            Func<bool,string> getStateString = (b) => b ? Resources.MenuOn : Resources.MenuOff;
+
+            var effectsEntry = BuildOptionEntry(Resources.MenuSoundEffects, getStateString(options.SoundEffectsToggle),
+                (s, a) =>
+                {
+                    options.SoundEffectsToggle = !options.SoundEffectsToggle;
+                    ((TextMenuEntry)s).TextSprite.Text = getStateString(options.SoundEffectsToggle);
+                });
+            var musicEntry = BuildOptionEntry(Resources.MenuMusic, getStateString(options.MusicToggle),
+                (s, a) =>
+                {
+                    options.MusicToggle = !options.MusicToggle;
+                    ((TextMenuEntry)s).TextSprite.Text = getStateString(options.MusicToggle);
+                });
+            var vibrationEntry = BuildOptionEntry(Resources.MenuVibration, getStateString(options.VibrationToggle),
+                (s, a) =>
+                {
+                    options.VibrationToggle = !options.VibrationToggle;
+                    ((TextMenuEntry)s).TextSprite.Text = getStateString(options.VibrationToggle);
+                });
+
             MenuScreen screen = new MenuScreen(context);
             screen.LoadContent(content);
-            screen.AddEntry(BuildTextEntry("Sound Effects ON", (s, a) => content = null));
-            screen.AddEntry(BuildTextEntry("Music ON", (s, a) => content = null));
-            screen.AddEntry(BuildTextEntry(Resources.MenuChangeStorageDevice, (s, a) => context.Storage.PromptForDevice()));
+            screen.AddEntry(effectsEntry);
+            screen.AddEntry(musicEntry);
+            screen.AddEntry(vibrationEntry);
             screen.LayoutEntries();
+
+            // update the text when the screen is displayed because the storage device might have changed
+            screen.StateChanged += (s, a) =>
+            {
+                Screen scr = (Screen)s;
+                if (scr.State == ScreenState.TransitionOn || scr.State == ScreenState.Active)
+                {
+                    effectsEntry.TextSprite.Text = getStateString(options.SoundEffectsToggle);
+                    musicEntry.TextSprite.Text = getStateString(options.MusicToggle);
+                    vibrationEntry.TextSprite.Text = getStateString(options.VibrationToggle);
+                }
+            };
+
             return screen;
+        }
+
+        /// <summary>
+        /// Returns a labelled text menu entry.
+        /// </summary>
+        private TextMenuEntry BuildOptionEntry(string label, string text, EventHandler<EventArgs> e)
+        {
+            TextMenuEntry entry = new TextMenuEntry(
+                new TextSprite(_menuFont, label),
+                new TextSprite(_menuFont, text));
+            entry.Selected += e;
+            entry.SelectText = Resources.MenuToggle;
+            return entry;
         }
 
         /// <summary>
         /// Returns a text menu entry.
         /// </summary>
-        private MenuEntry BuildTextEntry(string text, EventHandler<EventArgs> e)
+        private TextMenuEntry BuildTextEntry(string text, EventHandler<EventArgs> e)
         {
-            MenuEntry entry = new TextMenuEntry(new TextSprite(_menuFont, text));
+            TextMenuEntry entry = new TextMenuEntry(new TextSprite(_menuFont, text));
             entry.Selected += e;
             return entry;
         }
@@ -205,18 +252,37 @@ namespace FishingGirl.Screens
             }
         }
 
-
         /// <summary>
         /// A plain text menu entry. 
         /// </summary>
         class TextMenuEntry : MenuEntry
         {
+            public TextSprite LabelSprite { get; protected set; }
+            public TextSprite TextSprite { get; protected set; }
+
             /// <summary>
             /// Creates a new text menu entry.
             /// </summary>
-            /// <param name="sprite">The text sprite to show.</param>
-            public TextMenuEntry(TextSprite sprite) : base(sprite)
+            /// <param name="text">The text sprite to show.</param>
+            public TextMenuEntry(TextSprite text) : base(text)
             {
+                TextSprite = text;
+            }
+
+            /// <summary>
+            /// Creates a new text menu entry.
+            /// </summary>
+            /// <param name="label">The unhighlighted label to show.</param>
+            /// <param name="text">The text to show.</param>
+            public TextMenuEntry(TextSprite label, TextSprite text) : base(null)
+            {
+                LabelSprite = label;
+                TextSprite = text;
+
+                CompositeSprite composite = new CompositeSprite(LabelSprite, TextSprite);
+                LabelSprite.Position = Vector2.Zero;
+                TextSprite.Position = new Vector2(LabelSprite.Size.X + LabelSprite.Font.MeasureString(" ").X, 0);
+                Sprite = composite;
             }
 
             /// <summary>
@@ -237,7 +303,7 @@ namespace FishingGirl.Screens
                 }
                 float p = _fadeElapsed / FadeDuration;
                 float a = (_fadeIn) ? p : 1 - p;
-                ((TextSprite)Sprite).OutlineColor = new Color(OutlineColor, a);
+                TextSprite.OutlineColor = new Color(OutlineColor, a);
             }
 
             /// <summary>
@@ -249,24 +315,22 @@ namespace FishingGirl.Screens
                 {
                     return;
                 }
-                TextSprite textSprite = (TextSprite)Sprite;
                 if (focused)
                 {
-                    textSprite.OutlineColor = OutlineColor;
-                    textSprite.OutlineWidth = 2;
+                    TextSprite.OutlineColor = OutlineColor;
+                    TextSprite.OutlineWidth = 2;
                     _fadeIn = false;
                     _fadeElapsed = 0;
                 }
                 else
                 {
-                    textSprite.OutlineWidth = 0;
+                    TextSprite.OutlineWidth = 0;
                 }
             }
 
             private bool _fadeIn;
             private float _fadeElapsed;
 
-            //private readonly Color OutlineColor = new Color(207, 79, 79);
             private readonly Color OutlineColor = new Color(207, 115, 115);
             private const float FadeDuration = 0.6f;
         }

@@ -484,6 +484,15 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tap _A_ to reel in large fish.
+        /// </summary>
+        internal static string GuideReelInLarge {
+            get {
+                return ResourceManager.GetString("GuideReelInLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Guitarfish.
         /// </summary>
         internal static string LargeCommon {
@@ -718,6 +727,33 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Music.
+        /// </summary>
+        internal static string MenuMusic {
+            get {
+                return ResourceManager.GetString("MenuMusic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OFF.
+        /// </summary>
+        internal static string MenuOff {
+            get {
+                return ResourceManager.GetString("MenuOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ON.
+        /// </summary>
+        internal static string MenuOn {
+            get {
+                return ResourceManager.GetString("MenuOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unlock Full Game.
         /// </summary>
         internal static string MenuPurchase {
@@ -750,6 +786,33 @@ namespace FishingGirl.Properties {
         internal static string MenuSettings {
             get {
                 return ResourceManager.GetString("MenuSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sound Effects.
+        /// </summary>
+        internal static string MenuSoundEffects {
+            get {
+                return ResourceManager.GetString("MenuSoundEffects", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle.
+        /// </summary>
+        internal static string MenuToggle {
+            get {
+                return ResourceManager.GetString("MenuToggle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vibration.
+        /// </summary>
+        internal static string MenuVibration {
+            get {
+                return ResourceManager.GetString("MenuVibration", resourceCulture);
             }
         }
         

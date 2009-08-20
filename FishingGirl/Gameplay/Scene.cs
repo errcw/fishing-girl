@@ -21,9 +21,9 @@ namespace FishingGirl.Gameplay
         public float WaterLevel { get; private set; }
 
         /// <summary>
-        /// The X coordinate of the shore.
+        /// The coordinate of the near shore.
         /// </summary>
-        public float ShoreX { get; private set; }
+        public Vector2 NearShore { get; private set; }
 
         /// <summary>
         /// The coordinate of the far shore.
@@ -57,7 +57,7 @@ namespace FishingGirl.Gameplay
 
             Vector2 leftIslandPos = Sprite.GetSprite("LeftIsland").Position;
             Sprite cliff = Sprite.GetSprite("Cliff");
-            ShoreX = cliff.Position.X + cliff.Size.X + leftIslandPos.X;
+            NearShore = cliff.Position + cliff.Size + leftIslandPos;
 
             Vector2 farCliffPos = Sprite.GetSprite("FarCliff").Position;
             Vector2 rightIslandPos = Sprite.GetSprite("RightIsland").Position;
@@ -121,6 +121,7 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public void EndStory()
         {
+            Sprite.GetAnimation("EndStory").Start();
             Sprite.GetAnimation("EndStory").Update(1f);
         }
     }

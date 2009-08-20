@@ -313,6 +313,8 @@ namespace FishingGirl.Screens
             }
             _screenDescriptor.GetSprite("Select").Color =
                 _entries[_selectedEntryAbs].IsSelectable ? Color.White : Color.TransparentWhite;
+            _screenDescriptor.GetSprite<TextSprite>("TextSelect").Text =
+                _entries[_selectedEntryAbs].SelectText;
 
             _entries[_selectedEntryAbs].OnFocusChanged(true);
 
@@ -369,6 +371,11 @@ namespace FishingGirl.Screens
         public bool IsSelectable { get; set; }
 
         /// <summary>
+        /// A verb to describe the action of this menu entry.
+        /// </summary>
+        public string SelectText { get; set; }
+
+        /// <summary>
         /// Invoked when this menu entry is selected.
         /// </summary>
         public event EventHandler<EventArgs> Selected;
@@ -381,6 +388,7 @@ namespace FishingGirl.Screens
         {
             Sprite = sprite;
             IsSelectable = true;
+            SelectText = Resources.MenuSelect;
         }
 
         /// <summary>

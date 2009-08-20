@@ -11,6 +11,14 @@ namespace FishingGirl
     /// </summary>
     public class Input : Library.Input.Input
     {
+        /// A terrible hack to get global vibration enable/disable
+        private static Library.Input.Input _instance;
+        public static bool VibrationEnabled
+        {
+            get { return _instance.VibrationEnabled; }
+            set { _instance.VibrationEnabled = value; }
+        }
+
         public readonly ControlState Action = new ControlState();
         public readonly ControlState AltAction = new ControlState();
         public readonly ControlState Cancel = new ControlState();
@@ -29,6 +37,8 @@ namespace FishingGirl
             Register(Up, Polling.Any(Polling.One(Buttons.DPadUp), Polling.One(Buttons.LeftThumbstickUp)));
             Register(Down, Polling.Any(Polling.One(Buttons.DPadDown), Polling.One(Buttons.LeftThumbstickDown)));
             Register(Start, Polling.One(Buttons.Start));
+
+            _instance = this;
         }
 
         /// <summary>

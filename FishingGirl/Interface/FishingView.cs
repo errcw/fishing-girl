@@ -199,7 +199,7 @@ namespace FishingGirl.Interface
                 case FishSize.Small: return new Vector2(0f, 0.2f);
                 case FishSize.Medium: return new Vector2(0.2f, 0.3f);
                 case FishSize.Large: return new Vector2(0.6f, 0.4f);
-                case FishSize.VeryLarge: return new Vector2(0.75f, 0.5f);
+                case FishSize.VeryLarge: return new Vector2(0.8f, 0.6f);
             }
             return Vector2.Zero;
         }

@@ -496,4 +496,25 @@
   <data name="BadgeSilverCastDescription" xml:space="preserve">
     <value>Cast {0} metres with the silver rod.</value>
   </data>
+  <data name="MenuMusic" xml:space="preserve">
+    <value>Music</value>
+  </data>
+  <data name="MenuOff" xml:space="preserve">
+    <value>OFF</value>
+  </data>
+  <data name="MenuOn" xml:space="preserve">
+    <value>ON</value>
+  </data>
+  <data name="MenuSoundEffects" xml:space="preserve">
+    <value>Sound Effects</value>
+  </data>
+  <data name="MenuVibration" xml:space="preserve">
+    <value>Vibration</value>
+  </data>
+  <data name="GuideReelInLarge" xml:space="preserve">
+    <value>Tap _A_ to reel in large fish</value>
+  </data>
+  <data name="MenuToggle" xml:space="preserve">
+    <value>Toggle</value>
+  </data>
 </root>

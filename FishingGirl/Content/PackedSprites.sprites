@@ -82,6 +82,7 @@
     <Sprite Texture="Textures/StoreRodSilver.png"/>
     <Sprite Texture="Textures/StoreRodGold.png"/>
     <Sprite Texture="Textures/StoreRodLegendary.png"/>
+    <Sprite Texture="Textures/DarknessOverlay.png"/>
   </Group>
   
   <Group Name="Landscape">
@@ -128,5 +129,6 @@
     <Sprite Texture="Textures/Cliff.png"/>
     <Sprite Texture="Textures/Water.png"/>
     <Sprite Texture="Textures/WaterWaves.png"/>
+    <Sprite Texture="Textures/AirBubble1.png"/>
   </Group>
 </Sprites>

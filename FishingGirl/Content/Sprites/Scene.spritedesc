@@ -22,14 +22,23 @@
 
     <!-- Water -->
     <Composite Name="Water" Position="805 700" Layer="0.8">
-      <Image Texture="Water" Position="0 0" Layer="0"/>
-      <Image Texture="Water" Position="1020 0" Layer="0"/>
-      <Image Texture="Water" Position="2040 0" Layer="0"/>
+      <Image Texture="Water" Position="0 0" Layer="0.2"/>
+      <Image Texture="Water" Position="1020 0" Layer="0.2"/>
+      <Image Texture="Water" Position="2040 0" Layer="0.2"/>
       <Composite Name="Waves" Position="-255 0" Layer="0.7">
         <Image Texture="WaterWaves" Position="0 0"/>
         <Image Texture="WaterWaves" Position="1024 0"/>
         <Image Texture="WaterWaves" Position="2048 0"/>
       </Composite>
+      <Image Texture="Rock1" Position="-100 1400" Layer="0.1"/>
+      <Image Texture="Rock2" Position="200 1650" Layer="0.1"/>
+      <Image Texture="Rock3" Position="400 1650" Layer="0.1"/>
+      <Image Texture="Rock1" Position="600 1550" Layer="0.1"/>
+      <Image Texture="Rock1" Position="900 1500" Layer="0.1"/>
+      <Image Texture="Rock2" Position="1200 1650" Layer="0.1"/>
+      <Image Texture="Rock3" Position="1550 1650" Layer="0.1"/>
+      <Image Texture="Rock4" Position="1750 1600" Layer="0.1"/>
+      <Composite Name="Bubbles" Layer="0"/>
     </Composite>
     
     <!-- Islands -->

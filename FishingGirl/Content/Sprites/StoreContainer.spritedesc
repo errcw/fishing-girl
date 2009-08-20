@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
-  <Sprites Name="Root" Layer="0.80001" Color="1 1 1 0">
+  <Sprites Name="Root" Layer="0.800021" Color="1 1 1 0">
     <Image Name="Container" Texture="StoreContainer" Position="0 0" Origin="26 26"/>
   </Sprites>
   <Animations>

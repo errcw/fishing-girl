@@ -44,7 +44,6 @@ namespace FishingGirl.Screens
         {
             base.LoadContent(content);
             
-            _screenDescriptor.GetSprite<TextSprite>("TextSelect").Text = Resources.StoreBuy;
             _screenDescriptor.GetSprite<TextSprite>("TextBack").Text = Resources.StoreClose;
 
             _entryTemplate = content.Load<SpriteDescriptorTemplate>("Sprites/StoreItem");
@@ -124,6 +123,7 @@ namespace FishingGirl.Screens
                 {
                     _descriptor.Sprite.Color = new Color(_descriptor.Sprite.Color, 0.6f);
                 }
+                SelectText = Resources.StoreBuy;
             }
 
             public override void OnFocusChanged(bool focused)

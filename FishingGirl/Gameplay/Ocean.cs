@@ -115,6 +115,13 @@ namespace FishingGirl.Gameplay
             AddFish(CreateFish(FishSize.Medium, 1600f, 1900f, 1400f));
             AddFish(CreateFish(FishSize.Medium, 2400f, 2750f, 1375f));
             AddFish(CreateFish(FishSize.VeryLarge, 2000f, 2300f, 1500f));
+            AddFish(CreateFish(FishSize.Large, 950f, 1400f, 1850f));
+            AddFish(CreateFish(FishSize.Large, 1700f, 2000f, 1750f));
+            AddFish(CreateFish(FishSize.Large, 1900f, 2400f, 1950f));
+            AddFish(CreateFish(FishSize.Medium, 1600f, 1900f, 1600f));
+            AddFish(CreateFish(FishSize.Medium, 2400f, 2700f, 1450f));
+            AddFish(CreateFish(FishSize.Medium, 2500f, 2750f, 1550f));
+            AddFish(CreateFish(FishSize.VeryLarge, 1100f, 2000f, 2100f));
         }
 
         /// <summary>
