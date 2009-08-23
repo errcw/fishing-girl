@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using System.Linq;
 
 using Library.Storage;
 
@@ -30,11 +31,13 @@ namespace FishingGirl.Gameplay
     [XmlInclude(typeof(TotalMoneyBadge))]
     [XmlInclude(typeof(WonGameBadge))]
     [XmlInclude(typeof(FastWonGameBadge))]
+    [XmlInclude(typeof(ManyWonGameBadge))]
     [XmlInclude(typeof(CatchEveryFishBadge))]
     [XmlInclude(typeof(BuyEveryItemBadge))]
     [XmlInclude(typeof(BronzeCastBadge))]
     [XmlInclude(typeof(SilverCastBadge))]
     [XmlInclude(typeof(GoldCastBadge))]
+    [XmlInclude(typeof(ChainBadge))]
     public abstract class Badge
     {
         /// <summary>
@@ -111,11 +114,13 @@ namespace FishingGirl.Gameplay
             _badges.Add(new TotalMoneyBadge());
             _badges.Add(new WonGameBadge());
             _badges.Add(new FastWonGameBadge());
+            _badges.Add(new ManyWonGameBadge());
             _badges.Add(new CatchEveryFishBadge());
             _badges.Add(new BuyEveryItemBadge());
             _badges.Add(new BronzeCastBadge());
             _badges.Add(new SilverCastBadge());
             _badges.Add(new GoldCastBadge());
+            _badges.Add(new ChainBadge());
         }
 
         /// <summary>
@@ -325,21 +330,90 @@ namespace FishingGirl.Gameplay
         private const float TimeInMinutes = 5;
     }
 
+    public class ManyWonGameBadge : Badge
+    {
+        public int WinCount { get; set; }
+
+        public override BadgeContext Context
+        {
+            set
+            {
+                value.Fishing.Event += (s, a) =>
+                {
+                    if (a.Event == FishingEvent.LureIsland)
+                    {
+                        WinCount += 1;
+                    }
+                    _earned = WinCount >= WinCountThreshold;
+                };
+            }
+        }
+
+        public ManyWonGameBadge()
+        {
+            Name = Resources.BadgeManyWonGame;
+            Description = string.Format(Resources.BadgeManyWonGameDescription, WinCountThreshold);
+            WinCount = 0;
+        }
+
+        private const int WinCountThreshold = 20;
+    }
+
     public class CatchEveryFishBadge : Badge
     {
+        public bool[] CaughtFish { get; set; }
+
+        public override BadgeContext Context
+        {
+            set
+            {
+                value.Fishing.Event += (s, a) =>
+                {
+                    if (a.Event == FishingEvent.FishCaught)
+                    {
+                        CaughtFish[(int)a.Fish.Description.Size * 4 + (int)a.Fish.Description.Rarity] = true;
+                        _earned = CaughtFish.All(c => c);
+                    }
+                };
+            }
+        }
+
         public CatchEveryFishBadge()
         {
             Name = Resources.BadgeCatchEveryFish;
             Description = Resources.BadgeCatchEveryFishDescription;
+            CaughtFish = new bool[12];
         }
     }
 
     public class BuyEveryItemBadge : Badge
     {
+        public bool[] BoughtItems { get; set; }
+
+        public override BadgeContext Context
+        {
+            set
+            {
+                value.Store.ItemPurchased += (s, a) =>
+                {
+                    if (a.Item.Name == Resources.StoreRodSilver) BoughtItems[0] = true;
+                    else if (a.Item.Name == Resources.StoreRodGold) BoughtItems[1] = true;
+                    else if (a.Item.Name == Resources.StoreRodLegendary) BoughtItems[2] = true;
+                    else if (a.Item.Name == Resources.StoreLureSmall) BoughtItems[3] = true;
+                    else if (a.Item.Name == Resources.StoreLureMedium) BoughtItems[4] = true;
+                    else if (a.Item.Name == Resources.StoreLureLarge) BoughtItems[5] = true;
+                    else if (a.Item.Name == Resources.StoreLureSmallUpgraded) BoughtItems[6] = true;
+                    else if (a.Item.Name == Resources.StoreLureLargeUpgraded) BoughtItems[7] = true;
+                    _earned = BoughtItems.All(i => i);
+                };
+            }
+        }
+
         public BuyEveryItemBadge()
         {
             Name = Resources.BadgeBuyEveryItem;
             Description = Resources.BadgeBuyEveryItemDescription;
+            BoughtItems = new bool[8];
         }
     }
 
@@ -353,48 +427,96 @@ namespace FishingGirl.Gameplay
                 {
                     if (a.Action == FishingAction.Reel)
                     {
-                        //TODO calculate distance
-                        _earned = Distance > 0;
+                        FishingState state = (FishingState)s;
+                        _earned = state.LureDistance >= Distance && state.Rod == Rod;
                     }
                 };
             }
         }
 
-        public CastDistanceBadge(float distance)
+        public CastDistanceBadge(RodType rod, float distance)
         {
+            Rod = rod;
             Distance = distance;
         }
 
+        private readonly RodType Rod;
         private readonly float Distance;
     }
 
     public class BronzeCastBadge : CastDistanceBadge
     {
-        public BronzeCastBadge() : base(Distance)
+        public BronzeCastBadge() : base(RodType.Bronze, Distance)
         {
             Name = Resources.BadgeBronzeCast;
             Description = string.Format(Resources.BadgeBronzeCastDescription, Distance);
         }
-        private const float Distance = 13.5f;
+        private const float Distance = 14.0f;
     }
 
     public class SilverCastBadge : CastDistanceBadge
     {
-        public SilverCastBadge() : base(Distance)
+        public SilverCastBadge() : base(RodType.Silver, Distance)
         {
             Name = Resources.BadgeSilverCast;
             Description = string.Format(Resources.BadgeSilverCastDescription, Distance);
         }
-        private const float Distance = 20.0f;
+        private const float Distance = 24.0f;
     }
 
     public class GoldCastBadge : CastDistanceBadge
     {
-        public GoldCastBadge() : base(Distance)
+        public GoldCastBadge() : base(RodType.Gold, Distance)
         {
             Name = Resources.BadgeGoldCast;
             Description = string.Format(Resources.BadgeGoldCastDescription, Distance);
         }
-        private const float Distance = 30.0f;
+        private const float Distance = 38.0f;
+    }
+
+    public class ChainBadge : Badge
+    {
+        public override BadgeContext Context
+        {
+            set
+            {
+                bool caughtSmall = false, caughtMedium = false, caughtLarge = false;
+                value.Fishing.ActionChanged += (s, a) =>
+                {
+                    if (a.Action == FishingAction.Idle)
+                    {
+                        caughtSmall = caughtMedium = caughtLarge = false;
+                    }
+                };
+                value.Fishing.Event += (s, a) =>
+                {
+                    switch (a.Event)
+                    {
+                        case FishingEvent.FishHooked:
+                            caughtSmall = (a.Fish.Description.Size == FishSize.Small);
+                            break;
+                        case FishingEvent.FishEaten:
+                            if (a.Fish.Description.Size == FishSize.Small && caughtSmall)
+                            {
+                                caughtMedium = true;
+                            }
+                            else if (a.Fish.Description.Size == FishSize.Medium && caughtMedium)
+                            {
+                                caughtLarge = true;
+                            }
+                            break;
+                        case FishingEvent.FishCaught:
+                            _earned = caughtSmall && caughtMedium && caughtLarge;
+                            break;
+                    }
+                };
+            }
+        }
+
+        public ChainBadge()
+        {
+            Name = Resources.BadgeChain;
+            Description = Resources.BadgeChainDescription;
+        }
     }
 }

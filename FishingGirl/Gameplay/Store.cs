@@ -22,6 +22,11 @@ namespace FishingGirl.Gameplay
         public event EventHandler<EventArgs> Hit;
 
         /// <summary>
+        /// Occurs when an item is purchased from the store.
+        /// </summary>
+        public event EventHandler<ItemPurchasedEventArgs> ItemPurchased;
+
+        /// <summary>
         /// The position of this store; distance in pixels from the left shore.
         /// </summary>
         public float Position { get; private set; }
@@ -129,8 +134,18 @@ namespace FishingGirl.Gameplay
         /// </summary>
         public void Purchase(StoreItem item)
         {
+            if (item.Cost > _money.Amount)
+            {
+                throw new ArgumentException("Not enough money");
+            }
+
             item.Purchase();
             _money.Amount -= item.Cost;
+
+            if (ItemPurchased != null)
+            {
+                ItemPurchased(this, new ItemPurchasedEventArgs(item));
+            }
 
             FillStore();
             if (Items.Count == 0)
@@ -286,6 +301,19 @@ namespace FishingGirl.Gameplay
             Name = name;
             Description = description;
             Image = image;
+        }
+    }
+
+    /// <summary>
+    /// Data for the store item purchased event.
+    /// </summary>
+    public class ItemPurchasedEventArgs : EventArgs
+    {
+        public readonly StoreItem Item;
+
+        public ItemPurchasedEventArgs(StoreItem item)
+        {
+            Item = item;
         }
     }
 }

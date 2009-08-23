@@ -124,6 +124,24 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chain Gang.
+        /// </summary>
+        internal static string BadgeChain {
+            get {
+                return ResourceManager.GetString("BadgeChain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Catch a small, medium, then large fish..
+        /// </summary>
+        internal static string BadgeChainDescription {
+            get {
+                return ResourceManager.GetString("BadgeChainDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Swift Rescuer.
         /// </summary>
         internal static string BadgeFastWonGame {
@@ -174,6 +192,24 @@ namespace FishingGirl.Properties {
         internal static string BadgeLargeAccumulatedMoneyDescription {
             get {
                 return ResourceManager.GetString("BadgeLargeAccumulatedMoneyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reliable Rescuer.
+        /// </summary>
+        internal static string BadgeManyWonGame {
+            get {
+                return ResourceManager.GetString("BadgeManyWonGame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rescue the boy more {0} times.
+        /// </summary>
+        internal static string BadgeManyWonGameDescription {
+            get {
+                return ResourceManager.GetString("BadgeManyWonGameDescription", resourceCulture);
             }
         }
         

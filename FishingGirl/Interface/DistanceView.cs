@@ -31,7 +31,7 @@ namespace FishingGirl.Interface
             {
                 if (e.Action == FishingAction.Reel)
                 {
-                    ShowMarker(state.LurePosition, (state.LurePosition.X - scene.NearShore.X) * PixelsToMetres);
+                    ShowMarker(state.LurePosition, state.LureDistance);
                 }
             };
         }

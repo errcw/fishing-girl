@@ -517,4 +517,16 @@
   <data name="MenuToggle" xml:space="preserve">
     <value>Toggle</value>
   </data>
+  <data name="BadgeChain" xml:space="preserve">
+    <value>Chain Gang</value>
+  </data>
+  <data name="BadgeChainDescription" xml:space="preserve">
+    <value>Catch a small, medium, then large fish.</value>
+  </data>
+  <data name="BadgeManyWonGame" xml:space="preserve">
+    <value>Reliable Rescuer</value>
+  </data>
+  <data name="BadgeManyWonGameDescription" xml:space="preserve">
+    <value>Rescue the boy more {0} times</value>
+  </data>
 </root>

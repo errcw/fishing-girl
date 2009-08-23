@@ -102,6 +102,10 @@ namespace FishingGirl.Interface
                         _text.Show(Resources.GuideLureMediumFish);
                         _textTimeout = new DelayAnimation(GuideTime);
                     }
+                    if (e.Fish.Description.Size == FishSize.Medium)
+                    {
+                        _text.Show(Resources.GuideReelInLarge);
+                    }
                     break;
                 case FishingEvent.LureBroke:
                     _text.Show(Resources.GuideLureBroke);

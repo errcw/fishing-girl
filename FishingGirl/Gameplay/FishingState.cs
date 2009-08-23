@@ -65,6 +65,11 @@ namespace FishingGirl.Gameplay
         public Vector2 LurePosition { get { return _lurePosition; } }
 
         /// <summary>
+        /// The distance of the lure from the shore, in metres.
+        /// </summary>
+        public float LureDistance { get { return (LurePosition.X - _scene.NearShore.X) * PixelsToMetres; } }
+
+        /// <summary>
         /// The lures available to to fish with.
         /// </summary>
         public List<Lure> Lures { get; private set; }
@@ -331,7 +336,7 @@ namespace FishingGirl.Gameplay
 
             _stateTick = delegate(float elapsed, Input input)
             {
-                if (input.Action.Pressed)
+                if (input.Action.Pressed && !_lureBroken)
                 {
                     // starting a reel: reset the lure speed
                     _reelSpeed = ReelSpeed;
@@ -525,6 +530,8 @@ namespace FishingGirl.Gameplay
         private readonly Vector2 AirGravity = new Vector2(0, 500);
         private const float WaterFriction = 0.9f;
         private readonly Vector2 WaterGravity = new Vector2(0, 500);
+
+        private const float PixelsToMetres = 1 / 50f;
     }
 
     /// <summary>
