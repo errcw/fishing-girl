@@ -111,6 +111,7 @@
     <Compile Include="Interface\FishView.cs" />
     <Compile Include="Interface\GameGuide.cs" />
     <Compile Include="Interface\GameGuideView.cs" />
+    <Compile Include="Interface\LureView.cs" />
     <Compile Include="Interface\MoneyView.cs" />
     <Compile Include="Interface\OceanView.cs" />
     <Compile Include="Interface\Options.cs" />

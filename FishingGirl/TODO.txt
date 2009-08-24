@@ -25,8 +25,9 @@ DONE
   * Darken screen as time approaches 0:00
   * Tap A to bring in large fish
   * Bigger rumble for bigger fish
+  * Add lure selection UI
   * Add sound, input options; remove change storage device option
-  * Added new badges
+  * Add new badges
   * Fix large upgraded lure sprite
   * Fix arrows on scrollable menus
   * Fix badges awarded after game end

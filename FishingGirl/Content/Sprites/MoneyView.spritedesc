@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
-  <Sprites Position="1020 75" Layer="0">
+  <Sprites Position="1020 61" Layer="0">
     <Image Texture="BackgroundSmall" Position="0 0" Layer="1"/>
     <Image Name="Coin" Texture="Coin" Position="17 18" Origin="8 8"/>
     <Text Name="Text" Font="Fonts/Text" Text="0" Position="110 2" Origin="10 0"/>

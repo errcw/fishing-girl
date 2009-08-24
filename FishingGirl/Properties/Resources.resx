@@ -529,4 +529,7 @@
   <data name="BadgeManyWonGameDescription" xml:space="preserve">
     <value>Rescue the boy more {0} times</value>
   </data>
+  <data name="StoreLureBasic" xml:space="preserve">
+    <value>Basic Lure</value>
+  </data>
 </root>

@@ -952,6 +952,15 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basic Lure.
+        /// </summary>
+        internal static string StoreLureBasic {
+            get {
+                return ResourceManager.GetString("StoreLureBasic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Large Lure.
         /// </summary>
         internal static string StoreLureLarge {

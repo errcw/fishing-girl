@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Layer="0">
+    <Composite Name="LuresCard" Position="892 99" Color="1 1 1 0">
+      <Image Texture="BackgroundLure" Position="0 0" Layer="1"/>
+      <Image Name="Basic" Texture="UILureBasic" Position="12 6" Layer="0"/>
+      <Image Name="Small" Texture="UILureSmall" Position="52 6" Color="1 1 1 0" Layer="0"/>
+      <Image Name="SmallUpgraded" Texture="UILureSmallUpgraded" Position="92 6" Color="1 1 1 0" Layer="0"/>
+      <Image Name="Medium" Texture="UILureMedium" Position="132 6" Color="1 1 1 0" Layer="0"/>
+      <Image Name="Large" Texture="UILureLarge" Position="172 6" Color="1 1 1 0" Layer="0"/>
+      <Image Name="LargeUpgraded" Texture="UILureLargeUpgraded" Position="212 6" Color="1 1 1 0" Layer="0"/>
+      <Image Name="Selector" Texture="LureSelected" Position="12 6" Origin="3 2" Layer="0.5"/>
+    </Composite>
+    <Composite Name="LureNameCard" Position="892 137" Color="1 1 1 0">
+      <Image Texture="BackgroundLure" Position="0 0" Layer="1"/>
+      <Text Name="LureName" Font="Fonts/Text" Text="Upgraded Large" Position="50 2" Layer="0"/>
+    </Composite>
+  </Sprites>
+  <Animations>
+    <Color Name="Show" Sprite="LuresCard" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+    <Sequential Name="ShowName">
+      <Color Sprite="LureNameCard" Target="1 1 1 1" Duration="0" Easing="Uniform"/>
+      <Delay Delay="1.5"/>
+      <Color Sprite="LureNameCard" Target="1 1 1 0" Duration="0.5" Easing="Uniform"/>
+    </Sequential>
+  </Animations>
+</SpriteDescriptor>

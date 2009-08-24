@@ -115,6 +115,7 @@ namespace FishingGirl.Screens
             _guideView.Draw(spriteBatch);
             _moneyView.Draw(spriteBatch);
             _timerView.Draw(spriteBatch);
+            _lureView.Draw(spriteBatch);
             _badgeView.Draw(spriteBatch);
             spriteBatch.End();
         }
@@ -211,6 +212,7 @@ namespace FishingGirl.Screens
             _fishCaughtView.Update(time);
             _fishEatenView.Update(time);
             _distanceView.Update(time);
+            _lureView.Update(time);
 
             _moneyView.Update(time);
 
@@ -316,6 +318,9 @@ namespace FishingGirl.Screens
 
             _timerView = new TimerView(_timer);
             _timerView.LoadContent(content);
+
+            _lureView = new LureView(_fishing, _store);
+            _lureView.LoadContent(content);
 
             _storeView = new StoreView(_store);
             _storeView.LoadContent(content);
@@ -430,6 +435,7 @@ namespace FishingGirl.Screens
         private FishCaughtView _fishCaughtView;
         private FishEatenView _fishEatenView;
         private DistanceView _distanceView;
+        private LureView _lureView;
 
         private Store _store;
         private StoreView _storeView;

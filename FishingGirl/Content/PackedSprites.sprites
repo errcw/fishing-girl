@@ -60,6 +60,7 @@
     <Sprite Texture="Textures/BackgroundLarge.png"/>
     <Sprite Texture="Textures/BackgroundSmall.png"/>
     <Sprite Texture="Textures/BackgroundMenu.png"/>
+    <Sprite Texture="Textures/BackgroundLure.png"/>
     <Sprite Texture="Textures/ButtonA.png"/>
     <Sprite Texture="Textures/ButtonB.png"/>
     <Sprite Texture="Textures/ArrowUp.png"/>
@@ -83,6 +84,13 @@
     <Sprite Texture="Textures/StoreRodGold.png"/>
     <Sprite Texture="Textures/StoreRodLegendary.png"/>
     <Sprite Texture="Textures/DarknessOverlay.png"/>
+    <Sprite Texture="Textures/UILureBasic.png"/>
+    <Sprite Texture="Textures/UILureSmall.png"/>
+    <Sprite Texture="Textures/UILureSmallUpgraded.png"/>
+    <Sprite Texture="Textures/UILureMedium.png"/>
+    <Sprite Texture="Textures/UILureLarge.png"/>
+    <Sprite Texture="Textures/UILureLargeUpgraded.png"/>
+    <Sprite Texture="Textures/LureSelected.png"/>
   </Group>
   
   <Group Name="Landscape">

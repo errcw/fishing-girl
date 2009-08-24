@@ -41,7 +41,7 @@ namespace FishingGirl.Gameplay
         /// <param name="state">The fishing state to track.</param>
         public Money(FishingState state)
         {
-            _amount = 5000;
+            _amount = 0;
             state.Event += OnFishingEvent;
         }
 
