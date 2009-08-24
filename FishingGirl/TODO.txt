@@ -7,8 +7,7 @@
   * Quake concerned
   * Game won
   * Game lost
-- Changes
-  * Add a lure selection UI
+  * Change lure
   
  
 DONE
