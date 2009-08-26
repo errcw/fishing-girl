@@ -24,8 +24,9 @@ namespace FishingGirl.Interface
         {
             _text = text;
             _text.Show(Resources.GuideCastingStart); // initial state
-            fishing.ActionChanged += OnActionChanged;
-            fishing.Event += OnFishingEvent;
+            _fishing = fishing;
+            _fishing.ActionChanged += OnActionChanged;
+            _fishing.Event += OnFishingEvent;
         }
 
         /// <summary>
@@ -39,6 +40,13 @@ namespace FishingGirl.Interface
                 {
                     _text.Hide();
                     _textTimeout = null;
+                }
+            }
+            else
+            {
+                if (_showChangeGuide && _fishing.Action == FishingAction.Idle && _fishing.Lures.Count > 1)
+                {
+                    _text.Show(Resources.GuideChangeLures);
                 }
             }
         }
@@ -128,6 +136,8 @@ namespace FishingGirl.Interface
 
         private GameGuideView _text;
         private DelayAnimation _textTimeout;
+
+        private FishingState _fishing;
 
         private const float ReelInGuideTime = 3f;
         private const float GuideTime = 3f;

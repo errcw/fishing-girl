@@ -45,6 +45,11 @@ namespace FishingGirl.Gameplay
     public class FishingState
     {
         /// <summary>
+        /// The current state of the cast.
+        /// </summary>
+        public FishingAction Action { get { return _action; } }
+
+        /// <summary>
         /// Occurs when the current fishing action changes.
         /// </summary>
         public event EventHandler<FishingActionEventArgs> ActionChanged;
@@ -113,7 +118,7 @@ namespace FishingGirl.Gameplay
             _game = game;
             _scene = scene;
 
-            Rod = RodType.Bronze;
+            Rod = RodType.Legendary;
             RodRotation = SwingInitialRotation;
 
             Lures = new List<Lure>();

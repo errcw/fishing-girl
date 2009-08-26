@@ -67,7 +67,10 @@
         <Image Texture="Landscape2" Position="560 -165" Layer="1"/>
         <Image Name="FarCliff" Texture="Cliff" Position="0 0" Origin="790 0" Scale="-1 1" Layer="0.5"/>
 
-        <Image Name="Boy" Texture="BearYellow" Position="20 -25" Layer="0"/>
+        <Composite Name="Boy" Position="20 -25" Layer="0">
+          <Image Texture="BearYellow" Position="0 0 " Layer="0.1"/>
+          <Image Name="BoyMouth" Texture="BearYellowMouth" Position="17 14" Origin="2.5 3" Scale="1 -1" Layer="0"/>
+        </Composite>
         <Image Name="Boy?" Texture="QuestionMark" Position="33 -52" Layer="0" Color="1 1 1 0"/>
         <Image Name="Boy!" Texture="ExclamationMark" Position="36 -52" Layer="0" Color="1 1 1 0"/>
         <Image Name="BoyHeart" Texture="Heart1" Position="30 -45" Layer="0" Color="1 1 1 0"/>
@@ -149,6 +152,7 @@
         <Composite>
           <!-- Jumping around happily -->
           <Sequential>
+            <Scale Sprite="BoyMouth" Target="1 1" Duration="0" Easing="Uniform"/>
             <Position Sprite="Girl" Target="720 -45" Duration="0.25" Easing="QuadraticOut"/>
             <Position Sprite="Girl" Target="720 -25" Duration="0.25" Easing="QuadraticIn"/>
             <Position Sprite="Boy" Target="20 -45" Duration="0.25" Easing="QuadraticOut"/>
@@ -163,22 +167,16 @@
             <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticIn"/>
           </Sequential>
           <!-- Warning rumble from island -->
-          <!--<Sequential>
+          <Sequential>
             <Delay Delay="2"/>
-            <Sound Sound="Sounds/Rumble" Volume="1" Pitch="0" Pan="0" Loop="False"/>
-          </Sequential>-->
+            <Sound Name="RumbleSound" Sound="Sounds/Rumble" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+          </Sequential>
         </Composite>
         
         <!-- Island starts to move; confusion -->
-        <Composite>
-          <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
-          <Sound Sound="Sounds/Confused" Volume="1" Pitch="0" Pan="0" Loop="False"/>
-        </Composite>
+        <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
         <Delay Delay="0.5"/>
-        <Composite>
-          <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
-          <Sound Sound="Sounds/Confused" Volume="1" Pitch="0" Pan="0" Loop="False"/>
-        </Composite>
+        <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
         <Delay Delay="4.5"/>
         
         <!-- Confusion turns to shcck -->
@@ -187,7 +185,7 @@
           <Color Sprite="Girl?" Target="1 1 1 0" Duration="0.2" Easing="Uniform"/>
           <Color Sprite="Boy!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
           <Color Sprite="Girl!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
-          <Sound Sound="Sounds/Concerned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+          <Scale Sprite="BoyMouth" Target="1 -1" Duration="0.25" Easing="Uniform"/>
         </Composite>
         <Delay Delay="2"/>
         
@@ -226,6 +224,7 @@
         <Composite>
           <Color Sprite="GirlHeart" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
           <Color Sprite="BoyHeart" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+          <Scale Sprite="BoyMouth" Target="1 1" Duration="0.25" Easing="Uniform"/>
         </Composite>
         <Delay Delay="3.5"/>
         <Composite>
@@ -266,6 +265,7 @@
       <Color Sprite="Girl!" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
       <Color Sprite="Boy?" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
       <Color Sprite="Boy!" Target="1 1 1 0" Duration="0" Easing="Uniform"/>
+      <Scale Sprite="BoyMouth" Target="1 -1" Duration="0" Easing="Uniform"/>
       <Position Sprite="RightIsland" Target="2800 680" Duration="0" Easing="Uniform"/>
     </Composite>
   </Animations>

@@ -691,7 +691,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to freesound.org: vitriolix,.
+        ///   Looks up a localized string similar to freesound.org: vitriolix, koops.
         /// </summary>
         internal static string MenuCredits3 {
             get {
@@ -709,7 +709,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dobroide, some others.
+        ///   Looks up a localized string similar to dobroide.
         /// </summary>
         internal static string MenuCredits5 {
             get {

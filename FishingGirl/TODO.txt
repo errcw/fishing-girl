@@ -3,11 +3,8 @@
 
 - Add sound effects
   * Earn badge
-  * Quake confused
-  * Quake concerned
   * Game won
   * Game lost
-  * Change lure
   
  
 DONE
@@ -27,6 +24,7 @@ DONE
   * Add lure selection UI
   * Add sound, input options; remove change storage device option
   * Add new badges
+  * Make the bears look sad to be separated
   * Fix large upgraded lure sprite
   * Fix arrows on scrollable menus
   * Fix badges awarded after game end

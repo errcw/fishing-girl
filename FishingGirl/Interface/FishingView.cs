@@ -45,6 +45,9 @@ namespace FishingGirl.Interface
             _releaseEffect = content.Load<SoundEffect>("Sounds/Whoosh");
             _splashEffect = content.Load<SoundEffect>("Sounds/Splash");
             _caughtEffect = content.Load<SoundEffect>("Sounds/Caught");
+            _lureHookedEffect = content.Load<SoundEffect>("Sounds/LureHooked");
+            _lureChangeEffect = content.Load<SoundEffect>("Sounds/LureChanged");
+            _lureBrokeEffect = content.Load<SoundEffect>("Sounds/LureBroke");
         }
 
         /// <summary>
@@ -99,6 +102,7 @@ namespace FishingGirl.Interface
                 case FishingEvent.FishEaten:
                     Vector2 vibration = GetLureFeedback(e.Fish);
                     _context.Input.AddVibration(Vibrations.Constant(vibration.X, vibration.Y, 0.5f));
+                    _lureHookedEffect.Play(0.3f, 0f, 0f);
                     break;
 
                 case FishingEvent.FishCaught:
@@ -108,10 +112,12 @@ namespace FishingGirl.Interface
                 case FishingEvent.LureBroke:
                     _context.Input.AddVibration(Vibrations.FadeOut(0.2f, 0.3f, 1f, Easing.Uniform));
                     _lureAnimation = new ColorAnimation(_lure, Color.TransparentWhite, 0.5f, InterpolateColor);
+                    _lureBrokeEffect.Play(0.8f, 0f, 0f);
                     break;
 
                 case FishingEvent.LureChanged:
                     _lure = _state.LureSprites[_state.Lure];
+                    _lureChangeEffect.Play(0.4f, 0f, 0f);
                     break;
 
                 case FishingEvent.RodChanged:
@@ -129,7 +135,7 @@ namespace FishingGirl.Interface
                     break;
 
                 case FishingAction.Cast:
-                    _releaseEffect.Play(0.4f, 0f, 0f);
+                    _releaseEffect.Play(0.6f, 0f, 0f);
                     break;
 
                 case FishingAction.Reel:
@@ -215,6 +221,9 @@ namespace FishingGirl.Interface
         private SoundEffect _releaseEffect;
         private SoundEffect _splashEffect;
         private SoundEffect _caughtEffect;
+        private SoundEffect _lureHookedEffect;
+        private SoundEffect _lureChangeEffect;
+        private SoundEffect _lureBrokeEffect;
 
         private FishingGameContext _context;
 

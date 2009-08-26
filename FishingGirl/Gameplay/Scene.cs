@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 
+using Library.Audio;
 using Library.Sprite;
 using Library.Sprite.Pipeline;
 
@@ -123,6 +124,7 @@ namespace FishingGirl.Gameplay
         {
             Sprite.GetAnimation("EndStory").Start();
             Sprite.GetAnimation("EndStory").Update(1f);
+            Sprite.GetAnimation<AudioAnimation>("RumbleSound").Stop();
         }
     }
 }
