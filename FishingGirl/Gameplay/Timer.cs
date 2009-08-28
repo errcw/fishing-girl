@@ -14,7 +14,11 @@ namespace FishingGirl.Gameplay
         /// <summary>
         /// The time, in seconds.
         /// </summary>
-        public float Time { get; private set; }
+        public float Time
+        {
+            get { return _time; }
+            set { _time = Math.Max(0, value); }
+        }
 
         /// <summary>
         /// Creates a new timer.
@@ -64,6 +68,8 @@ namespace FishingGirl.Gameplay
                 default: return 0f;
             }
         }
+
+        private float _time;
 
         private const float InitialTime = 10f * 60f;
         private const float LureBreakPenalty = 15f;

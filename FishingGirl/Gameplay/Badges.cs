@@ -287,7 +287,7 @@ namespace FishingGirl.Gameplay
             Description = string.Format(Resources.BadgeTotalMoneyDescription, Total);
         }
 
-        private const int Total = 1000;
+        private const int Total = 5;
     }
 
     public class WonGameBadge : Badge

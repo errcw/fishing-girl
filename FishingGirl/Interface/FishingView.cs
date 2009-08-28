@@ -44,7 +44,7 @@ namespace FishingGirl.Interface
         {
             _releaseEffect = content.Load<SoundEffect>("Sounds/Whoosh");
             _splashEffect = content.Load<SoundEffect>("Sounds/Splash");
-            _caughtEffect = content.Load<SoundEffect>("Sounds/Caught");
+            _caughtEffect = content.Load<SoundEffect>("Sounds/Money");
             _lureHookedEffect = content.Load<SoundEffect>("Sounds/LureHooked");
             _lureChangeEffect = content.Load<SoundEffect>("Sounds/LureChanged");
             _lureBrokeEffect = content.Load<SoundEffect>("Sounds/LureBroke");

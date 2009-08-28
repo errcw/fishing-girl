@@ -68,7 +68,7 @@
         <Image Name="FarCliff" Texture="Cliff" Position="0 0" Origin="790 0" Scale="-1 1" Layer="0.5"/>
 
         <Composite Name="Boy" Position="20 -25" Layer="0">
-          <Image Texture="BearYellow" Position="0 0 " Layer="0.1"/>
+          <Image Texture="BearYellowBare" Position="0 0 " Layer="0.1"/>
           <Image Name="BoyMouth" Texture="BearYellowMouth" Position="17 14" Origin="2.5 3" Scale="1 -1" Layer="0"/>
         </Composite>
         <Image Name="Boy?" Texture="QuestionMark" Position="33 -52" Layer="0" Color="1 1 1 0"/>
@@ -254,7 +254,7 @@
       <!-- Music -->
       <Sequential>
         <Delay Delay="15"/>
-        <Sound Sound="Sounds/Concerned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+        <Sound Sound="Sounds/GameWon" Volume="1" Pitch="0" Pan="0" Loop="False"/>
       </Sequential>
     </Composite>
     

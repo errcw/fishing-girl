@@ -386,7 +386,7 @@
     <value>digifishmusic, acclivity, smcameron</value>
   </data>
   <data name="MenuCredits5" xml:space="preserve">
-    <value>dobroide</value>
+    <value>dobroide, freed, umwelt</value>
   </data>
   <data name="MenuHelpOptions" xml:space="preserve">
     <value>Help &amp; Options</value>
@@ -497,7 +497,7 @@
     <value>Cast {0} metres with the silver rod.</value>
   </data>
   <data name="MenuMusic" xml:space="preserve">
-    <value>Music</value>
+    <value>Background Sounds</value>
   </data>
   <data name="MenuOff" xml:space="preserve">
     <value>OFF</value>

@@ -709,7 +709,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dobroide.
+        ///   Looks up a localized string similar to dobroide, freed, umwelt.
         /// </summary>
         internal static string MenuCredits5 {
             get {
@@ -763,7 +763,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Music.
+        ///   Looks up a localized string similar to Background Sounds.
         /// </summary>
         internal static string MenuMusic {
             get {

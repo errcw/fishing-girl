@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -25,6 +26,7 @@ namespace FishingGirl.Screens
             set
             {
                 _screenDesc = value ? _screenDescWon : _screenDescLost;
+                _effect = value ? _effectWon : _effectLost;
             }
         }
 
@@ -43,15 +45,18 @@ namespace FishingGirl.Screens
         /// <param name="content">The content manager to load from.</param>
         public void LoadContent(ContentManager content)
         {
+            _screenDescWon = content.Load<SpriteDescriptorTemplate>("Sprites/EndingWinScreen").Create();
+            _screenDescWon.GetSprite<TextSprite>("Ending").Text = Resources.EndingWinText;
+            _screenDescWon.GetSprite<TextSprite>("Prompt1").Text = Resources.EndingPrompt1;
+            _screenDescWon.GetSprite<TextSprite>("Prompt2").Text = Resources.EndingPrompt2;
+
             _screenDescLost = content.Load<SpriteDescriptorTemplate>("Sprites/EndingLoseScreen").Create();
             _screenDescLost.GetSprite<TextSprite>("Ending").Text = Resources.EndingLostText;
             _screenDescLost.GetSprite<TextSprite>("Prompt1").Text = Resources.EndingPrompt1;
             _screenDescLost.GetSprite<TextSprite>("Prompt2").Text = Resources.EndingPrompt2;
 
-            _screenDescWon = content.Load<SpriteDescriptorTemplate>("Sprites/EndingWinScreen").Create();
-            _screenDescWon.GetSprite<TextSprite>("Ending").Text = Resources.EndingWinText;
-            _screenDescWon.GetSprite<TextSprite>("Prompt1").Text = Resources.EndingPrompt1;
-            _screenDescWon.GetSprite<TextSprite>("Prompt2").Text = Resources.EndingPrompt2;
+            _effectWon = content.Load<SoundEffect>("Sounds/GameWon");
+            _effectLost = content.Load<SoundEffect>("Sounds/GameLost");
 
             _transitionScreen = new TransitionScreen();
             _transitionScreen.FadeColor = Color.Black;
@@ -75,6 +80,7 @@ namespace FishingGirl.Screens
             if (pushed)
             {
                 _screenDesc.GetAnimation("Show").Start();
+                _effect.Play(0.7f, 0f, 0f);
             }
         }
 
@@ -100,9 +106,13 @@ namespace FishingGirl.Screens
             }
         }
 
-        private SpriteDescriptor _screenDescLost;
         private SpriteDescriptor _screenDescWon;
+        private SpriteDescriptor _screenDescLost;
         private SpriteDescriptor _screenDesc;
+
+        private SoundEffect _effectWon;
+        private SoundEffect _effectLost;
+        private SoundEffect _effect;
 
         private TransitionScreen _transitionScreen;
 

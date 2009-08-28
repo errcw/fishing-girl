@@ -47,6 +47,7 @@ namespace FishingGirl.Interface
                 if (_showChangeGuide && _fishing.Action == FishingAction.Idle && _fishing.Lures.Count > 1)
                 {
                     _text.Show(Resources.GuideChangeLures);
+                    _showingChangeGuide = true;
                 }
             }
         }
@@ -78,9 +79,11 @@ namespace FishingGirl.Interface
                         break;
                 }
             }
-            else if (_showChangeGuide && e.Action == FishingAction.Idle && state.Lures.Count > 1 && _textTimeout == null)
+            if (e.Action != FishingAction.Idle && _showingChangeGuide)
             {
-                _text.Show(Resources.GuideChangeLures);
+                // message is only valid in idle state
+                _text.Hide();
+                _showingChangeGuide = false;
             }
         }
 
@@ -122,6 +125,7 @@ namespace FishingGirl.Interface
                 case FishingEvent.LureChanged:
                     _text.Hide();
                     _showChangeGuide = false;
+                    _showingChangeGuide = false;
                     break;
                 case FishingEvent.FishCaught:
                     _text.Show(String.Format(Resources.Caught, e.Fish.Description.Name), e.Fish.Description.Value);
@@ -132,7 +136,9 @@ namespace FishingGirl.Interface
 
         private bool _showCastingGuide = true;
         private bool _showLureGuide = false;
+
         private bool _showChangeGuide = true;
+        private bool _showingChangeGuide = false;
 
         private GameGuideView _text;
         private DelayAnimation _textTimeout;

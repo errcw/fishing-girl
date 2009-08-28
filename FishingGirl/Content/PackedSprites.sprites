@@ -97,6 +97,7 @@
     <Sprite Texture="Textures/BearPurple.png"/>
     <Sprite Texture="Textures/BearPurpleBlink.png"/>
     <Sprite Texture="Textures/BearYellow.png"/>
+    <Sprite Texture="Textures/BearYellowBare.png"/>
     <Sprite Texture="Textures/BearYellowMouth.png"/>
     <Sprite Texture="Textures/Bird.png"/>
 

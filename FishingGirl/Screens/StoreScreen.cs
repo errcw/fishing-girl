@@ -49,7 +49,7 @@ namespace FishingGirl.Screens
             _entryTemplate = content.Load<SpriteDescriptorTemplate>("Sprites/StoreItem");
 
             _soundNoMoney = content.Load<SoundEffect>("Sounds/ShopNoMoney");
-            _soundPurchase = content.Load<SoundEffect>("Sounds/ShopPurchase");
+            _soundPurchase = content.Load<SoundEffect>("Sounds/Money");
 
             _upsellSprite = new UpsellOverlay(Resources.UpsellMessageStore, content).Sprite;
         }

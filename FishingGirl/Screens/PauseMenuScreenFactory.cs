@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.GamerServices;
@@ -27,6 +28,7 @@ namespace FishingGirl.Screens
         public MenuScreen Create(Options options, Badges badges, FishingGameContext context, ContentManager content)
         {
             _menuFont = content.Load<SpriteFont>("Fonts/Text"); // use a common font
+            _menuSound = content.Load<SoundEffect>("Sounds/MenuSelect"); // use a common selected sound
 
             MenuScreen screen = new MenuScreen(context);
             screen.IsRoot = true;
@@ -187,6 +189,7 @@ namespace FishingGirl.Screens
                 new TextSprite(_menuFont, label),
                 new TextSprite(_menuFont, text));
             entry.Selected += e;
+            entry.Selected += (s, a) => _menuSound.Play();
             entry.SelectText = Resources.MenuToggle;
             return entry;
         }
@@ -198,6 +201,7 @@ namespace FishingGirl.Screens
         {
             TextMenuEntry entry = new TextMenuEntry(new TextSprite(_menuFont, text));
             entry.Selected += e;
+            entry.Selected += (s, a) => _menuSound.Play();
             return entry;
         }
 
@@ -336,5 +340,6 @@ namespace FishingGirl.Screens
         }
 
         private SpriteFont _menuFont;
+        private SoundEffect _menuSound;
     }
 }

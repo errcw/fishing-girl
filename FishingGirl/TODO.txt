@@ -2,9 +2,7 @@
 ====
 
 - Add sound effects
-  * Earn badge
   * Game won
-  * Game lost
   
  
 DONE

@@ -64,7 +64,6 @@ namespace FishingGirl.Screens
             _screenDescriptor.GetSprite<TextSprite>("TextBack").Text = Resources.MenuBack;
             _entriesSprite = _screenDescriptor.GetSprite<CompositeSprite>("Entries");
             _soundMove = content.Load<SoundEffect>("Sounds/MenuMove");
-            _soundSelect = content.Load<SoundEffect>("Sounds/MenuSelect");
         }
 
         /// <summary>
@@ -235,7 +234,6 @@ namespace FishingGirl.Screens
             if (_context.Input.Action.Pressed && _entries[_selectedEntryAbs].IsSelectable)
             {
                 _entries[_selectedEntryAbs].OnSelected();
-                _soundSelect.Play();
             }
 
             _entries[_selectedEntryAbs].Update(time);
@@ -344,7 +342,7 @@ namespace FishingGirl.Screens
 
         protected SpriteDescriptor _screenDescriptor;
         private CompositeSprite _entriesSprite;
-        private SoundEffect _soundMove, _soundSelect;
+        private SoundEffect _soundMove;
 
         protected List<MenuEntry> _entries = new List<MenuEntry>();
         private List<MenuEntry> _visibleEntries = new List<MenuEntry>();
