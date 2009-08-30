@@ -270,7 +270,7 @@
       <!-- Music -->
       <Sequential>
         <Delay Delay="12"/>
-        <Sound Sound="Sounds/GameWon" Volume="0.8" Pitch="0" Pan="0" Loop="False"/>
+        <Sound Sound="Sounds/GameWon" Volume="0.7" Pitch="0" Pan="0" Loop="False"/>
       </Sequential>
     </Composite>
     

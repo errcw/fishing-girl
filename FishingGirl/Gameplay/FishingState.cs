@@ -118,7 +118,7 @@ namespace FishingGirl.Gameplay
             _game = game;
             _scene = scene;
 
-            Rod = RodType.Legendary;
+            Rod = RodType.Bronze;
             RodRotation = SwingInitialRotation;
 
             Lures = new List<Lure>();

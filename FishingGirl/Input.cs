@@ -13,7 +13,7 @@ namespace FishingGirl
     {
         /// A terrible hack to get global vibration enable/disable
         private static Library.Input.Input _instance;
-        public static bool VibrationEnabled
+        public static new bool VibrationEnabled
         {
             get { return _instance.VibrationEnabled; }
             set { _instance.VibrationEnabled = value; }

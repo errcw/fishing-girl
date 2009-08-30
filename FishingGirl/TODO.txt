@@ -1,11 +1,4 @@
-﻿TODO
-====
-
-- Add sound effects
-  * Game won
-  
- 
-DONE
+﻿DONE
 ====
   * Mute the menu highlight colour
   * Change rod colour immediately after purchase
@@ -22,6 +15,7 @@ DONE
   * Add lure selection UI
   * Add sound, input options; remove change storage device option
   * Add new badges
+  * Add sounds
   * Make the bears look sad to be separated
   * Fix large upgraded lure sprite
   * Fix arrows on scrollable menus

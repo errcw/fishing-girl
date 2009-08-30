@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -36,6 +37,7 @@ namespace FishingGirl.Interface
             _storeDescriptor.Sprite.Position = new Vector2(_store.Position, ContainerY);
             _storeVisAnimation = _storeDescriptor.GetAnimation("Show");
             _storeVisAnimation.Start();
+            _storeHitEffect = content.Load<SoundEffect>("Sounds/HitStore");
         }
 
         /// <summary>
@@ -81,12 +83,14 @@ namespace FishingGirl.Interface
         {
             _storeVisAnimation = _storeDescriptor.GetAnimation("Hide");
             _storeVisAnimation.Start();
+            _storeHitEffect.Play(0.5f, 0f, 0f);
         }
 
         private Store _store;
 
         private SpriteDescriptor _storeDescriptor;
         private IAnimation _storeVisAnimation;
+        private SoundEffect _storeHitEffect;
 
         private const float ContainerY = 690f;
     }
