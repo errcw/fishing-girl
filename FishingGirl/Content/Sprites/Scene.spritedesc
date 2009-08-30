@@ -174,9 +174,21 @@
         </Composite>
         
         <!-- Island starts to move; confusion -->
-        <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+        <Composite>
+          <Color Sprite="Boy?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+          <Sequential>
+            <Delay Delay="0"/>
+            <Sound Sound="Sounds/Confused1" Volume="0.8" Pitch="0" Pan="0" Loop="False"/>
+          </Sequential>
+        </Composite>
         <Delay Delay="0.5"/>
-        <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+        <Composite>
+          <Color Sprite="Girl?" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
+          <Sequential>
+            <Delay Delay="0"/>
+            <Sound Sound="Sounds/Confused2" Volume="0.8" Pitch="0" Pan="0" Loop="False"/>
+          </Sequential>
+        </Composite>
         <Delay Delay="4.5"/>
         
         <!-- Confusion turns to shcck -->
@@ -186,6 +198,10 @@
           <Color Sprite="Boy!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
           <Color Sprite="Girl!" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
           <Scale Sprite="BoyMouth" Target="1 -1" Duration="0.25" Easing="Uniform"/>
+          <Sequential>
+            <Delay Delay="0"/>
+            <Sound Sound="Sounds/Concerned" Volume="0.8" Pitch="0" Pan="0" Loop="False"/>
+          </Sequential>
         </Composite>
         <Delay Delay="2"/>
         
@@ -253,8 +269,8 @@
 
       <!-- Music -->
       <Sequential>
-        <Delay Delay="15"/>
-        <Sound Sound="Sounds/GameWon" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+        <Delay Delay="12"/>
+        <Sound Sound="Sounds/GameWon" Volume="0.8" Pitch="0" Pan="0" Loop="False"/>
       </Sequential>
     </Composite>
     

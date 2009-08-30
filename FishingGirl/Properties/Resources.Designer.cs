@@ -205,7 +205,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rescue the boy more {0} times.
+        ///   Looks up a localized string similar to Rescue the boy more than {0} times.
         /// </summary>
         internal static string BadgeManyWonGameDescription {
             get {
@@ -709,7 +709,7 @@ namespace FishingGirl.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dobroide, freed, umwelt.
+        ///   Looks up a localized string similar to dobroide, freed, base_trix, adcbicycle.
         /// </summary>
         internal static string MenuCredits5 {
             get {

@@ -386,7 +386,7 @@
     <value>digifishmusic, acclivity, smcameron</value>
   </data>
   <data name="MenuCredits5" xml:space="preserve">
-    <value>dobroide, freed, umwelt</value>
+    <value>dobroide, freed, base_trix, adcbicycle</value>
   </data>
   <data name="MenuHelpOptions" xml:space="preserve">
     <value>Help &amp; Options</value>
@@ -527,7 +527,7 @@
     <value>Reliable Rescuer</value>
   </data>
   <data name="BadgeManyWonGameDescription" xml:space="preserve">
-    <value>Rescue the boy more {0} times</value>
+    <value>Rescue the boy more than {0} times</value>
   </data>
   <data name="StoreLureBasic" xml:space="preserve">
     <value>Basic Lure</value>

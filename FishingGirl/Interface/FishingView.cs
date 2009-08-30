@@ -48,6 +48,7 @@ namespace FishingGirl.Interface
             _lureHookedEffect = content.Load<SoundEffect>("Sounds/LureHooked");
             _lureChangeEffect = content.Load<SoundEffect>("Sounds/LureChanged");
             _lureBrokeEffect = content.Load<SoundEffect>("Sounds/LureBroke");
+            _islandEffect = content.Load<SoundEffect>("Sounds/HitIsland");
         }
 
         /// <summary>
@@ -122,6 +123,10 @@ namespace FishingGirl.Interface
 
                 case FishingEvent.RodChanged:
                     _rod = _state.RodSprites[_state.Rod];
+                    break;
+
+                case FishingEvent.LureIsland:
+                    _islandEffect.Play(1f, 0f, 0f);
                     break;
             }
         }
@@ -224,6 +229,7 @@ namespace FishingGirl.Interface
         private SoundEffect _lureHookedEffect;
         private SoundEffect _lureChangeEffect;
         private SoundEffect _lureBrokeEffect;
+        private SoundEffect _islandEffect;
 
         private FishingGameContext _context;
 

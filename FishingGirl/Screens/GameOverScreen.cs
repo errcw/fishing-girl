@@ -26,7 +26,7 @@ namespace FishingGirl.Screens
             set
             {
                 _screenDesc = value ? _screenDescWon : _screenDescLost;
-                _effect = value ? _effectWon : _effectLost;
+                _effect = value ? null : _effectLost;
             }
         }
 
@@ -80,7 +80,10 @@ namespace FishingGirl.Screens
             if (pushed)
             {
                 _screenDesc.GetAnimation("Show").Start();
-                _effect.Play(0.7f, 0f, 0f);
+                if (_effect != null)
+                {
+                    _effect.Play(0.7f, 0f, 0f);
+                }
             }
         }
 

@@ -11,7 +11,10 @@
       <Composite>
         <Position Sprite="Root" Target="328 550" Duration="0" Easing="Uniform"/>
         <Color Sprite="Root" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
-        <Sound Sound="Sounds/BadgeEarned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+        <Sequential>
+          <Delay Delay="0"/>
+          <Sound Sound="Sounds/BadgeEarned" Volume="1" Pitch="0" Pan="0" Loop="False"/>
+        </Sequential>
       </Composite>
       <Delay Delay="2"/>
     </Sequential>
