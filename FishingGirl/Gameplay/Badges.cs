@@ -317,7 +317,7 @@ namespace FishingGirl.Gameplay
                 value.Fishing.Event += (s, a) =>
                     _earned = 
                         (a.Event == FishingEvent.LureIsland) &&
-                        (value.Timer.Time > TimeInMinutes*60*60);
+                        (value.Timer.Time > TimeInMinutes*60);
             }
         }
 
