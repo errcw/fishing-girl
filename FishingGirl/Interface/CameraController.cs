@@ -137,9 +137,9 @@ namespace FishingGirl.Interface
         /// <summary>
         /// Implements debug camera controls.
         /// </summary>
-        [System.Diagnostics.Conditional("DEBUG")]
         private void UpdateDebugControls()
         {
+#if DEBUG
             const float CAMINC = 15f;
             KeyboardState keys = Keyboard.GetState();
             GamePadState pad = GamePad.GetState(PlayerIndex.One);
@@ -159,6 +159,7 @@ namespace FishingGirl.Interface
             {
                 _camera.Position = new Vector2(_camera.Position.X, _camera.Position.Y + CAMINC);
             }
+#endif
         }
 
         private Scene _scene;

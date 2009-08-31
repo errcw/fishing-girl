@@ -327,7 +327,7 @@ namespace FishingGirl.Gameplay
             Description = string.Format(Resources.BadgeFastWonGameDescription, TimeInMinutes);
         }
 
-        private const float TimeInMinutes = 5;
+        private const float TimeInMinutes = 8;
     }
 
     public class ManyWonGameBadge : Badge

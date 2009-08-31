@@ -242,7 +242,7 @@ namespace FishingGirl.Gameplay
                     EnterSwingingState();
                 }
 
-                if (input.AltAction.PressedRepeat)
+                if (input.AltAction.PressedRepeat && Lures.Count > 1)
                 {
                     _lureIndex = (_lureIndex + 1) % Lures.Count;
                     OnFishingEvent(FishingEvent.LureChanged);
