@@ -75,6 +75,8 @@ namespace FishingGirl.Screens
             }
 
             ClearEntries();
+            RemoveDecoration(_upsellSprite);
+
             for (int i = 0; i < Store.Items.Count; i++)
             {
                 StoreItem item = Store.Items[i];

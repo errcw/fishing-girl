@@ -112,13 +112,13 @@ namespace FishingGirl.Screens
         }
 
         /// <summary>
-        /// Removes all the entries (including decoration) from this menu.
+        /// Removes all the entries from this menu.
         /// </summary>
         public void ClearEntries()
         {
             _entries.ForEach(entry => _entriesSprite.Remove(entry.Sprite));
-            _visibleEntries.Clear();
             _entries.Clear();
+            _visibleEntries.Clear();
             _selectedEntryAbs = 0;
             _selectedEntryRel = 0;
             _listWindowBaseIndex = 0;
@@ -154,6 +154,15 @@ namespace FishingGirl.Screens
         public void AddDecoration(Sprite sprite)
         {
             _entriesSprite.Add(sprite);
+        }
+
+        /// <summary>
+        /// Removes the given sprite as a decorative entry.
+        /// </summary>
+        /// <param name="sprite">The sprite to remove.</param>
+        public void RemoveDecoration(Sprite sprite)
+        {
+            _entriesSprite.Remove(sprite);
         }
 
         /// <summary>
