@@ -97,13 +97,7 @@ namespace FishingGirl.Interface
             }
             else if (e.Action == FishingAction.Swing)
             {
-                if (_camera.Scale != Vector2.One)
-                {
-                    SetCameraFocus(SwingFocus);
-                    // update the scale animation separately to keep it from
-                    // being overwritten by the lure-tracking animation
-                    _scaleAnimation = new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolate);
-                }
+                ResetForCast();
             }
             else if (e.Action == FishingAction.Cast)
             {
@@ -127,10 +121,28 @@ namespace FishingGirl.Interface
                         new PositionAnimation(_camera, GetFocusPosition(SwingFocus), CatchScaleTime, Interpolate),
                         new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolate)));
             }
+            else if (e.Event == FishingEvent.LureChanged)
+            {
+                ResetForCast();
+            }
             else if (e.Event == FishingEvent.LureIsland)
             {
                 _followLure = false;
                 _followNPC = true;
+            }
+        }
+
+        /// <summary>
+        /// Resets the camera to the default cast position.
+        /// </summary>
+        private void ResetForCast()
+        {
+            if (_camera.Scale != Vector2.One)
+            {
+                SetCameraFocus(SwingFocus);
+                // update the scale animation separately to keep it from
+                // being overwritten by the lure-tracking animation
+                _scaleAnimation = new ScaleAnimation(_camera, Vector2.One, CatchScaleTime, Interpolate);
             }
         }
 

@@ -48,6 +48,7 @@ namespace FishingGirl.Screens
         private void BuildScreen()
         {
             ClearEntries();
+            RemoveDecoration(_upsellSprite);
             foreach (Badge badge in _badges.BadgeSet)
             {
                 AddEntry(new BadgeMenuEntry(badge, _entryTemplate.Create()));

@@ -67,6 +67,10 @@ namespace FishingGirl.Interface
                     new DelayAnimation(4f),
                     new ColorAnimation(_fish.Sprite.Sprite, Color.TransparentWhite, 1f, Interpolation.InterpolateColor(Easing.Uniform)));
             }
+            else if (e.Event == FishingEvent.LureChanged)
+            {
+                CancelAnimation();
+            }
         }
 
         /// <summary>
@@ -74,7 +78,18 @@ namespace FishingGirl.Interface
         /// </summary>
         private void OnActionChanged(object stateObj, FishingActionEventArgs e)
         {
-            if (e.Action == FishingAction.Swing && _fish != null)
+            if (e.Action == FishingAction.Swing)
+            {
+                CancelAnimation();
+            }
+        }
+
+        /// <summary>
+        /// Hides the fish quickly.
+        /// </summary>
+        private void CancelAnimation()
+        {
+            if (_fish != null)
             {
                 _fishAnimation =
                     new ColorAnimation(_fish.Sprite.Sprite, Color.TransparentWhite, 0.25f, Interpolation.InterpolateColor(Easing.Uniform));
