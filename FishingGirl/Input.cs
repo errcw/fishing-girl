@@ -25,6 +25,7 @@ namespace FishingGirl
         public readonly ControlState Up = new ControlState();
         public readonly ControlState Down = new ControlState();
         public readonly ControlState Start = new ControlState();
+        public readonly ControlState Buy = new ControlState();
 
         /// <summary>
         /// Registers the actions.
@@ -37,6 +38,7 @@ namespace FishingGirl
             Register(Up, Polling.Any(Polling.One(Buttons.DPadUp), Polling.One(Buttons.LeftThumbstickUp)));
             Register(Down, Polling.Any(Polling.One(Buttons.DPadDown), Polling.One(Buttons.LeftThumbstickDown)));
             Register(Start, Polling.One(Buttons.Start));
+            Register(Buy, Polling.One(Buttons.X));
 
             _instance = this;
         }

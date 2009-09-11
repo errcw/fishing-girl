@@ -63,6 +63,7 @@
     <Sprite Texture="Textures/BackgroundLure.png"/>
     <Sprite Texture="Textures/ButtonA.png"/>
     <Sprite Texture="Textures/ButtonB.png"/>
+    <Sprite Texture="Textures/ButtonX.png"/>
     <Sprite Texture="Textures/ArrowUp.png"/>
     <Sprite Texture="Textures/ArrowDown.png"/>
     <Sprite Texture="Textures/BannerLogo.png"/>

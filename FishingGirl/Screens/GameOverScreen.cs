@@ -54,6 +54,7 @@ namespace FishingGirl.Screens
             _screenDescLost.GetSprite<TextSprite>("Ending").Text = Resources.EndingLostText;
             _screenDescLost.GetSprite<TextSprite>("Prompt1").Text = Resources.EndingPrompt1;
             _screenDescLost.GetSprite<TextSprite>("Prompt2").Text = Resources.EndingPrompt2;
+            _screenDescLost.GetSprite<TextSprite>("TimerInfo").Text = Resources.EndingTimerInfo;
 
             _effectWon = content.Load<SoundEffect>("Sounds/GameWon");
             _effectLost = content.Load<SoundEffect>("Sounds/GameLost");

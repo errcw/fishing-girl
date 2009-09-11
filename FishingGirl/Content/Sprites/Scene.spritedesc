@@ -228,7 +228,7 @@
     <!-- Reunite the furballs -->
     <Composite Name="StoryWin">
       <!-- Move the island back -->
-      <Position Sprite="RightIsland" Target="800 680" Duration="15" Easing="QuadraticOut"/>
+      <Position Sprite="RightIsland" Target="800 680" Duration="3" Easing="QuadraticOut"/>
       
       <!-- Furballs -->
       <Sequential>
@@ -236,13 +236,12 @@
         <Position Sprite="Boy" Target="20 -25" Duration="0.25" Easing="QuadraticOut"/>
 
         <!-- Hearts -->
-        <Delay Delay="10"/>
         <Composite>
           <Color Sprite="GirlHeart" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
           <Color Sprite="BoyHeart" Target="1 1 1 1" Duration="0.5" Easing="Uniform"/>
           <Scale Sprite="BoyMouth" Target="1 1" Duration="0.25" Easing="Uniform"/>
         </Composite>
-        <Delay Delay="3.5"/>
+        <Delay Delay="2.5"/>
         <Composite>
           <Color Sprite="GirlHeart" Target="1 1 1 0" Duration="0.5" Easing="Uniform"/>
           <Color Sprite="BoyHeart" Target="1 1 1 0" Duration="0.5" Easing="Uniform"/>
@@ -269,7 +268,7 @@
 
       <!-- Music -->
       <Sequential>
-        <Delay Delay="12"/>
+        <Delay Delay="1"/>
         <Sound Sound="Sounds/GameWon" Volume="0.7" Pitch="0" Pan="0" Loop="False"/>
       </Sequential>
     </Composite>

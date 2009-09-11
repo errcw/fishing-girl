@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <SpriteDescriptor>
   <Sprites Layer="0">
-    <Composite Name="LuresCard" Position="892 99" Color="1 1 1 0">
+    <Composite Name="LuresCard" Position="892 109" Color="1 1 1 0">
       <Image Texture="BackgroundLure" Position="0 0" Layer="1"/>
       <Image Name="Basic" Texture="UILureBasic" Position="12 6" Layer="0"/>
       <Image Name="Small" Texture="UILureSmall" Position="52 6" Color="1 1 1 0" Layer="0"/>
@@ -11,7 +11,7 @@
       <Image Name="LargeUpgraded" Texture="UILureLargeUpgraded" Position="212 6" Color="1 1 1 0" Layer="0"/>
       <Image Name="Selector" Texture="LureSelected" Position="12 6" Origin="3 2" Layer="0.5"/>
     </Composite>
-    <Composite Name="LureNameCard" Position="892 137" Color="1 1 1 0">
+    <Composite Name="LureNameCard" Position="892 147" Color="1 1 1 0">
       <Image Texture="BackgroundLure" Position="0 0" Layer="1"/>
       <Text Name="LureName" Font="Fonts/Text" Text="Upgraded Large" Position="50 2" Layer="0"/>
     </Composite>

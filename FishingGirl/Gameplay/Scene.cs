@@ -53,19 +53,7 @@ namespace FishingGirl.Gameplay
         public void LoadContent(ContentManager content)
         {
             Sprite = content.Load<SpriteDescriptorTemplate>("Sprites/Scene").Create();
-
-            WaterLevel = Sprite.GetSprite("Water").Position.Y + 25f;
-
-            Vector2 leftIslandPos = Sprite.GetSprite("LeftIsland").Position;
-            Sprite cliff = Sprite.GetSprite("Cliff");
-            NearShore = cliff.Position + cliff.Size + leftIslandPos;
-
-            Vector2 farCliffPos = Sprite.GetSprite("FarCliff").Position;
-            Vector2 rightIslandPos = Sprite.GetSprite("RightIsland").Position;
-            FarShore = farCliffPos + rightIslandPos;
-
-            PlayerPosition = Sprite.GetSprite("Girl").Position + leftIslandPos;
-            NPCPosition = Sprite.GetSprite("Boy").Position + rightIslandPos;
+            UpdatePositions();
         }
 
         /// <summary>
@@ -100,12 +88,7 @@ namespace FishingGirl.Gameplay
         {
             bool running = Sprite.GetAnimation("StoryWin").Update(time);
             Sprite.GetAnimation("Waves").Update(time);
-
-            // update the position of the island and boy
-            Vector2 rightIslandPos = Sprite.GetSprite("RightIsland").Position;
-            FarShore = Sprite.GetSprite("FarCliff").Position + rightIslandPos;
-            NPCPosition = Sprite.GetSprite("Boy").Position + rightIslandPos;
-
+            UpdatePositions();
             return running;
         }
 
@@ -125,6 +108,44 @@ namespace FishingGirl.Gameplay
             Sprite.GetAnimation("EndStory").Start();
             Sprite.GetAnimation("EndStory").Update(1f);
             Sprite.GetAnimation<AudioAnimation>("RumbleSound").Stop();
+        }
+
+        /// <summary>
+        /// Resets the positions of the scene items for the ending.
+        /// </summary>
+        public void StartEnding()
+        {
+            Sprite.GetAnimation("StoryWin").Start();
+        }
+
+        /// <summary>
+        /// Moves the right island towards the left island the specified distance.
+        /// </summary>
+        /// <param name="distance">The distance to move the island.</param>
+        public void MoveFarShore(float distance)
+        {
+            Sprite rightIsland= Sprite.GetSprite("RightIsland");
+            rightIsland.Position = new Vector2(rightIsland.Position.X - distance, rightIsland.Position.Y);
+            UpdatePositions();
+        }
+
+        /// <summary>
+        /// Updates the positions of the scene items.
+        /// </summary>
+        private void UpdatePositions()
+        {
+            WaterLevel = Sprite.GetSprite("Water").Position.Y + 25f;
+
+            Vector2 leftIslandPos = Sprite.GetSprite("LeftIsland").Position;
+            Sprite cliff = Sprite.GetSprite("Cliff");
+            NearShore = cliff.Position + cliff.Size + leftIslandPos;
+
+            Vector2 farCliffPos = Sprite.GetSprite("FarCliff").Position;
+            Vector2 rightIslandPos = Sprite.GetSprite("RightIsland").Position;
+            FarShore = farCliffPos + rightIslandPos;
+
+            PlayerPosition = Sprite.GetSprite("Girl").Position + leftIslandPos;
+            NPCPosition = Sprite.GetSprite("Boy").Position + rightIslandPos;
         }
     }
 }

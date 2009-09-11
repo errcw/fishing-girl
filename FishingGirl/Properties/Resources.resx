@@ -313,15 +313,6 @@
   <data name="ControlsBButton" xml:space="preserve">
     <value>Switch lures</value>
   </data>
-  <data name="PurchaseFailedButton" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="PurchaseFailedText" xml:space="preserve">
-    <value>You are not signed in, or you cannot purchase content.</value>
-  </data>
-  <data name="PurchaseFailedTitle" xml:space="preserve">
-    <value>Cannot Purchase</value>
-  </data>
   <data name="MenuExitNo" xml:space="preserve">
     <value>Back to Main Menu</value>
   </data>
@@ -352,8 +343,8 @@
   <data name="UpsellLures" xml:space="preserve">
     <value>Buy bigger lures!</value>
   </data>
-  <data name="UpsellTime" xml:space="preserve">
-    <value>No time limits!</value>
+  <data name="UpsellCast" xml:space="preserve">
+    <value>Cast farther!</value>
   </data>
   <data name="MenuChangeStorageDevice" xml:space="preserve">
     <value>Change Storage Device</value>
@@ -531,5 +522,17 @@
   </data>
   <data name="StoreLureBasic" xml:space="preserve">
     <value>Basic Lure</value>
+  </data>
+  <data name="GuideStore" xml:space="preserve">
+    <value>Hit the buoy to open the store</value>
+  </data>
+  <data name="GuideReelInIsland" xml:space="preserve">
+    <value>Tap _A_ to reel in the island</value>
+  </data>
+  <data name="MenuTimer" xml:space="preserve">
+    <value>Timer</value>
+  </data>
+  <data name="EndingTimerInfo" xml:space="preserve">
+    <value>(For relaxed fishing you can disable the timer in Settings)</value>
   </data>
 </root>

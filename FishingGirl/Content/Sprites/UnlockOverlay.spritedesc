@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SpriteDescriptor>
+  <Sprites Position="-411 -245">
+    <Composite Position="420 520">
+      <Image Texture="ButtonX" Position="0 0"/>
+      <Text Name="TextUnlock" Font="Fonts/Text" Text="Unlock Full Game" Position="40 0"/>
+    </Composite>
+  </Sprites>
+</SpriteDescriptor>

@@ -22,9 +22,9 @@ namespace FishingGirl.Interface
 
         public UpsellOverlay(string message, ContentManager content)
         {
-            SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>("Sprites/NagScreen").Create();
+            SpriteDescriptor nagDesc = content.Load<SpriteDescriptorTemplate>("Sprites/UpsellOverlay").Create();
             nagDesc.GetSprite<TextSprite>("Bubble").Text = message;
-            nagDesc.GetSprite<TextSprite>("Time").Text = Resources.UpsellTime;
+            nagDesc.GetSprite<TextSprite>("Cast").Text = Resources.UpsellCast;
             nagDesc.GetSprite<TextSprite>("Badges").Text = Resources.UpsellBadges;
             nagDesc.GetSprite<TextSprite>("Lures").Text = Resources.UpsellLures;
             nagDesc.GetSprite<TextSprite>("Fish").Text = Resources.UpsellFish;

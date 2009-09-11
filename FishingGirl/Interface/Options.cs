@@ -54,6 +54,15 @@ namespace FishingGirl.Interface
         }
 
         /// <summary>
+        /// Turns the timer on or off.
+        /// </summary>
+        public bool TimerToggle
+        {
+            get { return _options.TimerToggle; }
+            set { _options.TimerToggle = value; }
+        }
+
+        /// <summary>
         /// Creates a new set of options with default values.
         /// </summary>
         public Options()
@@ -62,6 +71,7 @@ namespace FishingGirl.Interface
             SoundEffectsToggle = true;
             MusicToggle = true;
             VibrationToggle = true;
+            TimerToggle = true;
         }
 
         /// <summary>
@@ -77,6 +87,7 @@ namespace FishingGirl.Interface
                 SoundEffectsToggle = _options.SoundEffectsToggle;
                 MusicToggle = _options.MusicToggle;
                 VibrationToggle = _options.VibrationToggle;
+                TimerToggle = _options.TimerToggle;
             }
             catch (Exception e)
             {
@@ -113,5 +124,6 @@ namespace FishingGirl.Interface
         public bool SoundEffectsToggle;
         public bool MusicToggle;
         public bool VibrationToggle;
+        public bool TimerToggle;
     }
 }

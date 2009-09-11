@@ -114,9 +114,12 @@ namespace FishingGirl.Screens
             spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.BackToFront, SaveStateMode.None);
             _guideView.Draw(spriteBatch);
             _moneyView.Draw(spriteBatch);
-            _timerView.Draw(spriteBatch);
             _lureView.Draw(spriteBatch);
             _badgeView.Draw(spriteBatch);
+            if (_options.TimerToggle)
+            {
+                _timerView.Draw(spriteBatch);
+            }
             spriteBatch.End();
         }
 
@@ -219,19 +222,29 @@ namespace FishingGirl.Screens
             _store.Update(time);
             _storeView.Update(time);
 
-            _timer.Update(time);
-            _timerView.Update(time);
-
             _badges.Update(time);
             _badgeView.Update(time);
 
-            if (_timer.Time <= 0f)
-            {
-                EndGame(false);
-            }
-
             _guide.Update(time);
             _guideView.Update(time);
+
+            if (_options.TimerToggle)
+            {
+                _timer.Update(time);
+                _timerView.Update(time);
+
+                if (_timer.Time <= 0f)
+                {
+                    EndGame(false);
+                    return;
+                }
+            }
+
+            if (_scene.FarShore.X - _scene.NearShore.X <= EndingStoryCloseThreshold)
+            {
+                _state = GameState.EndStory;
+                _scene.StartEnding();
+            }
         }
 
         /// <summary>
@@ -256,15 +269,7 @@ namespace FishingGirl.Screens
             _badgeView.Update(time);
 
             _fishing.Update(time, _context.Input);
-            if (_scene.FarShore.X - _scene.NearShore.X > EndingStoryCloseThreshold)
-            {
-                // only draw when the shore is far
-                _fishingView.Update(time);
-            }
-            else
-            {
-                _fishingView.UpdateHide(time);
-            }
+            _fishingView.UpdateHide(time);
         }
 
         /// <summary>
@@ -279,7 +284,6 @@ namespace FishingGirl.Screens
 
             _fishing = new FishingState(this, _scene);
             _fishing.LoadContent(content);
-            _fishing.Event += OnFishingEvent;
 
             _ocean = new Ocean(_fishing);
             _ocean.LoadContent(content);
@@ -327,7 +331,7 @@ namespace FishingGirl.Screens
 
             _guideView = new GameGuideView();
             _guideView.LoadContent(content);
-            _guide = new GameGuide(_guideView, this, _fishing);
+            _guide = new GameGuide(_guideView, _fishing, _store, _money);
 
             _cameraController = new CameraController(_camera, _scene, _fishing);
         }
@@ -384,17 +388,6 @@ namespace FishingGirl.Screens
                 _context.Storage.PromptForDevice();
 
                 _context.Game.Components.Add(_context.Storage);
-            }
-        }
-
-        /// <summary>
-        /// Watches for the game-over event.
-        /// </summary>
-        private void OnFishingEvent(object fishingObj, FishingEventArgs args)
-        {
-            if (args.Event == FishingEvent.LureIsland)
-            {
-                _state = GameState.EndStory;
             }
         }
 

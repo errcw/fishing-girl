@@ -9,7 +9,7 @@
     </Composite>
   </Sprites>
   <Animations>
-    <Position Name="Show" Sprite="Root" Target="75 -5" Duration="0.75" Easing="QuadraticOut"/>
+    <Position Name="Show" Sprite="Root" Target="75 5" Duration="0.75" Easing="QuadraticOut"/>
     <Position Name="Hide" Sprite="Root" Target="75 -175" Duration="0.75" Easing="Uniform"/>
   </Animations>
 </SpriteDescriptor>

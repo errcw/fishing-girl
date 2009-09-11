@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.GamerServices;
 
+using Library.Extensions;
 using Library.Screen;
 using Library.Sprite;
 using Library.Sprite.Pipeline;
@@ -48,10 +49,14 @@ namespace FishingGirl.Screens
 
             _entryTemplate = content.Load<SpriteDescriptorTemplate>("Sprites/StoreItem");
 
-            _soundNoMoney = content.Load<SoundEffect>("Sounds/ShopNoMoney");
             _soundPurchase = content.Load<SoundEffect>("Sounds/Money");
+            _soundPurchaseFail = content.Load<SoundEffect>("Sounds/ShopNoMoney");
 
             _upsellSprite = new UpsellOverlay(Resources.UpsellMessageStore, content).Sprite;
+
+            SpriteDescriptor unlockSpriteDesc = content.Load<SpriteDescriptorTemplate>("Sprites/UnlockOverlay").Create();
+            unlockSpriteDesc.GetSprite<TextSprite>("TextUnlock").Text = Resources.MenuPurchase;
+            _unlockSprite = unlockSpriteDesc.Sprite;
         }
 
         /// <summary>
@@ -61,6 +66,15 @@ namespace FishingGirl.Screens
         {
             BuildScreen();
             base.Show(pushed);
+        }
+
+        protected override void UpdateActive(float time)
+        {
+            if (_context.Input.Buy.Pressed && Guide.IsTrialMode)
+            {
+                _context.Input.Controller.Value.PurchaseContent();
+            }
+            base.UpdateActive(time);
         }
 
         /// <summary>
@@ -76,6 +90,7 @@ namespace FishingGirl.Screens
 
             ClearEntries();
             RemoveDecoration(_upsellSprite);
+            RemoveDecoration(_unlockSprite);
 
             for (int i = 0; i < Store.Items.Count; i++)
             {
@@ -96,16 +111,20 @@ namespace FishingGirl.Screens
                     }
                     else
                     {
-                        _soundNoMoney.Play();
+                        _soundPurchaseFail.Play();
                     }
                 };
 
                 AddEntry(entry);
             }
 
+            LayoutEntries();
+            SetSelected(0);
+
             if (Guide.IsTrialMode)
             {
                 AddDecoration(_upsellSprite);
+                AddDecoration(_unlockSprite);
             }
         }
 
@@ -137,8 +156,9 @@ namespace FishingGirl.Screens
         }
 
         private SpriteDescriptorTemplate _entryTemplate;
-        private SoundEffect _soundPurchase, _soundNoMoney;
+        private SoundEffect _soundPurchase, _soundPurchaseFail;
         private Sprite _upsellSprite;
+        private Sprite _unlockSprite;
 
         private const int TrialCostThreshold = 10;
     }

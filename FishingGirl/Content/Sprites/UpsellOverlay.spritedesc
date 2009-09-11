@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<XnaContent>
+<SpriteDescriptor>
   <Sprites Position="-411 -245">
-    <Image Texture="TextBubble" Position="300 0" Layer="1"/>
-    <Text Name="Bubble" Font="Fonts/Text" Position="317 87" Layer="0"/>
+    <Image Texture="TextBubble" Position="300 5" Layer="1"/>
+    <Text Name="Bubble" Font="Fonts/Text" Position="317 95" Layer="0"/>
     
     <Image Texture="BearYellow" Position="150 600"/>
-    <Text Name="Time" Font="Fonts/Text" Position="190 600"/>
+    <Text Name="Cast" Font="Fonts/Text" Position="190 600"/>
 
     <Image Texture="BearYellow" Position="400 600"/>
     <Text Name="Badges" Font="Fonts/Text" Position="440 600"/>
@@ -16,4 +16,4 @@
     <Image Texture="BearYellow" Position="920 600"/>
     <Text Name="Fish" Font="Fonts/Text" Position="960 600"/>
   </Sprites>
-</XnaContent>
+</SpriteDescriptor>

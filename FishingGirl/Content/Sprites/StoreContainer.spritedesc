@@ -5,8 +5,8 @@
   </Sprites>
   <Animations>
     <Sequential Name="Bob" Loop="true">
-      <Position Sprite="Container" Target="0 15" Duration="1.5" Easing="QuadraticOut"/>
-      <Position Sprite="Container" Target="0 0" Duration="1.5" Easing="QuadraticIn"/>
+      <Position Sprite="Container" Target="0 20" Duration="1.5" Easing="QuadraticOut"/>
+      <Position Sprite="Container" Target="0 5" Duration="1.5" Easing="QuadraticIn"/>
     </Sequential>
     <Color Name="Show" Sprite="Root" Target="1 1 1 1" Duration="2" Easing="Uniform"/>
     <Sequential Name="Hide">

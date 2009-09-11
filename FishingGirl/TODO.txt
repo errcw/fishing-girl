@@ -1,5 +1,22 @@
-﻿DONE
+﻿TODO
 ====
+* Reel in during cast
+* Add a fish collection screen
+
+DONE
+====
+* Move the small lure to the top of store
+* Move the guide down so the bear is more visible
+* Change the "no time limit" upsell text
+* Have the player reel in the island during the ending
+* Add a buy button to the store menu
+* Add help text for hitting the store
+* Add an option to diable the timer (+ help text on game over screen)
+* Fix the store animation so the buoy never leaves the water
+* Fix the icon so the fish is not cut off
+
+WAS DONE
+========
   * Mute the menu highlight colour
   * Change rod colour immediately after purchase
   * Casting deadzone

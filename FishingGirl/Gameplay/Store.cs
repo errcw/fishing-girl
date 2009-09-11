@@ -193,6 +193,11 @@ namespace FishingGirl.Gameplay
         private void FillStore()
         {
             Items.Clear();
+            // add the small lure first so it is at the top
+            if (!_fishing.Lures.Contains(Lures.Small) && !_fishing.Lures.Contains(Lures.SmallUpgraded))
+            {
+                Items.Add(_smallLure);
+            }
             // add the next type of rod
             if (_fishing.Rod == RodType.Bronze)
             {
@@ -207,10 +212,6 @@ namespace FishingGirl.Gameplay
                 Items.Add(_legendaryRod);
             }
             // add lures
-            if (!_fishing.Lures.Contains(Lures.Small) && !_fishing.Lures.Contains(Lures.SmallUpgraded))
-            {
-                Items.Add(_smallLure);
-            }
             if (!_fishing.Lures.Contains(Lures.SmallUpgraded))
             {
                 Items.Add(_smallUpgradedLure);

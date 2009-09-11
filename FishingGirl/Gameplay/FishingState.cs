@@ -118,7 +118,7 @@ namespace FishingGirl.Gameplay
             _game = game;
             _scene = scene;
 
-            Rod = RodType.Bronze;
+            Rod = RodType.Legendary;
             RodRotation = SwingInitialRotation;
 
             Lures = new List<Lure>();
@@ -385,12 +385,27 @@ namespace FishingGirl.Gameplay
             _lureAcceleration = Vector2.Zero;
             _lureFriction = 0f;
 
-            Vector2 offset = _lurePosition - _scene.FarShore;
+            _reelSpeed = 0f;
+
+            Vector2 lurePositionPrev = _lurePosition;
             
             _stateTick = delegate(float elapsed, Input input)
             {
-                // have the lure follow the moving island
-                _lurePosition = _scene.FarShore + offset;
+                // reel in with tapping/deceleration
+                if (input.Action.Pressed)
+                {
+                    _reelSpeed = ReelSpeedIsland;
+                }
+                _reelSpeed += ReelAccelerationIsland * elapsed;
+                _reelSpeed = Math.Max(_reelSpeed, 0);
+                _lineLength -= _reelSpeed * elapsed;
+
+                // lock the lure at the height of the island
+                _lurePosition.Y = lurePositionPrev.Y;
+
+                // move the island with the lure
+                _scene.MoveFarShore(lurePositionPrev.X - _lurePosition.X);
+                lurePositionPrev = _lurePosition;
             };
         }
 
@@ -530,6 +545,8 @@ namespace FishingGirl.Gameplay
         private const float ReelAccelerationBroken = 250f;
         private const float ReelAccelerationNormal = 0f;
         private const float ReelAccelerationLarge = -150f;
+        private const float ReelSpeedIsland = 300;
+        private const float ReelAccelerationIsland = -225;
 
         private const float AirFriction = 1f;
         private readonly Vector2 AirGravity = new Vector2(0, 500);

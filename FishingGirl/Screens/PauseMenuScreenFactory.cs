@@ -157,12 +157,19 @@ namespace FishingGirl.Screens
                     options.VibrationToggle = !options.VibrationToggle;
                     ((TextMenuEntry)s).TextSprite.Text = getStateString(options.VibrationToggle);
                 });
+            var timerEntry = BuildOptionEntry(Resources.MenuTimer, getStateString(options.TimerToggle),
+                (s, a) =>
+                {
+                    options.TimerToggle = !options.TimerToggle;
+                    ((TextMenuEntry)s).TextSprite.Text = getStateString(options.TimerToggle);
+                });
 
             MenuScreen screen = new MenuScreen(context);
             screen.LoadContent(content);
             screen.AddEntry(effectsEntry);
             screen.AddEntry(musicEntry);
             screen.AddEntry(vibrationEntry);
+            screen.AddEntry(timerEntry);
             screen.LayoutEntries();
 
             // update the text when the screen is displayed because the storage device might have changed
@@ -174,6 +181,7 @@ namespace FishingGirl.Screens
                     effectsEntry.TextSprite.Text = getStateString(options.SoundEffectsToggle);
                     musicEntry.TextSprite.Text = getStateString(options.MusicToggle);
                     vibrationEntry.TextSprite.Text = getStateString(options.VibrationToggle);
+                    timerEntry.TextSprite.Text = getStateString(options.TimerToggle);
                 }
             };
 
@@ -230,30 +238,7 @@ namespace FishingGirl.Screens
         /// </summary>
         private void ShowPurchaseScreen(FishingGameContext context)
         {
-            try
-            {
-                PlayerIndex player = context.Input.Controller.Value;
-                if (player.CanPurchaseContent())
-                {
-                    Guide.ShowMarketplace(player);
-                }
-                else
-                {
-                    Guide.BeginShowMessageBox(
-                        player,
-                        Resources.PurchaseFailedTitle,
-                        Resources.PurchaseFailedText,
-                        new string[] { Resources.PurchaseFailedButton },
-                        0,
-                        MessageBoxIcon.Warning,
-                        r => Guide.EndShowMessageBox(r),
-                        null);
-                }
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Debug.WriteLine(e);
-            }
+            context.Input.Controller.Value.PurchaseContent();
         }
 
         /// <summary>

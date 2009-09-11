@@ -153,8 +153,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sprites\NagScreen.spritedesc">
-      <Name>NagScreen</Name>
+    <Compile Include="Sprites\UpsellOverlay.spritedesc">
+      <Name>UpsellOverlay</Name>
       <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
   </ItemGroup>
@@ -389,6 +389,12 @@
       <Name>HitStore</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sprites\UnlockOverlay.spritedesc">
+      <Name>UnlockOverlay</Name>
+      <Importer>SpriteDescriptorImporter</Importer>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

@@ -5,9 +5,11 @@
     
     <Text Name="Ending" Font="Fonts/Text" Text="Night has fallen and the boy is lost at sea." Position="392 250"/>
 
-    <Text Name="Prompt1" Font="Fonts/Text" Text="Press" Position="508 600"/>
-    <Image Texture="ButtonA" Position="593 616" Origin="16 16"/>
-    <Text Name="Prompt2" Font="Fonts/Text" Text="to play again" Position="618 600"/>
+    <Text Name="Prompt1" Font="Fonts/Text" Text="Press" Position="508 550"/>
+    <Image Texture="ButtonA" Position="593 566" Origin="16 16"/>
+    <Text Name="Prompt2" Font="Fonts/Text" Text="to play again" Position="618 550"/>
+
+    <Text Name="TimerInfo" Font="Fonts/Text" Text="(For relaxed fishing you can disable the timer in Settings)" Position="305 600"/> 
   </Sprites>
   <Animations>
     <Sequential Name="Show" >
