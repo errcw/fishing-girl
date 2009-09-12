@@ -118,7 +118,7 @@ namespace FishingGirl.Gameplay
             _game = game;
             _scene = scene;
 
-            Rod = RodType.Legendary;
+            Rod = RodType.Gold;
             RodRotation = SwingInitialRotation;
 
             Lures = new List<Lure>();
@@ -312,6 +312,18 @@ namespace FishingGirl.Gameplay
 
             _stateTick = delegate(float elapsed, Input input)
             {
+                // a hacky way to get the lure to reel in 
+                if (input.Action.Down)
+                {
+                    // fake reeling the the lure by negating the velocity and then some
+                    _lurePosition.X -= Math.Max(300f, _lureVelocity.X * 1.2f) * elapsed;
+                }
+                else if (input.Action.Released)
+                {
+                    // when the reeling stops, slow the lure moving forward
+                    _lureVelocity.X *= 0.1f;
+                }
+
                 if (_lurePosition.X > _scene.FarShore.X && _lurePosition.Y > _scene.FarShore.Y)
                 {
                     EnterIslandState();
