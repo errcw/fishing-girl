@@ -230,7 +230,7 @@ namespace FishingGirl.Gameplay
                     if (a.ChangeInAmount > 0)
                     {
                         Accumulated += a.ChangeInAmount;
-                        if (Accumulated > AccumulationTarget)
+                        if (Accumulated >= AccumulationTarget)
                         {
                             _earned = true;
                         }

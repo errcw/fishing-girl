@@ -27,10 +27,11 @@ namespace FishingGirl.Gameplay
             }
             set
             {
+                int oldAmount = _amount;
                 _amount = value;
                 if (AmountChanged != null)
                 {
-                    AmountChanged(this, new MoneyEventArgs(value - _amount));
+                    AmountChanged(this, new MoneyEventArgs(_amount - oldAmount));
                 }
             }
         }
