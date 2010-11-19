@@ -230,7 +230,11 @@ namespace FishingGirl.Screens
 
             if (_options.TimerToggle)
             {
-                _timer.Update(time);
+                if (_fishing.Action != FishingAction.Island)
+                {
+                    // stop the timer once the lure hits the island
+                    _timer.Update(time);
+                }
                 _timerView.Update(time);
 
                 if (_timer.Time <= 0f)
@@ -262,11 +266,11 @@ namespace FishingGirl.Screens
             }
             _sceneView.Update(time);
 
+            //??? _badges.Update(time);
+            //??? _badgeView.Update(time);
+
             _ocean.Update(time);
             _oceanView.Update(time);
-
-            _badges.Update(time);
-            _badgeView.Update(time);
 
             _fishing.Update(time, _context.Input);
             _fishingView.UpdateHide(time);

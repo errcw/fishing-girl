@@ -22,7 +22,8 @@ namespace FishingGirl.Gameplay
         Idle,
         Swing,
         Cast,
-        Reel
+        Reel,
+        Island
     }
 
     /// <summary>
@@ -118,7 +119,7 @@ namespace FishingGirl.Gameplay
             _game = game;
             _scene = scene;
 
-            Rod = RodType.Gold;
+            Rod = RodType.Bronze;
             RodRotation = SwingInitialRotation;
 
             Lures = new List<Lure>();
@@ -391,6 +392,7 @@ namespace FishingGirl.Gameplay
         /// </summary>
         private void EnterIslandState()
         {
+            OnActionChanged(FishingAction.Island);
             OnFishingEvent(FishingEvent.LureIsland);
 
             _lureVelocity = Vector2.Zero;

@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.jpg" />
     <Content Include="GameThumbnail.png" />
     <Content Include="TODO.txt" />
   </ItemGroup>
