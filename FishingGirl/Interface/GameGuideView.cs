@@ -122,7 +122,5 @@ namespace FishingGirl.Interface
         private SpriteFont _font;
         private Sprite _buttonA;
         private Sprite _buttonB;
-
-        private readonly Vector2 TitleAreaOffset;
     }
 }
